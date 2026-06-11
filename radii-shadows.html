@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x190" name="Radii & Shadows" subtitle="Sharp corners (4–6px max). Deep shadows + gold glow." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--black); padding: 28px 32px; font-family: var(--font-label); display: flex; gap: 22px; align-items: center; }
+  .box { width: 120px; height: 96px; background: var(--charcoal); border: 1px solid var(--border); display: flex; align-items: flex-end; padding: 12px; }
+  .box span { font-weight: 700; font-size: .64rem; letter-spacing: .1em; color: var(--off-white); text-transform: uppercase; }
+  .r4 { border-radius: 4px; }
+  .r6 { border-radius: 6px; }
+  .sh { box-shadow: var(--shadow-card); border-radius: 6px; }
+  .gl { box-shadow: var(--glow-gold); border-radius: 6px; }
+  .lab { font-family: var(--font-body); font-weight: 300; font-size: .62rem; color: var(--muted); display: block; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="box r4"><div><span>Radius 4</span><span class="lab">buttons</span></div></div>
+  <div class="box r6"><div><span>Radius 6</span><span class="lab">cards · max</span></div></div>
+  <div class="box sh"><div><span>Shadow</span><span class="lab">card depth</span></div></div>
+  <div class="box gl"><div><span>Gold Glow</span><span class="lab">featured</span></div></div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+/* ============================================================
+   KING MAKER SOCIETY — TYPOGRAPHY TOKENS
+   Display/Hero : Bebas Neue — uppercase, wide tracking
+   Labels/Nav   : Barlow Condensed — 600/700, heavy tracking, upper
+   Body         : Barlow — 300 weight, line-height 1.7–1.8
+   ============================================================ */
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-label:   'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body:    'Barlow', system-ui, sans-serif;
+
+  /* ---- Display scale (Bebas Neue) ---- */
+  --display-hero:   clamp(5rem, 12vw, 11rem);   /* @kind font */
+  --display-xl:     clamp(3rem, 6vw, 5.5rem);   /* @kind font */
+  --display-lg:     clamp(2.4rem, 4.5vw, 3.6rem); /* @kind font */
+  --display-md:     clamp(1.8rem, 3vw, 2.6rem); /* @kind font */
+  --display-sm:     1.6rem;
+
+  /* line-height: Bebas runs tight */
+  --display-leading: 0.92;
+
+  /* ---- Display tracking ---- */
+  --track-display:  0.04em;  /* hero / large display */
+  --track-display-wide: 0.08em;
+
+  /* ---- Label scale (Barlow Condensed) ---- */
+  --label-lg:   1.05rem;
+  --label-md:   0.85rem;   /* eyebrows, nav, buttons */
+  --label-sm:   0.72rem;   /* tags, badges */
+
+  --label-weight: 600;
+  --label-weight-bold: 700;
+  --track-label:      0.18em;  /* default heavy tracking */
+  --track-label-tight: 0.1em;
+  --track-label-wide:  0.25em;
+
+  /* ---- Body scale (Barlow) ---- */
+  --body-lg:   1.2rem;
+  --body-md:   1.05rem;   /* default paragraph */
+  --body-sm:   0.95rem;
+  --body-xs:   0.82rem;
+
+  --body-weight:        300;
+  --body-weight-medium: 500;
+  --body-leading:       1.75;   /* 1.7–1.8 */
+  --body-leading-tight: 1.5;
+}

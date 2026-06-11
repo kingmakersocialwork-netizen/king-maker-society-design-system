@@ -1,0 +1,424 @@
+<!-- King Maker Society — Landing Page (v1, archived). The live page is index.html. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>King Maker Society — Kings Are Made, Not Born.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top">
+      <img src="../../assets/logo.png" alt="King Maker Society" loading="lazy">
+      <span>King Maker Society</span>
+    </a>
+    <div class="nav-links">
+      <a href="#top" data-scroll>King Maker Society</a>
+      <a href="#classes" data-scroll>King's Media</a>
+      <a href="#what" data-scroll>Brotherhood</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-outline btn-sm" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="btn btn-red btn-sm" href="#" data-modal>Join Now</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top" data-screen-label="Hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-rays">
+    <div class="hero-ray" style="transform: rotate(-16deg); animation-delay: 0s;"></div>
+    <div class="hero-ray" style="transform: rotate(-8deg); animation-delay: 1.2s;"></div>
+    <div class="hero-ray" style="transform: rotate(0deg); animation-delay: 2.1s;"></div>
+    <div class="hero-ray" style="transform: rotate(8deg); animation-delay: 0.7s;"></div>
+    <div class="hero-ray" style="transform: rotate(16deg); animation-delay: 1.8s;"></div>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-vignette"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow eyebrow">King Maker Society LLC · @kingmakersocial</div>
+    <h1>Kings Are<br>Made, <span class="gold">Not</span><br>Born.</h1>
+    <p class="hero-sub">The self-improvement brotherhood built for martial artists who refuse to settle. Discipline. Accountability. Brotherhood. Real men. Real growth. Every week.</p>
+    <div class="hero-cta">
+      <a class="btn btn-red btn-lg" href="#" data-modal>Join The Brotherhood — $30/mo</a>
+      <a class="btn btn-outline btn-lg" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank" rel="noopener">Try Free For 7 Days</a>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat">
+        <div class="stat-num" id="member-count">0+</div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div class="stat">
+        <div class="countdown">
+          <div class="cd-unit"><span class="cd-val" id="cd-d">00</span><span class="cd-lab">Days</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-val" id="cd-h">00</span><span class="cd-lab">Hrs</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-val" id="cd-m">00</span><span class="cd-lab">Min</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-val" id="cd-s">00</span><span class="cd-lab">Sec</span></div>
+        </div>
+        <div class="stat-label">Next Master Class</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2x</div>
+        <div class="stat-label">Master Classes / Week</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Brotherhood Chat</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ WHAT YOU GET ============ -->
+<section class="section" id="what" data-screen-label="What You Get">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">What You Get</span>
+      <h2 class="headline">Built For Those Who <span class="gold">Show Up</span></h2>
+      <p class="lead">Every month your membership delivers real Master Classes, deep community, and accountability that actually moves the needle.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card pillar reveal"><span class="pillar-num">01</span><h3>2 Master Classes Per Week</h3><p>Live group sessions on discipline, performance, mindset, and purpose.</p></article>
+      <article class="card pillar reveal"><span class="pillar-num">02</span><h3>Mental Edge</h3><p>Deep dives into warrior mindset, emotional control, and stress resilience.</p></article>
+      <article class="card pillar reveal"><span class="pillar-num">03</span><h3>24/7 Brotherhood Chat</h3><p>Always active. Share wins, get feedback, stay disciplined.</p></article>
+      <article class="card pillar reveal"><span class="pillar-num">04</span><h3>Expert Mentorship</h3><p>Learn from champions who have lived it.</p></article>
+      <article class="card pillar reveal"><span class="pillar-num">05</span><h3>Challenge &amp; Rank System</h3><p>Monthly challenges with a community leaderboard.</p></article>
+      <article class="card pillar hof reveal">
+        <h3>Hall Of Fame</h3>
+        <div class="hof-list">
+          <div class="hof-row"><span class="hof-medal">&#129351;</span><span class="hof-name">Marcus T.</span><span class="hof-ach">90-Day Streak</span></div>
+          <div class="hof-row"><span class="hof-medal">&#129352;</span><span class="hof-name">Dre W.</span><span class="hof-ach">Top Contributor</span></div>
+          <div class="hof-row"><span class="hof-medal">&#129353;</span><span class="hof-name">Sami K.</span><span class="hof-ach">First Amateur Win</span></div>
+          <div class="hof-row"><span class="hof-medal">&#127941;</span><span class="hof-name">Leo R.</span><span class="hof-ach">Challenge Champion</span></div>
+        </div>
+        <div class="hof-you">Your name could be next.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCOUNTABILITY ============ -->
+<section class="section" data-screen-label="Accountability">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Accountability System</span>
+      <h2 class="headline">The System That Keeps You <span class="gold">Moving</span></h2>
+      <p class="lead">Not motivation. Not hype. A real weekly structure that keeps you locked in.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card acc-card reveal">
+        <div class="acc-day"><span class="acc-badge">Mon</span><span class="acc-title">Check-In</span></div>
+        <ul class="acc-q">
+          <li>What is your main goal this week?</li>
+          <li>What are you training today?</li>
+          <li>What are you avoiding that you need to face?</li>
+          <li>What content are you posting this week?</li>
+          <li>What is your biggest obstacle right now?</li>
+        </ul>
+      </article>
+      <article class="card acc-card reveal">
+        <div class="acc-day"><span class="acc-badge">Fri</span><span class="acc-title">Check-Out</span></div>
+        <ul class="acc-q">
+          <li>Did you hit your goal for the week?</li>
+          <li>What is one win from this week?</li>
+          <li>What is one thing you need to fix?</li>
+          <li>What habit are you rebuilding?</li>
+          <li>How are your energy levels?</li>
+        </ul>
+      </article>
+      <article class="card acc-card reveal">
+        <div class="acc-day"><span class="acc-badge">Sun</span><span class="acc-title">Reset</span></div>
+        <ul class="acc-q">
+          <li>What does next week look like?</li>
+          <li>What are your three priorities?</li>
+          <li>What training sessions are locked in?</li>
+          <li>What do you need to let go of?</li>
+          <li>Are you showing up for yourself?</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MASTER CLASSES ============ -->
+<section class="section" id="classes" data-screen-label="Master Classes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Live Master Classes</span>
+      <h2 class="headline">Upcoming <span class="gold">Sessions</span></h2>
+      <p class="lead">Every week — one weekday, one weekend — live group discussions at 2PM CST built around topics that actually matter.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card class-card reveal"><div class="class-top"><span class="class-date">JUN 10</span><span class="badge badge-gold">Weekday 2PM CST</span></div><h3 class="class-title">Build Your Personal Brand As A Martial Artist</h3><p class="class-desc">Own your story, your platform, and your reputation outside the cage.</p></article>
+      <article class="card class-card reveal"><div class="class-top"><span class="class-date">JUN 14</span><span class="badge badge-outline">Weekend 2PM CST</span></div><h3 class="class-title">Master Your Mornings As A Fighter</h3><p class="class-desc">Build the first three hours that set up every training day.</p></article>
+      <article class="card class-card reveal"><div class="class-top"><span class="class-date">JUN 17</span><span class="badge badge-gold">Weekday 2PM CST</span></div><h3 class="class-title">Develop Fight IQ Outside The Gym</h3><p class="class-desc">Film study, mental reps, and reading opponents before you step in.</p></article>
+      <article class="card class-card reveal"><div class="class-top"><span class="class-date">JUN 21</span><span class="badge badge-outline">Weekend 2PM CST</span></div><h3 class="class-title">Get Sponsor Attention As An Amateur</h3><p class="class-desc">What brands actually look for — and how to put yourself in front of them.</p></article>
+      <article class="card class-card reveal"><div class="class-top"><span class="class-date">JUN 24</span><span class="badge badge-gold">Weekday 2PM CST</span></div><h3 class="class-title">Balance Martial Arts, Work &amp; Life Goals</h3><p class="class-desc">Hold the line on training without burning everything else down.</p></article>
+      <article class="card class-card reveal"><div class="class-top"><span class="class-date">JUN 28</span><span class="badge badge-outline">Weekend 2PM CST</span></div><h3 class="class-title">Best Recovery Routines For Fighters</h3><p class="class-desc">Sleep, nutrition, and active recovery that keep you in the fight.</p></article>
+    </div>
+    <div class="class-note reveal">
+      <p>All Master Classes included with every membership. Join now to get access.</p>
+      <a class="btn btn-gold" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">Get Access — $30/mo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORIGIN STORY ============ -->
+<section class="section" data-screen-label="Origin Story">
+  <div class="container origin">
+    <div class="origin-text reveal">
+      <h2 class="headline">Kings Are Made,<br><span class="gold">Not Born.</span></h2>
+      <p>Jordan Ali didn't build King Maker Society because it was a good business idea. He built it because the brotherhood he needed didn't exist.</p>
+      <p>As a martial artist, he kept seeing the same pattern — men with real potential, training hard, but drifting. No direction off the mat. No one holding them accountable. No community that understood both the discipline of combat and the ambition to build something bigger.</p>
+      <p>So he built it himself. A brotherhood where martial artists could grow in every area of life — not just their fighting. Where the same discipline that makes a warrior in the cage makes a king in the world.</p>
+      <div class="origin-sig">Jordan Ali · CEO &amp; Founder · King Maker Society LLC</div>
+    </div>
+    <div class="origin-features reveal">
+      <div class="card feature-box"><span class="fb-mark">&#9876;</span><h4>Built By A Martial Artist</h4></div>
+      <div class="card feature-box"><span class="fb-mark">&#9670;</span><h4>The Environment You Were Missing</h4></div>
+      <div class="card feature-box"><span class="fb-mark">&#9819;</span><h4>150+ Members &amp; Growing</h4></div>
+      <div class="card feature-box"><span class="fb-mark">&#10022;</span><h4>More Than A Membership</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="section" id="pricing" data-screen-label="Pricing">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Membership Tiers</span>
+      <h2 class="headline">Choose Your <span class="gold">Commitment</span></h2>
+    </div>
+    <div class="pricing-grid">
+      <article class="card price-card reveal">
+        <div class="price-body">
+          <div class="price-head"><span class="price-tier">Basic</span></div>
+          <div class="price-amt"><span class="num">$30</span><span class="cad">/mo</span></div>
+          <ul class="price-feats">
+            <li>24/7 self-improvement chat</li>
+            <li>Weekly live Master Classes (2x per week)</li>
+            <li>Brotherhood accountability</li>
+            <li>Monthly challenge participation</li>
+            <li>Monthly resource drop</li>
+          </ul>
+          <a class="btn btn-outline btn-block" href="#" data-modal>Join Basic</a>
+        </div>
+      </article>
+
+      <article class="card price-card featured reveal">
+        <div class="price-shimmer"></div>
+        <div class="price-body">
+          <div class="price-head"><span class="price-tier">VIO Access</span><span class="badge badge-gold">Most Popular</span></div>
+          <div class="price-amt"><span class="num">$100</span><span class="cad">/mo</span></div>
+          <ul class="price-feats">
+            <li>Everything in Basic</li>
+            <li>24/7 community access</li>
+            <li>Monthly 1-on-1 Mini-Audit</li>
+            <li>All daily Master Classes</li>
+            <li>Personalized weekly check-in</li>
+            <li>Priority Q&amp;A and hot seats</li>
+            <li>Member spotlights</li>
+          </ul>
+          <a class="btn btn-gold btn-block" href="#" data-modal>Join VIO</a>
+        </div>
+      </article>
+
+      <article class="card price-card reveal">
+        <div class="price-body">
+          <div class="price-head"><span class="price-tier">Elite</span></div>
+          <div class="price-amt"><span class="num">$300</span><span class="cad">/mo</span></div>
+          <ul class="price-feats">
+            <li>Everything in VIO</li>
+            <li>Monthly 1-on-1 mentorship call</li>
+            <li>Elite-only inner circle chat</li>
+            <li>Personalized King Maker Game Plan</li>
+            <li>Monthly progress audit</li>
+            <li>Elite leadership Master Classes</li>
+            <li>Priority feedback &amp; early access</li>
+          </ul>
+          <a class="btn btn-outline btn-block" href="#" data-modal>Join Elite</a>
+        </div>
+      </article>
+    </div>
+    <p class="pricing-note reveal">No contracts. Cancel anytime. Month-to-month, always.</p>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP ============ -->
+<section class="section" data-screen-label="Leadership">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Leadership</span>
+      <h2 class="headline">Led By Kings Who <span class="gold">Walk The Path</span></h2>
+      <p class="lead">Our leaders are active martial artists doing the work every single day.</p>
+    </div>
+    <div class="team-grid">
+      <article class="card team-card reveal" data-modal>
+        <span class="avatar"><img src="../../assets/team-jordan.jpg" alt="Jordan Ali" loading="lazy"></span>
+        <h3 class="team-name">Jordan Ali</h3>
+        <span class="team-role">CEO &amp; Founder</span>
+        <span class="team-skills">Brand Strategy · Video · Storytelling</span>
+        <span class="team-handle">@imjordanali</span>
+      </article>
+      <article class="card team-card reveal" data-modal>
+        <span class="avatar"><img src="../../assets/team-ryan.jpg" alt="Ryan Bailey" loading="lazy"></span>
+        <h3 class="team-name">Ryan Bailey</h3>
+        <span class="team-role">Co-Founder</span>
+        <span class="team-skills">Boxing · Social Media · Growth</span>
+        <span class="team-handle">@ryanbaileyboxing</span>
+      </article>
+      <article class="card team-card reveal" data-modal>
+        <span class="avatar"><img src="../../assets/team-willie.png" alt="Willie Sims" loading="lazy"></span>
+        <h3 class="team-name">Willie Sims</h3>
+        <span class="team-role">Head Of Mentors</span>
+        <span class="team-skills">MMA · Mentorship · Leadership</span>
+        <span class="team-handle">@skythestorm</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPONSOR ============ -->
+<section class="section" data-screen-label="Sponsor Visibility">
+  <div class="container sponsor">
+    <div class="sponsor-text reveal">
+      <span class="eyebrow">Sponsor Visibility</span>
+      <h2 class="headline" style="margin-top: var(--space-4);">Turn Your Brand Into <span class="gold">Opportunity</span></h2>
+      <p>Inside the brotherhood you get a seat at the sponsor conversation. Members access ongoing discussions on what brands look for, how deals actually come together, and where the real introductions happen.</p>
+      <p>We teach the strategy and open the network. The referral system connects you to people already in rooms you want to be in — so your brand works for you, on and off the mat.</p>
+    </div>
+    <div class="sponsor-cards reveal">
+      <div class="card feature-box"><span class="fb-mark">&#9670;</span><h4>Sponsor Education Sessions</h4></div>
+      <div class="card feature-box"><span class="fb-mark">&#9670;</span><h4>Brand Introduction Discussions</h4></div>
+      <div class="card feature-box"><span class="fb-mark">&#9670;</span><h4>Content Strategy For Sponsor Attention</h4></div>
+      <div class="card feature-box"><span class="fb-mark">&#9670;</span><h4>Brotherhood Referral Network</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FREE TRIAL BANNER ============ -->
+<section class="section trial" data-screen-label="Free Trial">
+  <div class="trial-watermark" aria-hidden="true">Brotherhood</div>
+  <div class="container trial-inner reveal">
+    <span class="eyebrow center">7-Day Free Trial</span>
+    <h2>Step Into The Brotherhood</h2>
+    <p class="lead" style="text-align:center;">Try King Maker Society free for 7 days. No credit card required. Just show up, engage, and see what it does for you.</p>
+    <div class="trial-cta">
+      <a class="btn btn-gold btn-lg" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank" rel="noopener">Start My Free Trial</a>
+      <a class="btn btn-outline btn-lg" href="#pricing" data-scroll>View Membership Tiers</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" data-screen-label="FAQ">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Questions</span>
+      <h2 class="headline">Got <span class="gold">Questions?</span></h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <div class="faq-item open"><button class="faq-q"><span>What martial art styles are in the brotherhood?</span><span class="faq-plus">+</span></button><div class="faq-a"><div><p>All of them. We have members from boxing, MMA, BJJ, Muay Thai, wrestling, judo, karate, and more.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>What happens on the live Master Classes?</span><span class="faq-plus">+</span></button><div class="faq-a"><div><p>Twice a week we gather live for structured self-improvement sessions — mindset, discipline, accountability check-ins, Q&amp;A with Jordan and the team.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>Can I try it before committing?</span><span class="faq-plus">+</span></button><div class="faq-a"><div><p>Yes — 7-day free trial. No credit card required.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>What is the difference between the tiers?</span><span class="faq-plus">+</span></button><div class="faq-a"><div><p>Basic ($30) is community plus calls. VIO ($100) adds personalized check-ins and 1-on-1 audits. Elite ($300) is the inner circle with mentorship and a personal growth plan.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>Do I need to be a competitive fighter?</span><span class="faq-plus">+</span></button><div class="faq-a"><div><p>Not at all. You need to train a martial art and be serious about self-improvement.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>Can I cancel anytime?</span><span class="faq-plus">+</span></button><div class="faq-a"><div><p>Yes. Month-to-month. Cancel through your Stripe billing portal anytime.</p></div></div></div>
+      <div class="faq-item"><button class="faq-q"><span>How do I contact the team?</span><span class="faq-plus">+</span></button><div class="faq-a"><div><p>Email KingMakerSocialWork@gmail.com or Instagram @kingmakersocial.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="section footer" data-screen-label="Footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="../../assets/logo.png" alt="King Maker Society" loading="lazy"><span>King Maker Society</span></div>
+        <p>The self-improvement brotherhood for martial artists who refuse to settle.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <a href="#top" data-scroll>King Maker Society</a>
+        <a href="#classes" data-scroll>King's Media</a>
+        <a href="#what" data-scroll>Brotherhood</a>
+        <a href="#pricing" data-scroll>Membership Tiers</a>
+        <a href="#" data-scroll>FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <a href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.instagram.com/kingmakersocial/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@kingmaker.society" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.facebook.com/people/King-Maker-Society/61588634246307/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://kingmakersociety.substack.com/" target="_blank" rel="noopener">Substack</a>
+        <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p>&copy; 2026 King Maker Society LLC · All Rights Reserved</p>
+      <div class="links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Welcome All New Members</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ REFERRAL MODAL ============ -->
+<div class="modal-overlay" id="referral-modal" role="dialog" aria-modal="true" aria-labelledby="ref-title">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <h3 id="ref-title">Who Referred You?</h3>
+      <p>Give credit to the person who brought you in. Select their name and you will go straight to the membership page.</p>
+    </div>
+    <div class="ref-list">
+      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
+        <span class="avatar"><img src="../../assets/team-jordan.jpg" alt="Jordan Ali" loading="lazy"></span>
+        <span class="ref-info"><span class="ref-name">Jordan Ali</span><span class="ref-role">CEO &amp; Founder</span></span>
+        <span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
+        <span class="avatar"><img src="../../assets/team-ryan.jpg" alt="Ryan Bailey" loading="lazy"></span>
+        <span class="ref-info"><span class="ref-name">Ryan Bailey</span><span class="ref-role">Co-Founder</span></span>
+        <span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
+        <span class="avatar"><img src="../../assets/team-willie.png" alt="Willie Sims" loading="lazy"></span>
+        <span class="ref-info"><span class="ref-name">Willie Sims</span><span class="ref-role">Head Of Mentors</span></span>
+        <span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card" href="https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05" target="_blank" rel="noopener">
+        <span class="avatar"><img src="../../assets/team-aaron.jpg" alt="Aaron Arostegui" loading="lazy"></span>
+        <span class="ref-info"><span class="ref-name">Aaron Arostegui</span><span class="ref-role">Head Of Long-Form Content</span></span>
+        <span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card" href="https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04" target="_blank" rel="noopener">
+        <span class="avatar">GM</span>
+        <span class="ref-info"><span class="ref-name">George Margaris</span><span class="ref-role">Team Member</span></span>
+        <span class="ref-arrow">&rarr;</span>
+      </a>
+    </div>
+    <a class="ref-skip" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">I was not referred by anyone — Continue</a>
+  </div>
+</div>
+
+<script src="landing.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Borders & Glows" subtitle="Gold hairlines at low opacity; warm gold bloom." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--black); font-family: var(--font-label); padding: 24px; display: flex; gap: 18px; }
+  .demo { flex: 1; background: var(--charcoal); border-radius: 6px; padding: 22px; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+  .demo span { font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .72rem; color: var(--off-white); }
+  .demo small { font-family: var(--font-body); font-weight: 300; font-size: .72rem; color: var(--muted); }
+  .b1 { border: 1px solid var(--border); }
+  .b2 { border: 1px solid var(--border-strong); }
+  .g1 { box-shadow: var(--glow-gold); border: 1px solid var(--border); }
+</style>
+</head>
+<body>
+  <div class="demo b1"><span>Border</span><small>rgba(201,168,76,.18)</small></div>
+  <div class="demo b2"><span>Border Strong</span><small>rgba(201,168,76,.36)</small></div>
+  <div class="demo g1"><span>Gold Glow</span><small>0 0 40px gold/22%</small></div>
+</body>
+</html>

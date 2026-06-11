@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Gold — Brand" subtitle="Primary brand color. Always on dark, never on white." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--black); font-family: var(--font-label); }
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hairline); padding: 20px; }
+  .sw { background: var(--charcoal); padding: 18px 16px; display: flex; flex-direction: column; gap: 14px; }
+  .chip { height: 56px; border-radius: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+  .meta { display: flex; flex-direction: column; gap: 3px; }
+  .name { font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .8rem; color: var(--off-white); }
+  .hex { font-family: var(--font-body); font-weight: 400; font-size: .8rem; color: var(--muted); letter-spacing: .02em; }
+  .v { font-family: var(--font-body); font-weight: 300; font-size: .72rem; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--gold)"></div><div class="meta"><span class="name">Gold</span><span class="hex">#C9A84C</span><span class="v">Headlines · CTAs · borders</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gold-light)"></div><div class="meta"><span class="name">Gold Light</span><span class="hex">#E8C46A</span><span class="v">Hover · shimmer</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--gold-deep)"></div><div class="meta"><span class="name">Gold Deep</span><span class="hex">#8A5F10</span><span class="v">Shadows · depth</span></div></div>
+  </div>
+</body>
+</html>

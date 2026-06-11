@@ -1,0 +1,394 @@
+<!-- @dsCard group="Landing Page" viewport="1440x900" name="King's Media — Sub-Page" subtitle="Media arm: podcast, episodes, series, hosts, newsletter." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="King's Media — the media arm of King Maker Society. Podcast, long-form video, and content built for martial artists on the path to becoming kings.">
+<meta name="theme-color" content="#0A0A08">
+<title>King's Media — King Maker Society</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="../../assets/logo.png" alt="King Maker Society" loading="lazy">
+      <span>King Maker Society</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">King Maker Society</a>
+      <a href="kings_media.html" class="active">King's Media</a>
+      <a href="brotherhood.html">Brotherhood</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-outline btn-sm" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="nav-ig" href="https://www.instagram.com/kingmakersocial/" target="_blank" rel="noopener" aria-label="Instagram @kingmakersocial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+        @kingmakersocial
+      </a>
+      <a class="btn btn-red btn-sm" href="#" data-modal="referral-modal">Join Now</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero hero-sub" id="top" data-screen-label="Media Hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-rays">
+    <div class="hero-ray" style="transform: rotate(-12deg); animation-delay: 0s;"></div>
+    <div class="hero-ray" style="transform: rotate(0deg); animation-delay: 1.4s;"></div>
+    <div class="hero-ray" style="transform: rotate(12deg); animation-delay: 0.8s;"></div>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-vignette"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow eyebrow">The Media Arm · @KINGMAKERSOCIETY</div>
+    <h1>King's <span class="gold">Media</span></h1>
+    <p class="hero-sub-copy hero-sub">Real conversations, raw lessons, and the stories behind the grind. The podcast and long-form library built for martial artists who refuse to settle — on the mat and in life.</p>
+    <div class="hero-cta">
+      <a class="btn btn-red btn-lg" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">Watch On YouTube</a>
+      <a class="btn btn-outline btn-lg" href="#episodes" data-scroll>Browse Episodes</a>
+    </div>
+
+    <div class="page-meta">
+      <div class="pm"><span class="pm-num">40+</span><span class="pm-label">Episodes Released</span></div>
+      <div class="pm"><span class="pm-num">2x</span><span class="pm-label">New Drops / Week</span></div>
+      <div class="pm"><span class="pm-num">5</span><span class="pm-label">Original Series</span></div>
+      <div class="pm"><span class="pm-num">100%</span><span class="pm-label">Made By Fighters</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FEATURED EPISODE ============ -->
+<section class="section" data-screen-label="Featured Episode">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Latest Drop</span>
+      <h2 class="headline">This Week On <span class="gold">The Podcast</span></h2>
+      <p class="lead">Every episode goes deep on what it means to build yourself as a martial artist and a man — with your brothers alongside you.</p>
+    </div>
+    <div class="reveal">
+      <div class="media-card" style="cursor:default;">
+        <a href="https://youtu.be/1xC5sgbyMWU?si=N7x6t2VSvNdASWZh" target="_blank" rel="noopener" style="display:block;">
+          <div class="media-thumb">
+            <img src="https://img.youtube.com/vi/1xC5sgbyMWU/maxresdefault.jpg" alt="King Maker Society Podcast — latest episode" loading="lazy" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://img.youtube.com/vi/1xC5sgbyMWU/hqdefault.jpg';}">
+            <span class="media-play" aria-hidden="true"></span>
+          </div>
+        </a>
+        <div class="podcast-meta">
+          <h3>Discipline Over Motivation — Building The Warrior Mind</h3>
+          <p>Jordan and the team break down why motivation fails you and how discipline, systems, and brotherhood carry you through the days you don't feel like showing up.</p>
+          <a class="btn btn-outline" href="https://youtu.be/1xC5sgbyMWU?si=N7x6t2VSvNdASWZh" target="_blank" rel="noopener">Watch On YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EPISODES ============ -->
+<section class="section" id="episodes" data-screen-label="Episodes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Library</span>
+      <h2 class="headline">Recent <span class="gold">Episodes</span></h2>
+      <p class="lead">Catch up on the conversations moving the brotherhood forward. New episodes drop every Tuesday and Friday.</p>
+    </div>
+    <div class="ep-grid">
+      <article class="card ep-card reveal">
+        <a class="ep-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">
+          <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Episode Thumbnail</span></div>
+          <span class="media-play" aria-hidden="true"></span>
+          <span class="ep-dur">48:12</span>
+        </a>
+        <div class="ep-body">
+          <span class="ep-tag">Episode 41 · Mindset</span>
+          <span class="ep-title">The Fighter's Edge In Everyday Life</span>
+          <p class="ep-desc">How the discipline you build in the gym becomes the foundation for everything you do outside it.</p>
+          <div class="ep-foot"><span>Jordan Ali</span><span class="dot"></span><span>Jun 6</span></div>
+        </div>
+      </article>
+      <article class="card ep-card reveal">
+        <a class="ep-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">
+          <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Episode Thumbnail</span></div>
+          <span class="media-play" aria-hidden="true"></span>
+          <span class="ep-dur">52:30</span>
+        </a>
+        <div class="ep-body">
+          <span class="ep-tag">Episode 40 · Career</span>
+          <span class="ep-title">Getting Sponsored As An Amateur</span>
+          <p class="ep-desc">What brands actually look for, how to build a following that matters, and the pitch that gets a yes.</p>
+          <div class="ep-foot"><span>Ryan Bailey</span><span class="dot"></span><span>Jun 3</span></div>
+        </div>
+      </article>
+      <article class="card ep-card reveal">
+        <a class="ep-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">
+          <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Episode Thumbnail</span></div>
+          <span class="media-play" aria-hidden="true"></span>
+          <span class="ep-dur">39:05</span>
+        </a>
+        <div class="ep-body">
+          <span class="ep-tag">Episode 39 · Recovery</span>
+          <span class="ep-title">Recovery Habits That Keep You Training</span>
+          <p class="ep-desc">Sleep, nutrition, and the recovery routines that separate fighters who last from those who burn out.</p>
+          <div class="ep-foot"><span>Willie Sims</span><span class="dot"></span><span>May 30</span></div>
+        </div>
+      </article>
+      <article class="card ep-card reveal">
+        <a class="ep-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">
+          <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Episode Thumbnail</span></div>
+          <span class="media-play" aria-hidden="true"></span>
+          <span class="ep-dur">1:04:18</span>
+        </a>
+        <div class="ep-body">
+          <span class="ep-tag">Episode 38 · Brotherhood</span>
+          <span class="ep-title">Why Every Man Needs A Brotherhood</span>
+          <p class="ep-desc">The case for community, accountability, and surrounding yourself with men chasing the same standard.</p>
+          <div class="ep-foot"><span>Jordan Ali</span><span class="dot"></span><span>May 27</span></div>
+        </div>
+      </article>
+      <article class="card ep-card reveal">
+        <a class="ep-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">
+          <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Episode Thumbnail</span></div>
+          <span class="media-play" aria-hidden="true"></span>
+          <span class="ep-dur">44:51</span>
+        </a>
+        <div class="ep-body">
+          <span class="ep-tag">Episode 37 · Branding</span>
+          <span class="ep-title">Build A Personal Brand That Pays</span>
+          <p class="ep-desc">Turn your training into content that gets you seen, respected, and ultimately paid.</p>
+          <div class="ep-foot"><span>Aaron Arostegui</span><span class="dot"></span><span>May 23</span></div>
+        </div>
+      </article>
+      <article class="card ep-card reveal">
+        <a class="ep-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">
+          <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Episode Thumbnail</span></div>
+          <span class="media-play" aria-hidden="true"></span>
+          <span class="ep-dur">36:42</span>
+        </a>
+        <div class="ep-body">
+          <span class="ep-tag">Episode 36 · Discipline</span>
+          <span class="ep-title">Master Your Mornings As A Martial Artist</span>
+          <p class="ep-desc">The morning routine that sets elite fighters apart — energy, focus, and structure before the world wakes up.</p>
+          <div class="ep-foot"><span>Willie Sims</span><span class="dot"></span><span>May 20</span></div>
+        </div>
+      </article>
+    </div>
+    <p class="class-note reveal">New episodes every Tuesday &amp; Friday. <a href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">Subscribe on YouTube &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ============ SERIES / PLAYLISTS ============ -->
+<section class="section" data-screen-label="Series">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Original Series</span>
+      <h2 class="headline">Built Around <span class="gold">The Path</span></h2>
+      <p class="lead">Themed playlists that take you deeper — pick a lane and binge the lessons that meet you where you are.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card series-card reveal">
+        <a class="series-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY/playlists" target="_blank" rel="noopener">
+          <div class="thumb-ph lit"><img src="../../assets/logo.png" alt=""><span>Series Cover</span></div>
+          <span class="badge badge-gold">12 Episodes</span>
+        </a>
+        <div class="series-body">
+          <h3>Warrior Mindset</h3>
+          <p>Emotional control, stress resilience, and the inner game that separates fighters who grow from those who stall.</p>
+        </div>
+      </article>
+      <article class="card series-card reveal">
+        <a class="series-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY/playlists" target="_blank" rel="noopener">
+          <div class="thumb-ph lit"><img src="../../assets/logo.png" alt=""><span>Series Cover</span></div>
+          <span class="badge badge-gold">9 Episodes</span>
+        </a>
+        <div class="series-body">
+          <h3>The Business Of Fighting</h3>
+          <p>Sponsorships, personal brand, and turning your craft into a career that pays the bills and then some.</p>
+        </div>
+      </article>
+      <article class="card series-card reveal">
+        <a class="series-thumb" href="https://www.youtube.com/@KINGMAKERSOCIETY/playlists" target="_blank" rel="noopener">
+          <div class="thumb-ph lit"><img src="../../assets/logo.png" alt=""><span>Series Cover</span></div>
+          <span class="badge badge-outline">7 Episodes</span>
+        </a>
+        <div class="series-body">
+          <h3>Member Spotlights</h3>
+          <p>Real stories from inside the brotherhood — the wins, the setbacks, and the work behind every transformation.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOSTS ============ -->
+<section class="section" data-screen-label="Hosts">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Behind The Mic</span>
+      <h2 class="headline">Your <span class="gold">Hosts</span></h2>
+      <p class="lead">No marketers. No talking heads. Just fighters who've lived it, sharing what they've learned the hard way.</p>
+    </div>
+    <div class="team-grid">
+      <article class="card team-card reveal">
+        <span class="team-avatar photo"><img src="../../assets/team-jordan.jpg" alt="Jordan Ali" loading="lazy"></span>
+        <span class="team-name">Jordan Ali</span>
+        <span class="team-role">Host · CEO &amp; Founder</span>
+        <p class="team-bio">Martial artist and brotherhood builder. Jordan leads the conversations that started it all — mindset, discipline, and the relentless pursuit of growth.</p>
+        <span class="team-tags">Storytelling · Mindset · Vision</span>
+        <a class="team-handle" href="https://www.instagram.com/imjordanali/" target="_blank" rel="noopener">@imjordanali</a>
+      </article>
+      <article class="card team-card reveal">
+        <span class="team-avatar photo"><img src="../../assets/team-aaron.jpg" alt="Aaron Arostegui" loading="lazy"></span>
+        <span class="team-name">Aaron Arostegui</span>
+        <span class="team-role">Head Of Long-Form Content</span>
+        <p class="team-bio">The architect of the library. Aaron shapes every episode and series, making sure the lessons land and the production matches the message.</p>
+        <span class="team-tags">Production · Editing · Strategy</span>
+        <a class="team-handle" href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">King Maker Society</a>
+      </article>
+      <article class="card team-card reveal">
+        <span class="team-avatar photo"><img src="../../assets/team-ryan.jpg" alt="Ryan Bailey" loading="lazy"></span>
+        <span class="team-name">Ryan Bailey</span>
+        <span class="team-role">Co-Host · Co-Founder</span>
+        <p class="team-bio">Pro boxer and co-founder. Ryan brings the fighter's perspective to every episode — he knows what resonates because he lives it daily.</p>
+        <span class="team-tags">Boxing · Growth · Realness</span>
+        <a class="team-handle" href="https://www.instagram.com/ryanbaileyboxing/" target="_blank" rel="noopener">@ryanbaileyboxing</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="section trial" data-screen-label="Newsletter">
+  <div class="trial-watermark" aria-hidden="true">King's Media</div>
+  <div class="container trial-inner reveal">
+    <span class="eyebrow center">The Newsletter</span>
+    <h2>Never Miss A Drop</h2>
+    <p class="lead" style="text-align:center;">Get every new episode, lesson, and member story delivered straight to your inbox. Written for fighters, by fighters — no fluff, just the work.</p>
+    <ul class="trial-bullets">
+      <li>New episodes and series the moment they drop</li>
+      <li>Written breakdowns of the biggest lessons</li>
+      <li>Member spotlights and behind-the-scenes</li>
+      <li>Free to read — unsubscribe anytime</li>
+    </ul>
+    <a class="btn btn-gold btn-lg" href="https://kingmakersociety.substack.com/" target="_blank" rel="noopener">Read On Substack</a>
+    <span class="trial-fine">Join the brothers already subscribed</span>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="section footer" data-screen-label="Footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="../../assets/logo.png" alt="King Maker Society" loading="lazy"><span>King Maker Society</span></div>
+        <p>The self-improvement brotherhood for martial artists who refuse to settle.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html">King Maker Society</a>
+        <a href="kings_media.html">King's Media</a>
+        <a href="brotherhood.html">Brotherhood</a>
+        <a href="index.html#pricing">Membership</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.instagram.com/kingmakersocial/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@kingmaker.society" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://www.facebook.com/people/King-Maker-Society/61588634246307/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://kingmakersociety.substack.com/" target="_blank" rel="noopener">Substack</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p>&copy; 2026 King Maker Society LLC · All Rights Reserved</p>
+      <div class="links">
+        <a data-modal="privacy-modal">Privacy Policy</a>
+        <a data-modal="terms-modal">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-welcome">Welcome All New Members</div>
+  </div>
+</footer>
+
+<!-- ============ REFERRAL MODAL ============ -->
+<div class="modal-overlay" id="referral-modal" role="dialog" aria-modal="true" aria-labelledby="ref-title">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <h3 id="ref-title">Who Referred You?</h3>
+      <p>Give credit to the person who brought you in. Select their name and you'll go straight to the membership page.</p>
+    </div>
+    <div class="ref-list">
+      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
+        <span class="ref-avatar">JA</span><span class="ref-info"><span class="ref-name">Jordan Ali</span><span class="ref-role">CEO &amp; Founder</span></span><span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
+        <span class="ref-avatar">RB</span><span class="ref-info"><span class="ref-name">Ryan Bailey</span><span class="ref-role">Co-Founder</span></span><span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
+        <span class="ref-avatar">WS</span><span class="ref-info"><span class="ref-name">Willie Sims</span><span class="ref-role">Head Of Mentors</span></span><span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card" href="https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05" target="_blank" rel="noopener">
+        <span class="ref-avatar">AA</span><span class="ref-info"><span class="ref-name">Aaron Arostegui</span><span class="ref-role">Head Of Long-Form Content</span></span><span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card full" href="https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04" target="_blank" rel="noopener">
+        <span class="ref-avatar">GM</span><span class="ref-info"><span class="ref-name">George Margaris</span><span class="ref-role">Team Member</span></span><span class="ref-arrow">&rarr;</span>
+      </a>
+    </div>
+    <a class="ref-skip" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">I wasn't referred by anyone &rarr; Continue</a>
+  </div>
+</div>
+
+<!-- ============ PRIVACY MODAL ============ -->
+<div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true">
+  <div class="modal modal-narrow">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <h3>Privacy Policy</h3>
+      <p>We collect name and email when you sign up. We use Stripe for payment processing. We do not sell your data. Cancel anytime through your billing portal. Contact KingMakerSocialWork@gmail.com for privacy questions.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TERMS MODAL ============ -->
+<div class="modal-overlay" id="terms-modal" role="dialog" aria-modal="true">
+  <div class="modal modal-narrow">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <h3>Terms Of Service</h3>
+      <p class="legal-updated">Last updated June 11, 2026</p>
+      <div class="legal">
+        <div class="legal-item"><h4>1. Agreement</h4><p>By joining King Maker Society LLC ("King Maker Society," "we," or "us") or using this website, you agree to these Terms of Service. If you do not agree, please do not join or use the site.</p></div>
+        <div class="legal-item"><h4>2. Eligibility</h4><p>You must be at least 18 years old to purchase a membership. By joining, you confirm that the information you provide is accurate and that you are responsible for all activity under your account.</p></div>
+        <div class="legal-item"><h4>3. Membership &amp; Billing</h4><p>Memberships are billed monthly in advance through our payment processor, Stripe. Your membership renews automatically each month until you cancel. Prices may change with notice, and any change takes effect on your next billing cycle.</p></div>
+        <div class="legal-item"><h4>4. Cancellation &amp; Refunds</h4><p>You may cancel anytime through your billing portal or by emailing us. Cancellation stops future charges and takes effect at the end of your current paid month. Payments already made are non-refundable, including for partial months or unused access.</p></div>
+        <div class="legal-item"><h4>5. Free Trial</h4><p>If a free trial is offered, it grants temporary access at no charge. We may modify or end trial offers at any time. One trial per person.</p></div>
+        <div class="legal-item"><h4>6. No Guarantees</h4><p>King Maker Society provides coaching, community, and educational content for self-improvement. We do not guarantee any specific results, income, athletic outcomes, sponsorships, or opportunities. Your progress depends on your own effort and circumstances.</p></div>
+        <div class="legal-item"><h4>7. Code Of Conduct</h4><p>This is a brotherhood built on respect. Members must treat others with respect and act in line with community values. Harassment, threats, hateful conduct, spam, or sharing of private member content is prohibited. We may suspend or remove any member who violates these standards, without refund.</p></div>
+        <div class="legal-item"><h4>8. Health &amp; Safety</h4><p>Martial arts and physical training carry a risk of injury. Any training, drills, or advice shared in the community are followed at your own risk. Consult a qualified physician before beginning any new physical program. King Maker Society is not responsible for injuries resulting from your participation.</p></div>
+        <div class="legal-item"><h4>9. Intellectual Property</h4><p>All Master Classes, recordings, written material, and brand assets are owned by King Maker Society LLC and provided for your personal use only. You may not record, copy, resell, or redistribute member content without written permission.</p></div>
+        <div class="legal-item"><h4>10. Third-Party Services</h4><p>We rely on third-party platforms such as Stripe, community chat tools, and scheduling services. Your use of those services is also governed by their own terms, and we are not responsible for their availability or conduct.</p></div>
+        <div class="legal-item"><h4>11. Limitation Of Liability</h4><p>To the fullest extent permitted by law, King Maker Society LLC is not liable for any indirect, incidental, or consequential damages arising from your membership or use of the site. Our total liability is limited to the amount you paid us in the prior month.</p></div>
+        <div class="legal-item"><h4>12. Changes To These Terms</h4><p>We may update these Terms from time to time. Continued membership after changes are posted means you accept the updated Terms.</p></div>
+        <div class="legal-item"><h4>13. Contact</h4><p>Questions about these Terms? Email us at <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="landing.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Surfaces & Action" subtitle="Dark surfaces, off-white text, red reserved for action." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--black); font-family: var(--font-label); }
+  .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--hairline); padding: 20px; }
+  .sw { background: var(--charcoal); padding: 16px 14px; display: flex; flex-direction: column; gap: 12px; }
+  .chip { height: 50px; border-radius: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
+  .meta { display: flex; flex-direction: column; gap: 3px; }
+  .name { font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: .72rem; color: var(--off-white); }
+  .hex { font-family: var(--font-body); font-weight: 400; font-size: .72rem; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--black); border:1px solid var(--border)"></div><div class="meta"><span class="name">Black</span><span class="hex">#0A0806</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--charcoal); border:1px solid var(--border)"></div><div class="meta"><span class="name">Charcoal</span><span class="hex">#1A1510</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--off-white)"></div><div class="meta"><span class="name">Off White</span><span class="hex">#F0ECE0</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--muted)"></div><div class="meta"><span class="name">Muted</span><span class="hex">#9A9487</span></div></div>
+    <div class="sw"><div class="chip" style="background:var(--red)"></div><div class="meta"><span class="name">Red</span><span class="hex">#C0341A</span></div></div>
+  </div>
+</body>
+</html>

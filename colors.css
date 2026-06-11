@@ -1,0 +1,56 @@
+/* ============================================================
+   KING MAKER SOCIETY — COLOR TOKENS
+   Rule: Gold always on dark, never on white. Red for action only.
+   Background always dark. Max 3 colors per section.
+   ============================================================ */
+:root {
+  /* ---- Brand: Gold ---- */
+  --gold:        #C9A84C; /* primary brand — headlines, CTAs, borders, accents */
+  --gold-light:  #E8C46A; /* hover states, shimmer highlights */
+  --gold-deep:   #8A5F10; /* shadows, depth on gold elements */
+
+  /* ---- Surfaces (always dark) ---- */
+  --black:       #0A0A08; /* page background */
+  --charcoal:    #1A1510; /* cards, panels, overlays */
+  --card-bg:     rgba(12, 10, 7, 0.82); /* translucent card fill over hero/atmosphere */
+  --card-bg-solid: rgba(12, 10, 7, 0.92);
+
+  /* ---- Action: Red (urgency only) ---- */
+  --red:         #C0341A; /* Join Now / commit buttons */
+  --red-light:   #E04020; /* red hover state */
+
+  /* ---- Text ---- */
+  --off-white:   #F0ECE0; /* body text + headings on dark */
+  --muted:       #9A9487; /* subtext, labels, secondary copy */
+
+  /* ---- Lines ---- */
+  --border:      rgba(201, 168, 76, 0.18); /* card & section borders */
+  --border-strong: rgba(201, 168, 76, 0.36);
+  --hairline:    rgba(240, 236, 224, 0.08);
+
+  /* ============================================================
+     SEMANTIC ALIASES — reference these in components
+     ============================================================ */
+  --bg-page:        var(--black);
+  --surface-card:   var(--charcoal);
+  --surface-overlay: rgba(8, 6, 2, 0.92);   /* nav + modal scrim base */
+
+  --text-body:      var(--off-white);
+  --text-heading:   var(--off-white);
+  --text-muted:     var(--muted);
+  --text-accent:    var(--gold);
+
+  --accent:         var(--gold);
+  --accent-hover:   var(--gold-light);
+  --accent-shadow:  var(--gold-deep);
+
+  --action:         var(--red);
+  --action-hover:   var(--red-light);
+
+  --border-card:    var(--border);
+  --border-accent:  var(--border-strong);
+
+  /* glows */
+  --glow-gold:      0 0 40px rgba(201, 168, 76, 0.22);
+  --glow-gold-soft: 0 0 24px rgba(201, 168, 76, 0.12);
+}
