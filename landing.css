@@ -1,6 +1,6 @@
 /* ============================================================
    KING MAKER SOCIETY — LANDING PAGE (REDESIGN)
-   Built on design tokens from ../../styles.css
+   Built on design tokens from styles.css
    ============================================================ */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -103,8 +103,35 @@ img { display: block; max-width: 100%; }
 .nav-ig { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-label); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); transition: color 160ms; }
 .nav-ig:hover { color: var(--gold); }
 .nav-ig svg { width: 16px; height: 16px; }
-.nav-toggle { display: none; background: none; border: none; color: var(--gold); cursor: pointer; flex-direction: column; gap: 5px; padding: 6px; }
-.nav-toggle span { width: 24px; height: 2px; background: currentColor; display: block; }
+.nav-toggle { display: none; background: none; border: none; color: var(--gold); cursor: pointer; flex-direction: column; gap: 5px; padding: 8px; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+.nav-toggle span { width: 24px; height: 2px; background: currentColor; display: block; transition: transform 280ms var(--ease-out), opacity 280ms var(--ease-out); }
+
+/* Mobile nav drawer */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 99;
+  background: rgba(8,6,2,0.6); backdrop-filter: blur(4px);
+  opacity: 0; transition: opacity 280ms var(--ease-out);
+}
+.mobile-nav-overlay.open { opacity: 1; }
+.mobile-nav-drawer {
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(88vw, 340px);
+  background: var(--charcoal); border-left: 1px solid var(--border-strong);
+  padding: 80px 2rem 2rem;
+  display: flex; flex-direction: column; gap: 2rem;
+  transform: translateX(100%); transition: transform 320ms var(--ease-out);
+}
+.mobile-nav-overlay.open .mobile-nav-drawer { transform: translateX(0); }
+.mobile-nav-links { display: flex; flex-direction: column; gap: 0; }
+.mobile-nav-links a {
+  font-family: var(--font-label); font-weight: 700; font-size: 1rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 14px 0; border-bottom: 1px solid var(--hairline);
+  transition: color 160ms;
+}
+.mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--gold); }
+.mobile-nav-actions { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
+.mobile-nav-actions .btn { width: 100%; }
 
 /* ============================================================ HERO */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; background: var(--black); }
@@ -125,7 +152,7 @@ img { display: block; max-width: 100%; }
 .hero-inner { position: relative; z-index: 5; width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 120px var(--section-pad-x) 60px; padding-left: max(3rem, var(--section-pad-x)); }
 .hero-eyebrow { margin-bottom: 1.5rem; }
 .hero h1 {
-  font-family: var(--font-display); font-weight: 400; font-size: clamp(5rem, 12vw, 11rem);
+  font-family: var(--font-display); font-weight: 400; font-size: clamp(3.2rem, 12vw, 11rem);
   line-height: 0.88; letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white);
   margin-bottom: 1.5rem; text-shadow: 0 0 60px rgba(0,0,0,0.6);
 }
@@ -319,7 +346,7 @@ img { display: block; max-width: 100%; }
 .modal-head { text-align: center; margin-bottom: 1.75rem; }
 .modal-head h3 { font-family: var(--font-display); font-size: 2.4rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); line-height: 1; margin-bottom: 0.75rem; }
 .modal-head p { font-family: var(--font-body); font-weight: 300; font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
-.modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; color: var(--muted); font-size: 1.8rem; cursor: pointer; line-height: 1; transition: color 160ms; }
+.modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; color: var(--muted); font-size: 1.8rem; cursor: pointer; line-height: 1; transition: color 160ms; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
 .modal-close:hover { color: var(--gold); }
 .modal-body { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.8; color: var(--muted); }
 .modal-body h3 { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; line-height: 1; }
@@ -348,6 +375,7 @@ img { display: block; max-width: 100%; }
   .grid-3, .team-grid { grid-template-columns: 1fr 1fr; }
   .nav-links { display: none; }
   .nav-ig { display: none; }
+  .mobile-nav-overlay { display: block; }
 }
 @media (max-width: 820px) {
   .origin, .pricing-grid { grid-template-columns: 1fr; }
@@ -368,11 +396,19 @@ img { display: block; max-width: 100%; }
   .footer-grid { grid-template-columns: 1fr; }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .hero-cta .btn { width: 100%; }
+  /* Countdown wraps cleanly on small screens */
+  .countdown { gap: 4px; }
+  .cd-val { font-size: 1.4rem; padding: 6px 4px; }
+  .cd-sep { font-size: 1.2rem; }
+  /* Stat bar wraps into 2-col on very small screens */
+  .stat-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .stat { border-right: none; margin-right: 0; padding-right: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
+  .mobile-nav-overlay, .mobile-nav-drawer { transition: none; }
 }
 
 /* ============================================================

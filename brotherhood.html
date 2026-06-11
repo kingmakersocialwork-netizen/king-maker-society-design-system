@@ -9,17 +9,34 @@
 <title>The Brotherhood — King Maker Society</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="landing.css">
 </head>
 <body>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
+<!-- ============ MOBILE NAV DRAWER ============ -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-nav-links">
+      <a href="index.html">King Maker Society</a>
+      <a href="kings_media.html">King's Media</a>
+      <a href="brotherhood.html" class="active">Brotherhood</a>
+      <a href="index.html#pricing">Membership</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="mobile-nav-actions">
+      <a class="btn btn-outline" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="btn btn-red" href="#" data-modal="referral-modal">Join Now</a>
+    </div>
+  </nav>
+</div>
+
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a class="nav-logo" href="index.html">
-      <img src="../../assets/logo.png" alt="King Maker Society" loading="lazy">
+      <img src="assets/logo.png" alt="King Maker Society" loading="lazy">
       <span>King Maker Society</span>
     </a>
     <div class="nav-links">
@@ -35,7 +52,7 @@
       </a>
       <a class="btn btn-red btn-sm" href="#" data-modal="referral-modal">Join Now</a>
     </div>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -220,31 +237,31 @@
     </div>
     <div class="gallery reveal">
       <div class="g-tile wide tall">
-        <div class="thumb-ph lit"><img src="../../assets/logo.png" alt=""><span>Community Photo</span></div>
+        <div class="thumb-ph lit"><img src="assets/logo.png" alt=""><span>Community Photo</span></div>
         <span class="g-cap">Master Class · Live Session</span>
       </div>
       <div class="g-tile">
-        <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Photo</span></div>
+        <div class="thumb-ph"><img src="assets/logo.png" alt=""><span>Photo</span></div>
         <span class="g-cap">Training Day</span>
       </div>
       <div class="g-tile">
-        <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Photo</span></div>
+        <div class="thumb-ph"><img src="assets/logo.png" alt=""><span>Photo</span></div>
         <span class="g-cap">Fight Night</span>
       </div>
       <div class="g-tile">
-        <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Photo</span></div>
+        <div class="thumb-ph"><img src="assets/logo.png" alt=""><span>Photo</span></div>
         <span class="g-cap">Brotherhood Meetup</span>
       </div>
       <div class="g-tile">
-        <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Photo</span></div>
+        <div class="thumb-ph"><img src="assets/logo.png" alt=""><span>Photo</span></div>
         <span class="g-cap">Sparring</span>
       </div>
       <div class="g-tile wide">
-        <div class="thumb-ph lit"><img src="../../assets/logo.png" alt=""><span>Community Photo</span></div>
+        <div class="thumb-ph lit"><img src="assets/logo.png" alt=""><span>Community Photo</span></div>
         <span class="g-cap">Belt Promotion · The Whole Crew</span>
       </div>
       <div class="g-tile">
-        <div class="thumb-ph"><img src="../../assets/logo.png" alt=""><span>Photo</span></div>
+        <div class="thumb-ph"><img src="assets/logo.png" alt=""><span>Photo</span></div>
         <span class="g-cap">Recovery</span>
       </div>
     </div>
@@ -277,7 +294,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="../../assets/logo.png" alt="King Maker Society" loading="lazy"><span>King Maker Society</span></div>
+        <div class="footer-logo"><img src="assets/logo.png" alt="King Maker Society" loading="lazy"><span>King Maker Society</span></div>
         <p>The self-improvement brotherhood for martial artists who refuse to settle.</p>
       </div>
       <div class="footer-col">
@@ -359,24 +376,18 @@
       <h3>Terms Of Service</h3>
       <p class="legal-updated">Last updated June 11, 2026</p>
       <div class="legal">
-        <div class="legal-item"><h4>1. Agreement</h4><p>By joining King Maker Society LLC ("King Maker Society," "we," or "us") or using this website, you agree to these Terms of Service. If you do not agree, please do not join or use the site.</p></div>
-        <div class="legal-item"><h4>2. Eligibility</h4><p>You must be at least 18 years old to purchase a membership. By joining, you confirm that the information you provide is accurate and that you are responsible for all activity under your account.</p></div>
-        <div class="legal-item"><h4>3. Membership &amp; Billing</h4><p>Memberships are billed monthly in advance through our payment processor, Stripe. Your membership renews automatically each month until you cancel. Prices may change with notice, and any change takes effect on your next billing cycle.</p></div>
-        <div class="legal-item"><h4>4. Cancellation &amp; Refunds</h4><p>You may cancel anytime through your billing portal or by emailing us. Cancellation stops future charges and takes effect at the end of your current paid month. Payments already made are non-refundable, including for partial months or unused access.</p></div>
-        <div class="legal-item"><h4>5. Free Trial</h4><p>If a free trial is offered, it grants temporary access at no charge. We may modify or end trial offers at any time. One trial per person.</p></div>
-        <div class="legal-item"><h4>6. No Guarantees</h4><p>King Maker Society provides coaching, community, and educational content for self-improvement. We do not guarantee any specific results, income, athletic outcomes, sponsorships, or opportunities. Your progress depends on your own effort and circumstances.</p></div>
-        <div class="legal-item"><h4>7. Code Of Conduct</h4><p>This is a brotherhood built on respect. Members must treat others with respect and act in line with community values. Harassment, threats, hateful conduct, spam, or sharing of private member content is prohibited. We may suspend or remove any member who violates these standards, without refund.</p></div>
-        <div class="legal-item"><h4>8. Health &amp; Safety</h4><p>Martial arts and physical training carry a risk of injury. Any training, drills, or advice shared in the community are followed at your own risk. Consult a qualified physician before beginning any new physical program. King Maker Society is not responsible for injuries resulting from your participation.</p></div>
-        <div class="legal-item"><h4>9. Intellectual Property</h4><p>All Master Classes, recordings, written material, and brand assets are owned by King Maker Society LLC and provided for your personal use only. You may not record, copy, resell, or redistribute member content without written permission.</p></div>
-        <div class="legal-item"><h4>10. Third-Party Services</h4><p>We rely on third-party platforms such as Stripe, community chat tools, and scheduling services. Your use of those services is also governed by their own terms, and we are not responsible for their availability or conduct.</p></div>
-        <div class="legal-item"><h4>11. Limitation Of Liability</h4><p>To the fullest extent permitted by law, King Maker Society LLC is not liable for any indirect, incidental, or consequential damages arising from your membership or use of the site. Our total liability is limited to the amount you paid us in the prior month.</p></div>
-        <div class="legal-item"><h4>12. Changes To These Terms</h4><p>We may update these Terms from time to time. Continued membership after changes are posted means you accept the updated Terms.</p></div>
-        <div class="legal-item"><h4>13. Contact</h4><p>Questions about these Terms? Email us at <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>.</p></div>
+        <div class="legal-item"><h4>1. Agreement</h4><p>By joining King Maker Society LLC ("King Maker Society," "we," or "us") or using this website, you agree to these Terms of Service.</p></div>
+        <div class="legal-item"><h4>2. Eligibility</h4><p>You must be at least 18 years old to purchase a membership.</p></div>
+        <div class="legal-item"><h4>3. Membership &amp; Billing</h4><p>Memberships are billed monthly in advance through Stripe and renew automatically until cancelled.</p></div>
+        <div class="legal-item"><h4>4. Cancellation &amp; Refunds</h4><p>Cancel anytime. No refunds for partial months or unused access.</p></div>
+        <div class="legal-item"><h4>5. No Guarantees</h4><p>We do not guarantee results, income, athletic outcomes, or sponsorships.</p></div>
+        <div class="legal-item"><h4>6. Code Of Conduct</h4><p>Members must treat others with respect. Harassment or harmful conduct may result in removal without refund.</p></div>
+        <div class="legal-item"><h4>7. Contact</h4><p>Questions? Email <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>.</p></div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="landing.js"></script>
+<script src="landing.js" defer></script>
 </body>
 </html>

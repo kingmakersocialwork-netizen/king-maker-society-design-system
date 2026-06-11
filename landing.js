@@ -15,10 +15,44 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  /* ---------- MOBILE NAV DRAWER ---------- */
   const toggle = document.getElementById('nav-toggle');
-  if (toggle) toggle.addEventListener('click', () => {
-    const p = document.getElementById('pricing');
-    if (p) p.scrollIntoView({ behavior: 'smooth' });
+  const overlay = document.getElementById('mobile-nav-overlay');
+  const drawer = document.getElementById('mobile-nav-drawer');
+
+  function openMobileNav() {
+    if (!overlay) return;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileNav() {
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  function toggleMobileNav() {
+    overlay && overlay.classList.contains('open') ? closeMobileNav() : openMobileNav();
+  }
+
+  if (toggle) toggle.addEventListener('click', toggleMobileNav);
+
+  // Close on overlay backdrop click
+  if (overlay) overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeMobileNav();
+  });
+
+  // Close when a link inside the drawer is tapped
+  if (drawer) drawer.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => closeMobileNav());
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileNav();
   });
 
   /* ---------- GOLD PARTICLE FIELD: hero + full-page background ---------- */
@@ -161,10 +195,10 @@
 
   /* ---------- MODALS (referral, privacy, terms) ---------- */
   let lastFocus = null;
-  function openModal(overlay) {
-    if (!overlay) return;
+  function openModal(modalOverlay) {
+    if (!modalOverlay) return;
     lastFocus = document.activeElement;
-    overlay.classList.add('open');
+    modalOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeModals() {
@@ -178,12 +212,14 @@
       openModal(document.getElementById(btn.getAttribute('data-modal')));
     });
   });
-  document.querySelectorAll('.modal-overlay').forEach((overlay) => {
-    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModals(); });
-    const x = overlay.querySelector('.modal-close');
+  document.querySelectorAll('.modal-overlay').forEach((mo) => {
+    // Don't double-bind the mobile nav overlay
+    if (mo.id === 'mobile-nav-overlay') return;
+    mo.addEventListener('click', (e) => { if (e.target === mo) closeModals(); });
+    const x = mo.querySelector('.modal-close');
     if (x) x.addEventListener('click', closeModals);
   });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModals(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModals(); closeMobileNav(); } });
 
   /* ---------- Smooth scroll for in-page anchors ---------- */
   document.querySelectorAll('a[data-scroll]').forEach((a) => {
