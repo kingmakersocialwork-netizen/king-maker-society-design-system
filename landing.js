@@ -113,8 +113,16 @@
       ctx.globalAlpha = 1;
       raf = requestAnimationFrame(frame);
     }
-    init();
-    frame();
+    // Wait until canvas has real dimensions (iOS fixed elements can start at 0x0)
+    function safeStart() {
+      if (canvas.offsetWidth === 0 || canvas.offsetHeight === 0) {
+        requestAnimationFrame(safeStart);
+        return;
+      }
+      init();
+      frame();
+    }
+    safeStart();
     let rt;
     window.addEventListener('resize', () => {
       clearTimeout(rt);
