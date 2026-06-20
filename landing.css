@@ -111,9 +111,9 @@ img { display: block; max-width: 100%; }
   display: none;
   position: fixed; inset: 0; z-index: 99;
   background: rgba(8,6,2,0.6); backdrop-filter: blur(4px);
-  opacity: 0; transition: opacity 280ms var(--ease-out);
+  opacity: 0; pointer-events: none; transition: opacity 280ms var(--ease-out);
 }
-.mobile-nav-overlay.open { opacity: 1; }
+.mobile-nav-overlay.open { opacity: 1; pointer-events: auto; }
 .mobile-nav-drawer {
   position: absolute; top: 0; right: 0; bottom: 0; width: min(88vw, 340px);
   background: var(--charcoal); border-left: 1px solid var(--border-strong);
