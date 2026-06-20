@@ -145,11 +145,13 @@ img { display: block; max-width: 100%; }
   animation: ray-flicker 7s ease-in-out infinite;
 }
 @keyframes ray-flicker { 0%,100% { opacity: 0.5; } 50% { opacity: 0.85; } }
-.hero-glow { position: absolute; bottom: -22%; left: 50%; transform: translateX(-50%); width: 120vw; height: 60vh; z-index: 2; pointer-events: none;
-  background: radial-gradient(ellipse at center, rgba(201,168,76,0.22) 0%, rgba(201,168,76,0.06) 35%, transparent 65%); filter: blur(20px); }
+.hero-glow { position: absolute; bottom: -22%; left: 50%; transform: translateX(-50%); width: 180vw; height: 72vh; z-index: 4; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.32) 0%, rgba(201,168,76,0.12) 36%, transparent 65%); filter: blur(28px); }
 .hero-vignette { position: absolute; inset: 0; z-index: 3; pointer-events: none;
-  background: radial-gradient(ellipse at 50% 42%, transparent 28%, rgba(10,10,8,0.55) 78%, rgba(10,10,8,0.96) 100%); }
-.hero-inner { position: relative; z-index: 5; width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 120px var(--section-pad-x) 60px; padding-left: max(3rem, var(--section-pad-x)); }
+  background:
+    radial-gradient(ellipse at 50% 42%, transparent 30%, rgba(10,10,8,0.42) 70%, rgba(10,10,8,0.86) 100%),
+    linear-gradient(to bottom, transparent 62%, rgba(10,10,8,0.96) 100%); }
+.hero-inner { position: relative; z-index: 6; width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 120px var(--section-pad-x) 60px; padding-left: max(3rem, var(--section-pad-x)); }
 .hero-eyebrow { margin-bottom: 1.5rem; }
 .hero h1 {
   font-family: var(--font-display); font-weight: 400; font-size: clamp(3.2rem, 12vw, 11rem);
