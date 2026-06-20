@@ -122,11 +122,13 @@
     });
   }
 
-  if (!isMobile && !reduceMotion) {
+  if (!reduceMotion) {
     const bgCanvas = document.getElementById('bg-canvas');
-    if (bgCanvas) startParticles(bgCanvas, 340);
-    const heroCanvas = document.getElementById('hero-canvas');
-    if (heroCanvas) startParticles(heroCanvas, 420);
+    if (bgCanvas) startParticles(bgCanvas, isMobile ? 60 : 340);
+    if (!isMobile) {
+      const heroCanvas = document.getElementById('hero-canvas');
+      if (heroCanvas) startParticles(heroCanvas, 420);
+    }
   }
 
   /* ---------- COUNTDOWN to next Master Class (Tue & Fri, 2PM CST) ---------- */
