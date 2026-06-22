@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0A08">
+<title>Team Portal · King Maker Society</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="landing.css">
+<style>
+  /* ============ TEAM PORTAL OVERRIDES ============ */
+
+  /* Login screen */
+  .login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: var(--black);
+  }
+  .login-card {
+    background: var(--charcoal);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 32px 80px -24px rgba(0,0,0,0.8), var(--glow-gold-soft);
+  }
+  .login-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin: 0 auto 1.25rem;
+    filter: drop-shadow(0 0 14px rgba(201,168,76,0.3));
+  }
+  .login-eyebrow {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .login-title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    letter-spacing: 0.04em;
+    color: var(--off-white);
+    margin-bottom: 0.4rem;
+  }
+  .login-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+  .login-input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    color: var(--off-white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    padding: 14px 18px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 1rem;
+  }
+  .login-input:focus { border-color: var(--gold); }
+  .login-input::placeholder { color: var(--muted); letter-spacing: 0.12em; }
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-label);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .login-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -120%; width: 55%; height: 100%;
+    background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.35) 50%, transparent 80%);
+    animation: btn-shine-sweep 2.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .login-error {
+    display: none;
+    color: var(--red-light);
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    font-family: var(--font-label);
+    letter-spacing: 0.1em;
+  }
+  .login-error.visible { display: block; }
+
+  /* Portal layout */
+  .portal-wrap { display: none; min-height: 100vh; background: var(--black); }
+  .portal-wrap.active { display: block; }
+
+  .portal-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,8,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+  }
+  .portal-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .portal-nav-left img { width: 32px; height: 32px; object-fit: contain; }
+  .portal-nav-left span {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .portal-logout {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .portal-logout:hover { color: var(--off-white); border-color: var(--border-strong); }
+
+  /* Portal hero */
+  .portal-hero {
+    padding: 3.5rem 2rem 2.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .portal-hero .eyebrow { justify-content: center; margin-bottom: 0.6rem; }
+  .portal-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    letter-spacing: 0.04em;
+    color: var(--off-white);
+    margin-bottom: 0.75rem;
+  }
+  .portal-hero p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 2rem;
+    max-width: 960px;
+    margin: 0 auto 2.5rem;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab-btn {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--off-white); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* Tab panels */
+  .tab-panel { display: none; padding: 0 2rem 4rem; max-width: 960px; margin: 0 auto; }
+  .tab-panel.active { display: block; }
+
+  /* Section heading */
+  .portal-section-head { margin-bottom: 1.75rem; }
+  .portal-section-head h2 {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    letter-spacing: 0.05em;
+    color: var(--off-white);
+    margin-bottom: 0.3rem;
+  }
+  .portal-section-head p { color: var(--muted); font-size: 0.88rem; }
+
+  /* Resource grid */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .resource-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .resource-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--glow-gold-soft);
+  }
+  .resource-card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .resource-card h3 {
+    font-family: var(--font-label);
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .resource-card p {
+    font-size: 0.83rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    line-height: 1.55;
+  }
+
+  /* Expandable script blocks */
+  .script-toggle {
+    width: 100%;
+    text-align: left;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--gold);
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .script-toggle:hover { background: rgba(201,168,76,0.14); }
+  .script-toggle .arrow { transition: transform 0.2s; }
+  .script-toggle.open .arrow { transform: rotate(180deg); }
+
+  .script-body {
+    display: none;
+    margin-top: 0.75rem;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  .script-body.open { display: block; }
+  .script-body p {
+    font-size: 0.84rem;
+    color: var(--off-white);
+    line-height: 1.75;
+    white-space: pre-wrap;
+    font-family: var(--font-body);
+    margin: 0;
+  }
+  .copy-btn {
+    margin-top: 0.9rem;
+    padding: 7px 16px;
+    background: none;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    color: var(--muted);
+    font-family: var(--font-label);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .copy-btn:hover { color: var(--gold); border-color: var(--gold); }
+  .copy-btn.copied { color: #4caf50; border-color: #4caf50; }
+
+  /* SOP steps */
+  .sop-steps { list-style: none; margin: 0; padding: 0; }
+  .sop-step {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .sop-step:last-child { border-bottom: none; }
+  .sop-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border-strong);
+    color: var(--gold);
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sop-text { font-size: 0.84rem; color: var(--off-white); line-height: 1.6; padding-top: 3px; }
+  .sop-text strong { color: var(--gold); font-weight: 600; }
+
+  /* Quick links */
+  .quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+  .quick-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 18px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    color: var(--gold);
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .quick-link:hover { background: rgba(201,168,76,0.16); }
+
+  /* Divider label */
+  .divider-label {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 0.5rem;
+    margin: 2.5rem 0 1.25rem;
+  }
+
+  @media (max-width: 600px) {
+    .login-card { padding: 2rem 1.5rem; }
+    .portal-hero { padding: 2.5rem 1.25rem 2rem; }
+    .tab-panel { padding: 0 1.25rem 3rem; }
+    .tab-bar { padding: 0 1.25rem; }
+    .resource-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div class="login-wrap" id="login-screen">
+  <div class="login-card">
+    <img src="assets/logo.png" alt="King Maker Society" class="login-logo" onerror="this.style.display='none'">
+    <div class="login-eyebrow">King Maker Society</div>
+    <div class="login-title">Team Portal</div>
+    <p class="login-sub">Internal access only. Enter your team password to continue.</p>
+    <input
+      type="password"
+      class="login-input"
+      id="pass-input"
+      placeholder="Enter team password"
+      autocomplete="off"
+    >
+    <button class="login-btn btn-shine" onclick="checkPass()">Access Portal</button>
+    <p class="login-error" id="login-error">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<!-- ============ PORTAL ============ -->
+<div class="portal-wrap" id="portal">
+
+  <!-- Nav -->
+  <nav class="portal-nav">
+    <div class="portal-nav-left">
+      <img src="assets/logo.png" alt="KMS" onerror="this.style.display='none'">
+      <span>Team Portal</span>
+    </div>
+    <button class="portal-logout" onclick="logout()">Log Out</button>
+  </nav>
+
+  <!-- Hero -->
+  <div class="portal-hero">
+    <span class="eyebrow">Internal Resources</span>
+    <h1>King Maker Society <span class="gold">Team</span></h1>
+    <p>Everything you need to operate at a high level. Scripts, SOPs, templates, and processes built specifically for this team.</p>
+  </div>
+
+  <!-- Quick Links -->
+  <div style="max-width:960px; margin:0 auto; padding:0 2rem 1rem;">
+    <div class="divider-label">Key Links</div>
+    <div class="quick-links">
+      <a class="quick-link" href="https://www.instagram.com/kingmakersocial/" target="_blank">&#128247; @kingmakersocial</a>
+      <a class="quick-link" href="https://www.instagram.com/kingsmediamma/" target="_blank">&#127909; @kingsmediamma</a>
+      <a class="quick-link" href="https://calendly.com/jordanaliwork/30min" target="_blank">&#128197; Book A Call Link</a>
+      <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank">&#128203; Member Questionnaire</a>
+      <a class="quick-link" href="https://kingmakersocialwork-netizen.github.io/kings-media-portal/" target="_blank">&#128279; Content Portal</a>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('sales', this)">Sales Team</button>
+    <button class="tab-btn" onclick="switchTab('content', this)">King's Media Team</button>
+    <button class="tab-btn" onclick="switchTab('brand', this)">Brand Standards</button>
+  </div>
+
+  <!-- ======== TAB: SALES ======== -->
+  <div class="tab-panel active" id="tab-sales">
+
+    <div class="portal-section-head">
+      <h2>Sales <span class="gold">Team</span></h2>
+      <p>Scripts, flows, and SOPs for turning conversations into members. Relationship first. Sale second.</p>
+    </div>
+
+    <!-- DM Scripts -->
+    <div class="divider-label">DM Scripts</div>
+    <div class="resource-grid">
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128172;</span>
+        <h3>Cold Outreach</h3>
+        <p>First message to someone who doesn't know us yet. Keep it short, genuine, and about them.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="s1">Yo [Name], came across your page and I fw the content. You training [art]?
+
+Asking because we work with a lot of fighters who are trying to grow their brand and stay accountable. Might be something worth looking into depending on what you're working on.</p>
+          <button class="copy-btn" onclick="copyScript('s1', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128293;</span>
+        <h3>Warm Lead (Follows / Likes)</h3>
+        <p>They engaged with the page. They already know something about us. Lead with that.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="s2">Hey [Name], appreciate the follow. What martial art do you train?
+
+Just curious what you're working toward right now.</p>
+          <button class="copy-btn" onclick="copyScript('s2', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#127942;</span>
+        <h3>Comment Trigger ("KING")</h3>
+        <p>They commented KING on a post. Hit them right away while the energy is there.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="s3">Saw you dropped "KING" on the post. Appreciate that. What are you training right now?
+
+Trying to get a feel for where you're at before I send you anything.</p>
+          <button class="copy-btn" onclick="copyScript('s3', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128203;</span>
+        <h3>Questionnaire Send</h3>
+        <p>Use this after you've built some context on who they are and what they want.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="s4">Cool, this actually makes a lot of sense based on what you said.
+
+Before I go into detail I want to make sure I point you in the right direction. I have a quick form that takes 2 minutes. It helps us understand where you're at so we're not just throwing stuff at you.
+
+[Questionnaire Link]
+
+Fill that out and I'll follow up personally based on your answers.</p>
+          <button class="copy-btn" onclick="copyScript('s4', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128176;</span>
+        <h3>Payment Link Send</h3>
+        <p>After they're sold. Keep it clean — no over-explaining.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="s5">Based on everything you told me, the [Basic / VIP] membership is the right move for where you're at.
+
+It's $[30/100]/month, cancel anytime, no contracts.
+
+Here's the link: [Payment Link]
+
+Once you're in I'll personally make sure you get properly set up and introduced to the group.</p>
+          <button class="copy-btn" onclick="copyScript('s5', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128260;</span>
+        <h3>Follow-Up (No Response)</h3>
+        <p>They went quiet. One clean follow-up. Don't chase — just check in.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="s6">Hey just circling back. No pressure at all.
+
+If the timing isn't right that's fully cool. Just didn't want to leave you hanging if you had questions.
+
+Either way keep training.</p>
+          <button class="copy-btn" onclick="copyScript('s6', this)">Copy</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Objection Handling -->
+    <div class="divider-label">Objection Handling</div>
+    <div class="resource-grid">
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128176;</span>
+        <h3>"Can't Afford It"</h3>
+        <p>Don't argue. Acknowledge it. Then reframe the value.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="o1">I get that. $30 has to make sense for where you're at.
+
+What I'll say is this — most guys who join end up saying the accountability alone is worth it. It's not just information, it's an environment.
+
+But if timing isn't right, I'm not going to push you. When does it make more sense for you?</p>
+          <button class="copy-btn" onclick="copyScript('o1', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#129300;</span>
+        <h3>"I Need To Think About It"</h3>
+        <p>Don't disappear. Ask a real question to find out what's actually holding them back.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="o2">Totally fair. What part are you weighing up? Is it the timing, the price, or just not sure if it's the right fit?
+
+Asking because I want to give you an honest answer, not just sell you on it.</p>
+          <button class="copy-btn" onclick="copyScript('o2', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#10067;</span>
+        <h3>"What Even Is This?"</h3>
+        <p>They don't know the brand. Give a clean, direct explanation.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Script <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="o3">King Maker Society is an online self-improvement brotherhood for martial artists.
+
+It's a paid community where fighters hold each other accountable, share wins, and work on their mindset, discipline, and personal brand together.
+
+We run live sessions twice a week and the group chat is active every single day.
+
+It's $30/month. No contracts, cancel anytime.</p>
+          <button class="copy-btn" onclick="copyScript('o3', this)">Copy</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lead Flow SOP -->
+    <div class="divider-label">Lead Flow SOP</div>
+    <div class="resource-card" style="margin-bottom:2rem;">
+      <span class="resource-card-icon">&#128200;</span>
+      <h3>Standard Lead Flow</h3>
+      <p style="margin-bottom:1.25rem;">Follow this sequence for every new lead. Don't skip steps.</p>
+      <ul class="sop-steps">
+        <li class="sop-step"><span class="sop-num">1</span><span class="sop-text"><strong>Start the conversation naturally.</strong> Ask about their martial art, what they're working on, where they train. Listen more than you talk.</span></li>
+        <li class="sop-step"><span class="sop-num">2</span><span class="sop-text"><strong>Find their main pain point.</strong> Discipline? Accountability? Content? Exposure? Identify it before you pitch anything.</span></li>
+        <li class="sop-step"><span class="sop-num">3</span><span class="sop-text"><strong>Drop a little value.</strong> Say something useful based on what they told you. Builds trust before the ask.</span></li>
+        <li class="sop-step"><span class="sop-num">4</span><span class="sop-text"><strong>Send the questionnaire.</strong> Use the questionnaire script. Wait for them to fill it out before pitching.</span></li>
+        <li class="sop-step"><span class="sop-num">5</span><span class="sop-text"><strong>Personalize the pitch.</strong> Use their answers. Speak directly to what they said. Don't use a generic pitch.</span></li>
+        <li class="sop-step"><span class="sop-num">6</span><span class="sop-text"><strong>Handle objections calmly.</strong> Don't pressure. If they're not ready, set a follow-up date and move on.</span></li>
+        <li class="sop-step"><span class="sop-num">7</span><span class="sop-text"><strong>Send the payment link.</strong> Once they're convinced. Keep the message short. Don't over-explain at this stage.</span></li>
+        <li class="sop-step"><span class="sop-num">8</span><span class="sop-text"><strong>Log the lead.</strong> Update their status in the CRM. Mark next follow-up date if not converted.</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ======== TAB: CONTENT ======== -->
+  <div class="tab-panel" id="tab-content">
+
+    <div class="portal-section-head">
+      <h2>King's Media <span class="gold">Team</span></h2>
+      <p>Content SOPs, caption templates, posting checklists, and the weekly workflow for the King's Media content team.</p>
+    </div>
+
+    <!-- Weekly Workflow -->
+    <div class="divider-label">Weekly Content Workflow</div>
+    <div class="resource-card" style="margin-bottom:2rem;">
+      <span class="resource-card-icon">&#128197;</span>
+      <h3>Weekly Content SOP</h3>
+      <p style="margin-bottom:1.25rem;">Run this every week. Consistency is the standard — no excuses.</p>
+      <ul class="sop-steps">
+        <li class="sop-step"><span class="sop-num">1</span><span class="sop-text"><strong>Sunday:</strong> Plan your content for the week. Decide what you are posting on which days. No winging it.</span></li>
+        <li class="sop-step"><span class="sop-num">2</span><span class="sop-text"><strong>Monday:</strong> Film or create your first piece of content. If you filmed over the weekend, begin editing.</span></li>
+        <li class="sop-step"><span class="sop-num">3</span><span class="sop-text"><strong>Tuesday/Wednesday:</strong> Post your first reel or piece of content. Write the caption using the template below.</span></li>
+        <li class="sop-step"><span class="sop-num">4</span><span class="sop-text"><strong>Thursday:</strong> Engage on King's Media and King Maker Society pages. Comment, share, and support other team members' content.</span></li>
+        <li class="sop-step"><span class="sop-num">5</span><span class="sop-text"><strong>Friday:</strong> Post your second piece for the week OR a story/engagement post. Screenshot any wins or highlights.</span></li>
+        <li class="sop-step"><span class="sop-num">6</span><span class="sop-step"><span class="sop-num">6</span></span><span class="sop-text"><strong>Saturday:</strong> Attend and participate in the King Maker Society live session at 2PM CST.</span></li>
+        <li class="sop-step"><span class="sop-num">7</span><span class="sop-text"><strong>End of week:</strong> Report your content output, reach, and any leads generated to the team.</span></li>
+      </ul>
+    </div>
+
+    <!-- Caption Templates -->
+    <div class="divider-label">Caption Templates</div>
+    <div class="resource-grid">
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#9997;&#65039;</span>
+        <h3>Training / Lifestyle Post</h3>
+        <p>For clips, workout content, or anything from the gym or training life.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Template <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="c1">[One line hook — something real, specific, or bold]
+
+[2-3 sentences about what's in the clip or what you're working on. Keep it human, no fluff]
+
+If you train [art] and you're serious about your growth, King Maker Society is where you need to be.
+
+Link in bio. @kingmakersocial
+
+#[martialart] #[yourart] #kingmakersociety #martialarts #fighter #selfimprovement #discipline</p>
+          <button class="copy-btn" onclick="copyScript('c1', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128170;</span>
+        <h3>Mindset / Self-Improvement Post</h3>
+        <p>For talking head content, lessons, or personal development topics.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Template <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="c2">[Bold statement or honest truth about martial arts mindset]
+
+[Short paragraph expanding on that point from your experience]
+
+The fighters who grow fastest aren't the most talented. They're the most consistent.
+
+King Maker Society is built for that type. @kingmakersocial
+
+#mindset #martialarts #discipline #fighter #kingmakersociety #selfimprovement #growth</p>
+          <button class="copy-btn" onclick="copyScript('c2', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#127942;</span>
+        <h3>Member Highlight / Shoutout</h3>
+        <p>When posting about another member's win or progress.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Template <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="c3">Big shoutout to @[membertag].
+
+[One or two sentences about what they did, what they achieved, or why it matters]
+
+This is what King Maker Society looks like in action. Real martial artists, real progress, real brotherhood.
+
+@kingmakersocial
+
+#kingmakersociety #martialarts #brotherhood #fighter #win</p>
+          <button class="copy-btn" onclick="copyScript('c3', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128247;</span>
+        <h3>Recruitment Post</h3>
+        <p>Specifically designed to drive DMs and new member interest.</p>
+        <button class="script-toggle" onclick="toggleScript(this)">
+          View Template <span class="arrow">&#9662;</span>
+        </button>
+        <div class="script-body">
+          <p id="c4">If you train [martial art] and you're tired of going at it alone, this is for you.
+
+King Maker Society is an online self-improvement brotherhood built for martial artists who are serious about their growth.
+
+Accountability. Brotherhood. Live sessions twice a week. Personal brand support. Real mentorship.
+
+$30/month. No contracts.
+
+Comment "KING" or DM me and I'll send you everything.
+
+@kingmakersocial
+
+#martialarts #fighter #brotherhood #kingmakersociety #selfimprovement #[art]</p>
+          <button class="copy-btn" onclick="copyScript('c4', this)">Copy</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Content Checklist -->
+    <div class="divider-label">Pre-Post Checklist</div>
+    <div class="resource-card" style="margin-bottom:2rem;">
+      <span class="resource-card-icon">&#9989;</span>
+      <h3>Before You Hit Post</h3>
+      <p style="margin-bottom:1.25rem;">Run through this every single time. No exceptions.</p>
+      <ul class="sop-steps">
+        <li class="sop-step"><span class="sop-num">1</span><span class="sop-text">Video is clean — good lighting, clear audio, no dead seconds at the start or end</span></li>
+        <li class="sop-step"><span class="sop-num">2</span><span class="sop-text">Caption follows the template — hook line first, no walls of text, clear CTA</span></li>
+        <li class="sop-step"><span class="sop-num">3</span><span class="sop-text">@kingmakersocial is tagged or mentioned</span></li>
+        <li class="sop-step"><span class="sop-num">4</span><span class="sop-text">Hashtags are relevant — mix of niche and broad (7-12 tags)</span></li>
+        <li class="sop-step"><span class="sop-num">5</span><span class="sop-text">Cover image is strong — pause frame or custom thumbnail that stops the scroll</span></li>
+        <li class="sop-step"><span class="sop-num">6</span><span class="sop-step"><span class="sop-num">6</span></span><span class="sop-text">Content does not make guarantees of income, sponsors, or physical training results</span></li>
+        <li class="sop-step"><span class="sop-num">7</span><span class="sop-text">You are ready to engage in the first 30 minutes after posting — respond to every comment</span></li>
+      </ul>
+    </div>
+
+    <!-- Content Ideas -->
+    <div class="divider-label">Content Ideas Bank</div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128161;</span>
+        <h3>Training Content</h3>
+        <p style="margin-bottom:0;">Sparring clips. Drill breakdowns. A day in training. Before/after technique. Competition prep. Weight cut. Road work. Bag work. Post-session reflection. Partner accountability.</p>
+      </div>
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128161;</span>
+        <h3>Mindset Content</h3>
+        <p style="margin-bottom:0;">Lessons from your last fight. What consistency taught you. How you stay disciplined when life gets busy. The hardest part of being a martial artist. What you wish you knew when you started.</p>
+      </div>
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128161;</span>
+        <h3>Brotherhood Content</h3>
+        <p style="margin-bottom:0;">Inside the King Maker Society live session. Member wins. Accountability check-in posts. Group challenges. Tagging and spotlighting other members. Behind the scenes of the community.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== TAB: BRAND ======== -->
+  <div class="tab-panel" id="tab-brand">
+
+    <div class="portal-section-head">
+      <h2>Brand <span class="gold">Standards</span></h2>
+      <p>The rules every team member follows every time. This is what keeps the brand looking and sounding sharp.</p>
+    </div>
+
+    <div class="divider-label">Name & Handle Rules</div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128214;</span>
+        <h3>Always Use</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">
+          <strong style="color:var(--gold);">King Maker Society</strong> — public brand name (three separate words, every time)<br><br>
+          <strong style="color:var(--gold);">King Maker Society LLC</strong> — legal name only<br><br>
+          <strong style="color:var(--gold);">@kingmakersocial</strong> — Instagram handle for the main brand<br><br>
+          <strong style="color:var(--gold);">@kingsmediamma</strong> — Instagram handle for King's Media
+        </p>
+      </div>
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128683;</span>
+        <h3>Never Say</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">
+          &#10007; "Kingmaker Society" (missing spaces)<br><br>
+          &#10007; "We guarantee results"<br><br>
+          &#10007; "We guarantee sponsors"<br><br>
+          &#10007; "Physical training program"<br><br>
+          &#10007; "Guaranteed income"<br><br>
+          &#10007; "Fight training program"
+        </p>
+      </div>
+    </div>
+
+    <div class="divider-label">Tone of Voice</div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="resource-card-icon">&#127908;</span>
+        <h3>Sound Like</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">
+          Direct. Human. Confident.<br>
+          A serious martial artist who's also building something.<br>
+          Brotherhood first. Sale second.<br>
+          Short sentences. Real talk. No corporate fluff.<br>
+          Specific over generic. Always.
+        </p>
+      </div>
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128488;</span>
+        <h3>Avoid</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">
+          &#10007; AI-sounding sentences<br>
+          &#10007; Over-explaining<br>
+          &#10007; Generic hype ("This will change your life")<br>
+          &#10007; Desperation energy<br>
+          &#10007; Too many emojis<br>
+          &#10007; Long DM paragraphs<br>
+          &#10007; Em dashes (use commas instead)
+        </p>
+      </div>
+      <div class="resource-card">
+        <span class="resource-card-icon">&#127775;</span>
+        <h3>Preferred Phrases</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">
+          "Online brotherhood for martial artists"<br>
+          "Self-improvement community"<br>
+          "Accountability community"<br>
+          "Content creation support"<br>
+          "Sponsor visibility"<br>
+          "Fighter networking"<br>
+          "Live Zoom discussions"<br>
+          "Mentorship access"
+        </p>
+      </div>
+    </div>
+
+    <div class="divider-label">Membership Tiers (Quick Reference)</div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128081;</span>
+        <h3>Basic · $30/mo</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">24/7 brotherhood chat. 2 live Master Classes/week. Access to King's Media content Team. Weekly accountability check-ins. Challenge and Rank System.</p>
+      </div>
+      <div class="resource-card">
+        <span class="resource-card-icon">&#9733;</span>
+        <h3>VIP Access · $100/mo</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">Everything in Basic. Monthly 1:1 mini-audit. Personalized weekly check-in. Priority Q&amp;A. Structured monthly game plan customized to their goals. 1-on-1 mentor meeting every other week. Member spotlights.</p>
+      </div>
+      <div class="resource-card">
+        <span class="resource-card-icon">&#128293;</span>
+        <h3>Elite · $300/mo</h3>
+        <p style="margin-bottom:0; color: var(--off-white);">Everything in VIP. Weekly 1-hour mentor call. Personalized weekly routine. Weekly 1-on-1 with Jordan Ali. Full King's Media content creation team access. Top-tier shoutout priority.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /portal -->
+
+<script src="landing.js"></script>
+<script>
+// ---- Password (change this to update team access) ----
+const TEAM_PASSWORD = 'KMS2026';
+
+function checkPass() {
+  const val = document.getElementById('pass-input').value.trim();
+  const err = document.getElementById('login-error');
+  if (val === TEAM_PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('portal').classList.add('active');
+    sessionStorage.setItem('kms-team-auth', '1');
+    err.classList.remove('visible');
+  } else {
+    err.classList.add('visible');
+    document.getElementById('pass-input').value = '';
+    document.getElementById('pass-input').focus();
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('kms-team-auth');
+  document.getElementById('login-screen').style.display = '';
+  document.getElementById('portal').classList.remove('active');
+  document.getElementById('pass-input').value = '';
+}
+
+// Stay logged in within the same browser session
+if (sessionStorage.getItem('kms-team-auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('portal').classList.add('active');
+}
+
+// Enter key on password field
+document.getElementById('pass-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkPass();
+});
+
+// Tab switching
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Script toggle expand/collapse
+function toggleScript(btn) {
+  btn.classList.toggle('open');
+  const body = btn.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+// Copy to clipboard
+function copyScript(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
