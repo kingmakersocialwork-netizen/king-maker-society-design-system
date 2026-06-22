@@ -66,6 +66,41 @@ img { display: block; max-width: 100%; }
 .btn-lg { padding: 18px 40px; font-size: 0.95rem; letter-spacing: 0.22em; }
 .btn-block { width: 100%; }
 
+/* ---- Chrome / reflective button ---- */
+.btn-chrome {
+  background: linear-gradient(135deg, #888 0%, #d8d8d8 28%, #f4f4f4 50%, #bbb 72%, #888 100%);
+  color: #0a0a08;
+  border-color: rgba(255,255,255,0.25);
+  text-shadow: none;
+}
+.btn-chrome:hover {
+  background: linear-gradient(135deg, #aaa 0%, #efefef 28%, #fff 50%, #d4d4d4 72%, #aaa 100%);
+  box-shadow: 0 14px 34px -16px rgba(200,200,200,0.55);
+  border-color: rgba(255,255,255,0.45);
+}
+
+/* Animated light-sweep shine — add to any .btn */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.38) 50%, transparent 80%);
+  pointer-events: none;
+  animation: btn-shine-sweep 2.8s ease-in-out infinite;
+}
+@keyframes btn-shine-sweep {
+  0%   { left: -120%; }
+  55%  { left: 130%; }
+  100% { left: 130%; }
+}
+
 /* ---- Card base ---- */
 .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); }
 
