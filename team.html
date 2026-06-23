@@ -188,9 +188,148 @@
 .sop-text { font-size: 0.83rem; color: var(--off-white); line-height: 1.6; padding-top: 2px; }
 .sop-text strong { color: var(--gold); }
 
+/* ============ ANIMATIONS ============ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmerGold {
+  0%   { background-position: -400% center; }
+  100% { background-position: 400% center; }
+}
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.55); }
+  50%        { box-shadow: 0 0 0 7px rgba(201,168,76,0); }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 12px 0 rgba(201,168,76,0.15); }
+  50%       { box-shadow: 0 0 28px 4px rgba(201,168,76,0.35); }
+}
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes revealBar {
+  from { width: 0%; }
+  to   { width: var(--bar-w, 100%); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes tileIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ringPop {
+  0%   { transform: scale(0.88); opacity: 0; }
+  60%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Panel entrance */
+.dash-panel.active { animation: fadeUp 0.38s cubic-bezier(.22,.68,0,1.2) forwards; }
+
+/* Login screen pop */
+.pin-card { animation: ringPop 0.4s cubic-bezier(.22,.68,0,1.2) forwards; }
+
+/* Logo float */
+.select-logo { animation: floatUp 3.5s ease-in-out infinite; }
+
+/* Gold shimmer text */
+.shimmer-text {
+  background: linear-gradient(90deg, var(--gold) 0%, #fff4b0 30%, var(--gold) 60%, #c8952a 80%, var(--gold) 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerGold 4s linear infinite;
+}
+
+/* Stat tile glow on hover */
+.stat-tile { transition: transform 0.2s, box-shadow 0.2s; }
+.stat-tile:hover { transform: translateY(-3px); box-shadow: var(--glow-gold-soft); }
+
+/* Pulse on next calendar event */
+.cal-event.next { animation: glowPulse 2.5s ease-in-out infinite; }
+
+/* Live badge pulse dot */
+.cal-badge.next-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+  animation: pulseDot 1.4s ease-in-out infinite;
+}
+
+/* Staggered card entrance */
+.anim-stagger > * { opacity: 0; animation: fadeUp 0.4s ease forwards; }
+.anim-stagger > *:nth-child(1) { animation-delay: 0.04s; }
+.anim-stagger > *:nth-child(2) { animation-delay: 0.10s; }
+.anim-stagger > *:nth-child(3) { animation-delay: 0.16s; }
+.anim-stagger > *:nth-child(4) { animation-delay: 0.22s; }
+.anim-stagger > *:nth-child(5) { animation-delay: 0.28s; }
+.anim-stagger > *:nth-child(6) { animation-delay: 0.34s; }
+.anim-stagger > *:nth-child(7) { animation-delay: 0.40s; }
+.anim-stagger > *:nth-child(8) { animation-delay: 0.46s; }
+.anim-stagger > *:nth-child(n+9) { animation-delay: 0.50s; }
+
+/* Member tile entrance */
+.member-tile { opacity: 0; animation: tileIn 0.45s cubic-bezier(.22,.68,0,1.1) forwards; }
+
+/* Progress bar */
+.progress-wrap { background: rgba(255,255,255,0.06); border-radius: 100px; height: 7px; overflow: hidden; margin-top: 0.6rem; }
+.progress-bar { height: 100%; border-radius: 100px; background: linear-gradient(90deg, #a0782a, var(--gold), #ffe680); animation: revealBar 1.4s cubic-bezier(.4,0,.2,1) forwards; animation-delay: 0.3s; width: 0%; }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, var(--gold) 10%, rgba(201,168,76,0.3) 90%, transparent); }
+.timeline-item { position: relative; padding-bottom: 2rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot { position: absolute; left: -1.9rem; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); border: 3px solid var(--black); box-shadow: 0 0 0 2px var(--gold); }
+.timeline-dot.future { background: var(--border-strong); box-shadow: 0 0 0 2px var(--border-strong); }
+.timeline-date { font-family: var(--font-label); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+.timeline-title { font-size: 0.9rem; color: var(--off-white); font-weight: 600; margin-bottom: 0.2rem; }
+.timeline-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+/* Win cards */
+.win-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.win-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+.win-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%); pointer-events: none; }
+.win-card:hover { border-color: var(--gold); box-shadow: var(--glow-gold-soft); transform: translateY(-2px); }
+.win-trophy { font-size: 1.5rem; margin-bottom: 0.6rem; display: block; }
+.win-member { font-family: var(--font-label); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+.win-title { font-size: 0.88rem; color: var(--off-white); font-weight: 600; margin-bottom: 0.35rem; line-height: 1.4; }
+.win-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+/* Badge grid */
+.badge-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+.badge { display: flex; align-items: center; gap: 0.5rem; padding: 10px 16px; background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 100px; font-family: var(--font-label); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); transition: background 0.2s, transform 0.15s; }
+.badge:hover { background: rgba(201,168,76,0.14); transform: scale(1.03); }
+.badge-icon { font-size: 1rem; }
+
+/* Wins hero */
+.wins-hero { text-align: center; padding: 2.5rem 1rem 2rem; margin-bottom: 2rem; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%); border-bottom: 1px solid var(--hairline); }
+.wins-hero h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.wins-hero p { font-size: 0.88rem; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+/* Community stats (wins tab) */
+.win-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+.win-stat { text-align: center; padding: 1.5rem 1rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; position: relative; overflow: hidden; }
+.win-stat::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(201,168,76,0.07), transparent 70%); pointer-events: none; }
+.win-stat-val { font-family: var(--font-display); font-size: 2.4rem; letter-spacing: 0.04em; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; display: block; }
+.win-stat-label { font-family: var(--font-label); font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
 @media (max-width: 640px) {
   .goals-grid, .plan-grid { grid-template-columns: 1fr; }
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .stats-row, .win-stats { grid-template-columns: repeat(2, 1fr); }
   .cal-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
@@ -199,7 +338,6 @@
   .dash-hero { gap: 1rem; }
   .portal-nav { padding: 0 1.25rem; }
   .portal-welcome { display: none; }
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
@@ -213,7 +351,7 @@
     <div class="select-eyebrow">King Maker Society</div>
     <div class="select-title">Team Portal</div>
     <p class="select-sub">Select your name to continue.</p>
-    <div class="member-grid" id="member-grid"></div>
+    <div class="member-grid anim-stagger" id="member-grid"></div>
   </div>
 </div>
 
@@ -280,6 +418,7 @@
       <button class="dash-tab" onclick="dashTab('calendar', this)">Calendar</button>
       <button class="dash-tab" onclick="dashTab('teamplans', this)">Team Plans</button>
       <button class="dash-tab" onclick="dashTab('resources', this)">Resources</button>
+      <button class="dash-tab" onclick="dashTab('wins', this)">&#127942; Wins</button>
       <button class="dash-tab" onclick="dashTab('coming', this)">Coming Soon</button>
     </div>
 
@@ -287,7 +426,7 @@
     <div class="dash-panel active" id="panel-overview">
 
       <!-- Stats -->
-      <div class="stats-row">
+      <div class="stats-row anim-stagger">
         <div class="stat-tile">
           <div class="stat-value">$30</div>
           <div class="stat-label">Basic / Month</div>
@@ -301,7 +440,7 @@
           <div class="stat-label">Live Sessions / Week</div>
         </div>
         <div class="stat-tile">
-          <div class="stat-value">200</div>
+          <div class="stat-value shimmer-text">200</div>
           <div class="stat-label">Q3 Member Goal</div>
         </div>
       </div>
@@ -753,6 +892,200 @@ Members get access. Link in bio to join King Maker Society.
           <li class="sop-step"><span class="sop-num">10</span><span class="sop-text"><strong>Update the tracking sheet.</strong> Mark as Joined. Note what worked. Use their story as future social proof content.</span></li>
         </ol>
       </div>
+    </div>
+
+    <!-- ==================== WINS & LEGACY ==================== -->
+    <div class="dash-panel" id="panel-wins">
+
+      <div class="wins-hero">
+        <h2 class="shimmer-text">The King Maker Legacy</h2>
+        <p>Every session hosted, every member who showed up, every win inside this brotherhood — it all counts. This is what we have built and where we are going.</p>
+      </div>
+
+      <!-- Community Stats (animated counters) -->
+      <div class="win-stats anim-stagger" id="win-stats-row">
+        <div class="win-stat">
+          <span class="win-stat-val counter" data-target="8">0</span>
+          <span class="win-stat-label">Team Members</span>
+        </div>
+        <div class="win-stat">
+          <span class="win-stat-val counter" data-target="6">0</span>
+          <span class="win-stat-label">SOPs Written</span>
+        </div>
+        <div class="win-stat">
+          <span class="win-stat-val counter" data-target="2">0</span>
+          <span class="win-stat-label">Sessions / Week</span>
+        </div>
+        <div class="win-stat">
+          <span class="win-stat-val counter" data-target="200" data-suffix="+">0</span>
+          <span class="win-stat-label">Q3 Member Target</span>
+        </div>
+      </div>
+
+      <!-- Milestone Timeline -->
+      <div class="divider-label" style="margin-top:0">&#128197; KMS Timeline</div>
+      <div class="goals-card" style="margin-bottom:2rem;">
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Founded · 2025</div>
+            <div class="timeline-title">King Maker Society Is Born</div>
+            <div class="timeline-desc">Jordan Ali launches King Maker Society — an online brotherhood for martial artists who are serious about building something. The idea: surround yourself with people who are actually moving.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Early 2026</div>
+            <div class="timeline-title">First Live Session Hosted</div>
+            <div class="timeline-desc">The first Tuesday and Saturday live session format is established. Real conversations, real martial artists, real value. The brotherhood format is locked in.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Spring 2026</div>
+            <div class="timeline-title">King's Media Launches</div>
+            <div class="timeline-desc">@kingsmediamma is officially established as the media branch of King Maker Society. MMA content, fighter spotlights, and combat sports media start posting under the KMS brand.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">June 2026</div>
+            <div class="timeline-title">8-Person Team Assembled</div>
+            <div class="timeline-desc">Jordan, Ryan, Willie, Aaron, Ty, Georgios, Manu, and Mohammed come together as the core King Maker Society team. Every role is filled. The operation has real structure behind it.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">June 2026</div>
+            <div class="timeline-title">kingmakersociety.org Goes Live</div>
+            <div class="timeline-desc">The official website launches at kingmakersociety.org with the full brand — brotherhood, mentors, King's Media, and the team portal. The brand now has a real home.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">June 2026</div>
+            <div class="timeline-title">Team Portal Built</div>
+            <div class="timeline-desc">The internal team hub launches — individual dashboards, personal goals, game plans, resources, scripts, and full SOPs. The operation is now organized and scalable.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">6 SOPs Written</div>
+            <div class="timeline-title">Sales System Is Documented</div>
+            <div class="timeline-desc">SOP 01 through 06 are written and live — covering Instagram lead DMs, questionnaire follow-ups, pain point selling, payment link follow-up, lead tracking, and objection handling.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot future"></div>
+            <div class="timeline-date">August 2026 · Target</div>
+            <div class="timeline-title">KMS Podcast Launches</div>
+            <div class="timeline-desc">The King Maker Society Podcast officially launches. Fight IQ, discipline, personal brand, brotherhood — real conversations from real martial artists.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot future"></div>
+            <div class="timeline-date">Q3 2026 · Target</div>
+            <div class="timeline-title">200 Active Members</div>
+            <div class="timeline-desc">Every session, every DM, every follow-up is building toward this. 200 active martial artists inside the King Maker Society brotherhood by September 30.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Member Progress -->
+      <div class="divider-label">&#128200; Q3 Progress Tracker</div>
+      <div class="goals-card" style="margin-bottom:2rem;">
+        <h3>&#128293; Building Toward 200 Members</h3>
+        <div style="margin-top:0.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+            <span style="font-size:0.82rem;color:var(--off-white);">Active Members</span>
+            <span style="font-family:var(--font-label);font-size:0.7rem;color:var(--gold);">Update weekly</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-bar" style="--bar-w:15%"></div></div>
+        </div>
+        <div style="margin-top:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+            <span style="font-size:0.82rem;color:var(--off-white);">King's Media Contributors</span>
+            <span style="font-family:var(--font-label);font-size:0.7rem;color:var(--gold);">Target: 10</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-bar" style="--bar-w:30%"></div></div>
+        </div>
+        <div style="margin-top:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+            <span style="font-size:0.82rem;color:var(--off-white);">SOPs Documented</span>
+            <span style="font-family:var(--font-label);font-size:0.7rem;color:var(--gold);">6 / 16 Priority SOPs</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-bar" style="--bar-w:38%"></div></div>
+        </div>
+        <div style="margin-top:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+            <span style="font-size:0.82rem;color:var(--off-white);">Team Assembled</span>
+            <span style="font-family:var(--font-label);font-size:0.7rem;color:var(--gold);">8 / 8 Core Roles</span>
+          </div>
+          <div class="progress-wrap"><div class="progress-bar" style="--bar-w:100%"></div></div>
+        </div>
+      </div>
+
+      <!-- Wall of Wins -->
+      <div class="divider-label">&#127942; Wall of Wins · Community</div>
+      <div class="win-grid anim-stagger" id="wall-of-wins">
+        <div class="win-card">
+          <span class="win-trophy">&#127941;</span>
+          <div class="win-member">Community Win</div>
+          <div class="win-title">First Paying Members Locked In</div>
+          <div class="win-desc">Brothers stepped in before the systems were built. They believed in the vision early. That is the foundation this empire is built on.</div>
+        </div>
+        <div class="win-card">
+          <span class="win-trophy">&#128293;</span>
+          <div class="win-member">Operations Win</div>
+          <div class="win-title">6 SOPs Built From Scratch</div>
+          <div class="win-desc">The entire sales process is now documented and trainable. Any new team member can pick up the playbook and run. That is a serious business move.</div>
+        </div>
+        <div class="win-card">
+          <span class="win-trophy">&#127758;</span>
+          <div class="win-member">Brand Win</div>
+          <div class="win-title">Custom Domain Live</div>
+          <div class="win-desc">kingmakersociety.org is live. The brand has a real website, a real presence, and a real team behind it. Not just an Instagram page anymore.</div>
+        </div>
+        <div class="win-card">
+          <span class="win-trophy">&#127909;</span>
+          <div class="win-member">Media Win</div>
+          <div class="win-title">King's Media Branch Established</div>
+          <div class="win-desc">@kingsmediamma is live and posting. The media arm is building. Content is the engine — this is how the world finds King Maker Society.</div>
+        </div>
+        <div class="win-card">
+          <span class="win-trophy">&#128101;</span>
+          <div class="win-member">Team Win</div>
+          <div class="win-title">8-Person Team Assembled</div>
+          <div class="win-desc">CEO, co-founder, mentor lead, content leads, fighter rep, global outreach, short-form lead. Every lane covered. That is a real organization.</div>
+        </div>
+        <div class="win-card" style="border:1px dashed rgba(201,168,76,0.3);background:rgba(201,168,76,0.02);">
+          <span class="win-trophy">&#11088;</span>
+          <div class="win-member" style="color:var(--muted);">Member Win · Add Yours</div>
+          <div class="win-title" style="color:var(--muted);">Your Win Goes Here</div>
+          <div class="win-desc">Drop a member win in the team chat and Jordan will add it to the wall. Every victory inside this brotherhood deserves to be remembered.</div>
+        </div>
+      </div>
+
+      <!-- Achievement Badges -->
+      <div class="divider-label">&#127775; Achievements Unlocked</div>
+      <div class="badge-grid">
+        <div class="badge"><span class="badge-icon">&#127758;</span> Website Live</div>
+        <div class="badge"><span class="badge-icon">&#128101;</span> Team Of 8</div>
+        <div class="badge"><span class="badge-icon">&#127909;</span> King's Media Launch</div>
+        <div class="badge"><span class="badge-icon">&#128196;</span> 6 SOPs Written</div>
+        <div class="badge"><span class="badge-icon">&#128197;</span> Bi-Weekly Sessions</div>
+        <div class="badge"><span class="badge-icon">&#128176;</span> Sales System Built</div>
+        <div class="badge"><span class="badge-icon">&#128203;</span> Lead Forms Live</div>
+        <div class="badge"><span class="badge-icon">&#128279;</span> Team Portal Built</div>
+        <div class="badge" style="opacity:0.35;filter:grayscale(1)"><span class="badge-icon">&#127911;</span> Podcast Launch</div>
+        <div class="badge" style="opacity:0.35;filter:grayscale(1)"><span class="badge-icon">&#127942;</span> 100 Members</div>
+        <div class="badge" style="opacity:0.35;filter:grayscale(1)"><span class="badge-icon">&#128293;</span> 200 Members</div>
+        <div class="badge" style="opacity:0.35;filter:grayscale(1)"><span class="badge-icon">&#129309;</span> First Brand Deal</div>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:0.5rem;">Greyed out badges are locked. Every one unlocks as King Maker Society grows.</p>
+
     </div>
 
     <!-- ==================== COMING SOON ==================== -->
@@ -1445,13 +1778,51 @@ function toggleGoal(el, key) {
 }
 
 // ============================================================
-//  TABS
+//  TABS — with re-trigger animation on panel switch
 // ============================================================
 function dashTab(name, btn) {
-  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.dash-panel').forEach(p => {
+    p.classList.remove('active');
+    // Force reflow so animation replays on next activation
+    p.style.animation = 'none';
+  });
   document.querySelectorAll('.dash-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.add('active');
+  const panel = document.getElementById('panel-' + name);
+  void panel.offsetWidth; // reflow
+  panel.style.animation = '';
+  panel.classList.add('active');
   btn.classList.add('active');
+  // Re-trigger stagger children
+  panel.querySelectorAll('.anim-stagger > *').forEach(el => {
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = '';
+  });
+  // Run counters when wins tab opens
+  if (name === 'wins') runCounters();
+}
+
+// ============================================================
+//  COUNTER ANIMATION
+// ============================================================
+function runCounters() {
+  document.querySelectorAll('.counter').forEach(el => {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    el.textContent = '0';
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
 }
 
 // ============================================================
