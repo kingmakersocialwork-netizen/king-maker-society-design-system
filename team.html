@@ -12,76 +12,30 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="landing.css">
 <style>
-/* ============ BASE PORTAL STYLES ============ */
+/* ============ BASE ============ */
 .screen { display: none; min-height: 100vh; }
 .screen.active { display: flex; flex-direction: column; }
 
-/* ---- Member Select Screen ---- */
-#screen-select {
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: var(--black);
-}
+/* ---- Member Select ---- */
+#screen-select { align-items: center; justify-content: center; padding: 2rem; background: var(--black); }
 .select-wrap { width: 100%; max-width: 720px; text-align: center; }
 .select-logo { width: 56px; height: 56px; object-fit: contain; margin: 0 auto 1.1rem; filter: drop-shadow(0 0 14px rgba(201,168,76,0.3)); }
 .select-eyebrow { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
 .select-title { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.04em; color: var(--off-white); margin-bottom: 0.4rem; }
 .select-sub { font-size: 0.84rem; color: var(--muted); margin-bottom: 2.25rem; }
 .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-.member-tile {
-  background: var(--charcoal);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.25rem 0.75rem 1rem;
-  cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-}
+.member-tile { background: var(--charcoal); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 0.75rem 1rem; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
 .member-tile:hover { border-color: var(--gold); box-shadow: var(--glow-gold-soft); transform: translateY(-2px); }
-.member-tile.selected { border-color: var(--gold); box-shadow: var(--glow-gold-soft); }
-.member-avatar {
-  width: 62px; height: 62px; border-radius: 50%;
-  object-fit: cover; object-position: center top;
-  border: 2px solid var(--border-strong);
-}
-.member-avatar-fallback {
-  width: 62px; height: 62px; border-radius: 50%;
-  background: rgba(201,168,76,0.12);
-  border: 2px solid var(--border-strong);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 1.3rem; color: var(--gold);
-}
+.member-avatar { width: 62px; height: 62px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid var(--border-strong); }
+.member-avatar-fallback { width: 62px; height: 62px; border-radius: 50%; background: rgba(201,168,76,0.12); border: 2px solid var(--border-strong); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.3rem; color: var(--gold); }
 .member-tile-name { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--off-white); text-align: center; line-height: 1.3; }
 .member-tile-role { font-size: 0.7rem; color: var(--muted); text-align: center; }
 
 /* ---- PIN Screen ---- */
-#screen-pin {
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: var(--black);
-}
-.pin-card {
-  background: var(--charcoal);
-  border: 1px solid var(--border-strong);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  width: 100%; max-width: 340px;
-  text-align: center;
-  box-shadow: 0 32px 80px -24px rgba(0,0,0,0.8), var(--glow-gold-soft);
-}
+#screen-pin { align-items: center; justify-content: center; padding: 2rem; background: var(--black); }
+.pin-card { background: var(--charcoal); border: 1px solid var(--border-strong); border-radius: 16px; padding: 2.5rem 2rem; width: 100%; max-width: 340px; text-align: center; box-shadow: 0 32px 80px -24px rgba(0,0,0,0.8), var(--glow-gold-soft); }
 .pin-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid var(--gold); margin: 0 auto 0.8rem; display: block; }
-.pin-avatar-fallback {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: rgba(201,168,76,0.12); border: 2px solid var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 1.6rem; color: var(--gold);
-  margin: 0 auto 0.8rem;
-}
+.pin-avatar-fallback { width: 72px; height: 72px; border-radius: 50%; background: rgba(201,168,76,0.12); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.6rem; color: var(--gold); margin: 0 auto 0.8rem; }
 .pin-name { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.04em; color: var(--off-white); margin-bottom: 0.2rem; }
 .pin-role { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.75rem; }
 .pin-dots { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; }
@@ -89,19 +43,7 @@
 .pin-dot.filled { background: var(--gold); border-color: var(--gold); }
 .pin-dot.error { background: var(--red); border-color: var(--red); }
 .pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 0.75rem; }
-.pin-key {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  color: var(--off-white);
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  letter-spacing: 0.04em;
-  padding: 0.85rem 0;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-  user-select: none;
-}
+.pin-key { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; color: var(--off-white); font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.04em; padding: 0.85rem 0; cursor: pointer; transition: background 0.15s, border-color 0.15s; user-select: none; }
 .pin-key:hover { background: rgba(201,168,76,0.12); border-color: var(--border-strong); }
 .pin-key:active { background: rgba(201,168,76,0.22); }
 .pin-key.del { font-size: 1rem; color: var(--muted); }
@@ -112,14 +54,7 @@
 /* ---- Portal / Dashboard ---- */
 #screen-portal { background: var(--black); min-height: 100vh; display: none; flex-direction: column; }
 #screen-portal.active { display: flex; }
-
-.portal-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(10,10,8,0.96); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 2rem;
-  display: flex; align-items: center; justify-content: space-between; height: 62px;
-}
+.portal-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,8,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 62px; }
 .portal-nav-left { display: flex; align-items: center; gap: 0.75rem; }
 .portal-nav-left img { width: 30px; height: 30px; object-fit: contain; }
 .portal-nav-left span { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
@@ -129,35 +64,27 @@
 .portal-logout { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
 .portal-logout:hover { color: var(--off-white); border-color: var(--border-strong); }
 
-/* Dashboard content */
-.dash-body { flex: 1; padding: 2.5rem 2rem 4rem; max-width: 960px; margin: 0 auto; width: 100%; }
-
-.dash-hero { margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1.5rem; }
+/* Dashboard */
+.dash-body { flex: 1; padding: 2.5rem 2rem 4rem; max-width: 1040px; margin: 0 auto; width: 100%; }
+.dash-hero { margin-bottom: 2rem; display: flex; align-items: center; gap: 1.5rem; }
 .dash-hero-avatar { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid var(--gold); flex-shrink: 0; }
 .dash-hero-avatar-fb { width: 76px; height: 76px; border-radius: 50%; background: rgba(201,168,76,0.12); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.8rem; color: var(--gold); flex-shrink: 0; }
 .dash-hero-text h1 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.4rem); letter-spacing: 0.04em; color: var(--off-white); margin-bottom: 0.15rem; }
-.dash-hero-text .dash-role { font-size: 0.82rem; color: var(--gold); font-family: var(--font-label); letter-spacing: 0.15em; text-transform: uppercase; }
+.dash-role { font-size: 0.82rem; color: var(--gold); font-family: var(--font-label); letter-spacing: 0.15em; text-transform: uppercase; }
 
 /* Tabs */
-.dash-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; overflow-x: auto; }
-.dash-tab { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; padding: 0.85rem 1.25rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; white-space: nowrap; margin-bottom: -1px; }
+.dash-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; overflow-x: auto; scrollbar-width: none; }
+.dash-tabs::-webkit-scrollbar { display: none; }
+.dash-tab { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; padding: 0.85rem 1.1rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; white-space: nowrap; margin-bottom: -1px; flex-shrink: 0; }
 .dash-tab:hover { color: var(--off-white); }
 .dash-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-
 .dash-panel { display: none; }
 .dash-panel.active { display: block; }
 
-/* Goals */
-.goals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
-@media (max-width: 640px) { .goals-grid { grid-template-columns: 1fr; } }
-
-.goals-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-}
+/* Cards & Goals */
+.goals-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
 .goals-card h3 { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.goals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
 .goal-item { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.6rem 0; border-bottom: 1px solid var(--hairline); }
 .goal-item:last-child { border-bottom: none; }
 .goal-check { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--border-strong); background: transparent; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, border-color 0.15s; }
@@ -165,22 +92,19 @@
 .goal-check.done::after { content: '✓'; font-size: 0.65rem; color: var(--gold); }
 .goal-text { font-size: 0.83rem; color: var(--off-white); line-height: 1.55; }
 .goal-text.done { color: var(--muted); text-decoration: line-through; }
-
-/* Team Goals */
 .team-goal-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid var(--hairline); }
 .team-goal-item:last-child { border-bottom: none; }
 .tg-num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(201,168,76,0.1); border: 1px solid var(--border-strong); color: var(--gold); font-family: var(--font-label); font-size: 0.68rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .tg-text { font-size: 0.84rem; color: var(--off-white); line-height: 1.6; padding-top: 2px; }
 .tg-text strong { color: var(--gold); }
 
-/* Resources (reuse from original) */
-.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.1rem; margin-bottom: 2rem; }
+/* Resources */
+.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.1rem; margin-bottom: 1.5rem; }
 .resource-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; transition: border-color 0.2s, box-shadow 0.2s; }
 .resource-card:hover { border-color: var(--border-strong); box-shadow: var(--glow-gold-soft); }
 .resource-card-icon { font-size: 1.4rem; margin-bottom: 0.65rem; display: block; }
 .resource-card h3 { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
 .resource-card p { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.9rem; line-height: 1.55; }
-
 .script-toggle { width: 100%; text-align: left; background: rgba(201,168,76,0.08); border: 1px solid var(--border-strong); border-radius: 8px; padding: 9px 13px; color: var(--gold); font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; display: flex; justify-content: space-between; align-items: center; }
 .script-toggle:hover { background: rgba(201,168,76,0.14); }
 .script-toggle .arr { transition: transform 0.2s; }
@@ -192,6 +116,71 @@
 .copy-btn:hover { color: var(--gold); border-color: var(--gold); }
 .copy-btn.copied { color: #4caf50; border-color: #4caf50; }
 
+/* Links */
+.divider-label { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--hairline); padding-bottom: 0.5rem; margin: 2rem 0 1.25rem; }
+.divider-label:first-child { margin-top: 0; }
+.quick-links { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 1.5rem; }
+.quick-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 9px 16px; background: rgba(201,168,76,0.07); border: 1px solid var(--border-strong); border-radius: 8px; color: var(--gold); font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
+.quick-link:hover { background: rgba(201,168,76,0.15); }
+.quick-link.placeholder { opacity: 0.45; cursor: default; pointer-events: none; }
+
+/* Stats row */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.stat-tile { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1rem; text-align: center; }
+.stat-value { font-family: var(--font-display); font-size: 1.9rem; letter-spacing: 0.04em; color: var(--gold); line-height: 1; margin-bottom: 0.35rem; }
+.stat-label { font-family: var(--font-label); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+/* Calendar */
+.cal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.8rem; margin-bottom: 2rem; }
+.cal-event { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; display: flex; gap: 0.85rem; align-items: flex-start; transition: border-color 0.2s; }
+.cal-event:hover { border-color: var(--border-strong); }
+.cal-event.next { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+.cal-date { flex-shrink: 0; text-align: center; }
+.cal-day { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.04em; color: var(--gold); line-height: 1; }
+.cal-month { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.cal-info { flex: 1; }
+.cal-title { font-size: 0.82rem; color: var(--off-white); font-weight: 600; margin-bottom: 0.2rem; }
+.cal-time { font-size: 0.75rem; color: var(--muted); }
+.cal-badge { display: inline-block; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; margin-top: 0.3rem; }
+.cal-badge.live { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+.cal-badge.special { background: rgba(192,52,26,0.15); color: #e06050; border: 1px solid rgba(192,52,26,0.3); }
+.cal-badge.next-badge { background: rgba(201,168,76,0.25); color: var(--gold); border: 1px solid var(--gold); }
+
+/* Plan */
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.plan-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+.plan-card h3 { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.plan-item { font-size: 0.83rem; color: var(--off-white); padding: 0.55rem 0; border-bottom: 1px solid var(--hairline); display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5; }
+.plan-item:last-child { border-bottom: none; }
+.plan-item::before { content: '›'; color: var(--gold); flex-shrink: 0; font-size: 0.9rem; margin-top: 1px; }
+.kpi-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--hairline); }
+.kpi-row:last-child { border-bottom: none; }
+.kpi-label { font-size: 0.8rem; color: var(--off-white); }
+.kpi-val { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--gold); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); padding: 2px 9px; border-radius: 20px; }
+
+/* Team Plans */
+.phase-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.2rem; }
+.phase-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.phase-badge { font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; flex-shrink: 0; }
+.phase-badge.active { background: rgba(201,168,76,0.2); color: var(--gold); border: 1px solid rgba(201,168,76,0.4); }
+.phase-badge.upcoming { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+.phase-badge.future { background: rgba(255,255,255,0.03); color: var(--muted); border: 1px solid var(--hairline); opacity: 0.6; }
+.phase-title { font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.04em; color: var(--off-white); }
+.phase-date { font-size: 0.75rem; color: var(--muted); margin-left: auto; }
+
+/* Coming Soon */
+.coming-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.1rem; margin-bottom: 2rem; }
+.coming-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
+.coming-card:hover { border-color: var(--border-strong); box-shadow: var(--glow-gold-soft); }
+.coming-icon { font-size: 1.6rem; margin-bottom: 0.75rem; display: block; }
+.coming-card h3 { font-size: 0.92rem; color: var(--off-white); font-weight: 600; margin-bottom: 0.4rem; }
+.coming-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+.coming-status { display: inline-block; font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+.coming-status.in-progress { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.35); }
+.coming-status.coming-soon { background: rgba(100,180,255,0.1); color: #7bc0f0; border: 1px solid rgba(100,180,255,0.2); }
+.coming-status.planning { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+
+/* SOP steps */
 .sop-steps { list-style: none; margin: 0; padding: 0; }
 .sop-step { display: flex; gap: 0.9rem; padding: 0.8rem 0; border-bottom: 1px solid var(--hairline); }
 .sop-step:last-child { border-bottom: none; }
@@ -199,26 +188,25 @@
 .sop-text { font-size: 0.83rem; color: var(--off-white); line-height: 1.6; padding-top: 2px; }
 .sop-text strong { color: var(--gold); }
 
-.divider-label { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--hairline); padding-bottom: 0.5rem; margin: 2rem 0 1.25rem; }
-.quick-links { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2rem; }
-.quick-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 9px 16px; background: rgba(201,168,76,0.07); border: 1px solid var(--border-strong); border-radius: 8px; color: var(--gold); font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
-.quick-link:hover { background: rgba(201,168,76,0.15); }
-
+@media (max-width: 640px) {
+  .goals-grid, .plan-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .cal-grid { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 600px) {
   .dash-body { padding: 1.5rem 1.25rem 3rem; }
   .member-grid { grid-template-columns: repeat(3, 1fr); }
   .dash-hero { gap: 1rem; }
   .portal-nav { padding: 0 1.25rem; }
   .portal-welcome { display: none; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
 <body>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-<!-- ===========================
-     SCREEN 1: MEMBER SELECT
-     =========================== -->
+<!-- ===== SCREEN 1: MEMBER SELECT ===== -->
 <div class="screen active" id="screen-select">
   <div class="select-wrap">
     <img src="assets/logo.png" alt="KMS" class="select-logo" onerror="this.style.display='none'">
@@ -229,9 +217,7 @@
   </div>
 </div>
 
-<!-- ===========================
-     SCREEN 2: PIN ENTRY
-     =========================== -->
+<!-- ===== SCREEN 2: PIN ENTRY ===== -->
 <div class="screen" id="screen-pin">
   <div class="pin-card">
     <div id="pin-avatar-wrap"></div>
@@ -261,9 +247,7 @@
   </div>
 </div>
 
-<!-- ===========================
-     SCREEN 3: PORTAL / DASHBOARD
-     =========================== -->
+<!-- ===== SCREEN 3: PORTAL ===== -->
 <div class="screen" id="screen-portal">
 
   <nav class="portal-nav">
@@ -290,14 +274,78 @@
 
     <!-- Tabs -->
     <div class="dash-tabs">
-      <button class="dash-tab active" onclick="dashTab('goals', this)">My Goals</button>
-      <button class="dash-tab" onclick="dashTab('team', this)">Team Goals</button>
+      <button class="dash-tab active" onclick="dashTab('overview', this)">Overview</button>
+      <button class="dash-tab" onclick="dashTab('goals', this)">My Goals</button>
+      <button class="dash-tab" onclick="dashTab('plan', this)">My Plan</button>
+      <button class="dash-tab" onclick="dashTab('calendar', this)">Calendar</button>
+      <button class="dash-tab" onclick="dashTab('teamplans', this)">Team Plans</button>
       <button class="dash-tab" onclick="dashTab('resources', this)">Resources</button>
-      <button class="dash-tab" onclick="dashTab('info', this)">Team Info</button>
+      <button class="dash-tab" onclick="dashTab('coming', this)">Coming Soon</button>
     </div>
 
-    <!-- ---- Tab: My Goals ---- -->
-    <div class="dash-panel active" id="panel-goals">
+    <!-- ==================== OVERVIEW ==================== -->
+    <div class="dash-panel active" id="panel-overview">
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-tile">
+          <div class="stat-value">$30</div>
+          <div class="stat-label">Basic / Month</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-value">$100</div>
+          <div class="stat-label">VIP / Month</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-value">2x</div>
+          <div class="stat-label">Live Sessions / Week</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-value">200</div>
+          <div class="stat-label">Q3 Member Goal</div>
+        </div>
+      </div>
+
+      <!-- Current Priorities -->
+      <div class="goals-card">
+        <h3>&#128293; Current Priorities · Q3 2026</h3>
+        <div class="team-goal-item"><span class="tg-num">1</span><span class="tg-text"><strong>Hit 200 active members by end of Q3.</strong> Every DM, every follow-up, every session matters. This is the number we are all working toward.</span></div>
+        <div class="team-goal-item"><span class="tg-num">2</span><span class="tg-text"><strong>Never miss a session.</strong> Tuesdays and Saturdays at 2PM CST. Team members need to be present, engaged, and helping run the energy.</span></div>
+        <div class="team-goal-item"><span class="tg-num">3</span><span class="tg-text"><strong>King's Media to 10 active contributors.</strong> Find creators, onboard them, get them posting under the KMS umbrella.</span></div>
+        <div class="team-goal-item"><span class="tg-num">4</span><span class="tg-text"><strong>Lock in 2 brand deals or sponsors</strong> this quarter. Use member results and content reach as the pitch.</span></div>
+        <div class="team-goal-item"><span class="tg-num">5</span><span class="tg-text"><strong>Post minimum 4x per week</strong> combined across @kingmakersocial and @kingsmediamma. Consistency builds the audience.</span></div>
+      </div>
+
+      <!-- All Links -->
+      <div class="divider-label">Social</div>
+      <div class="quick-links">
+        <a class="quick-link" href="https://www.instagram.com/kingmakersocial/" target="_blank">&#128247; @kingmakersocial</a>
+        <a class="quick-link" href="https://www.instagram.com/kingsmediamma/" target="_blank">&#127909; @kingsmediamma</a>
+        <a class="quick-link placeholder">&#9654; YouTube (Coming Soon)</a>
+        <a class="quick-link placeholder">&#127381; TikTok (Coming Soon)</a>
+      </div>
+
+      <div class="divider-label">Sales & Onboarding</div>
+      <div class="quick-links">
+        <a class="quick-link" href="https://calendly.com/jordanaliwork/30min" target="_blank">&#128197; Book A Call</a>
+        <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank">&#128203; Member Questionnaire</a>
+        <a class="quick-link placeholder">&#128176; Basic Payment Link</a>
+        <a class="quick-link placeholder">&#11088; VIP Payment Link</a>
+        <a class="quick-link placeholder">&#128293; Elite Payment Link</a>
+      </div>
+
+      <div class="divider-label">Content & Community</div>
+      <div class="quick-links">
+        <a class="quick-link" href="https://kingmakersocialwork-netizen.github.io/kings-media-portal/" target="_blank">&#128279; Content Portal</a>
+        <a class="quick-link" href="https://kingmakersociety.org" target="_blank">&#127758; kingmakersociety.org</a>
+        <a class="quick-link placeholder">&#128250; Zoom Session Link</a>
+        <a class="quick-link placeholder">&#129309; Community Platform</a>
+        <a class="quick-link placeholder">&#128193; Team Drive</a>
+      </div>
+    </div>
+
+    <!-- ==================== MY GOALS ==================== -->
+    <div class="dash-panel" id="panel-goals">
       <div class="goals-grid">
         <div class="goals-card">
           <h3>&#127919; This Week</h3>
@@ -310,30 +358,140 @@
       </div>
     </div>
 
-    <!-- ---- Tab: Team Goals ---- -->
-    <div class="dash-panel" id="panel-team">
-      <div class="goals-card" style="margin-bottom:1.5rem;">
-        <h3>&#128293; King Maker Society · Team Goals</h3>
-        <div>
-          <div class="team-goal-item"><span class="tg-num">1</span><span class="tg-text"><strong>Grow the membership to 200 active members</strong> by end of Q3 2026. Every conversation counts.</span></div>
-          <div class="team-goal-item"><span class="tg-num">2</span><span class="tg-text"><strong>Post consistent content</strong> across @kingmakersocial and @kingsmediamma — minimum 4x per week combined.</span></div>
-          <div class="team-goal-item"><span class="tg-num">3</span><span class="tg-text"><strong>Run live sessions every Tuesday and Saturday at 2PM CST</strong> without missing a week. Attendance and energy must stay high.</span></div>
-          <div class="team-goal-item"><span class="tg-num">4</span><span class="tg-text"><strong>Build King's Media to 10 active content contributors</strong> who are posting consistently under the KMS brand.</span></div>
-          <div class="team-goal-item"><span class="tg-num">5</span><span class="tg-text"><strong>Secure at least 2 brand partnerships or sponsors</strong> for King Maker Society members this quarter.</span></div>
-          <div class="team-goal-item"><span class="tg-num">6</span><span class="tg-text"><strong>Every team member</strong> should be accountable, active in the group chat, and showing up for the community every single week.</span></div>
+    <!-- ==================== MY PLAN ==================== -->
+    <div class="dash-panel" id="panel-plan">
+      <div id="plan-content"></div>
+    </div>
+
+    <!-- ==================== CALENDAR ==================== -->
+    <div class="dash-panel" id="panel-calendar">
+      <div class="goals-card" style="margin-bottom:2rem;">
+        <h3>&#128197; Recurring Schedule</h3>
+        <div class="team-goal-item"><span class="tg-num">T</span><span class="tg-text"><strong>Every Tuesday · 2PM CST</strong> — Live Master Class via Zoom. All team attends. High energy required.</span></div>
+        <div class="team-goal-item"><span class="tg-num">S</span><span class="tg-text"><strong>Every Saturday · 2PM CST</strong> — Live Master Class via Zoom. Weekend energy. Show up strong.</span></div>
+        <div class="team-goal-item"><span class="tg-num">M</span><span class="tg-text"><strong>Every Monday</strong> — Team accountability check-in. Weekly goals set. Everyone posts their focus for the week.</span></div>
+        <div class="team-goal-item"><span class="tg-num">F</span><span class="tg-text"><strong>Every Friday</strong> — Weekly wins post in the group chat. Celebrate progress. Share results.</span></div>
+      </div>
+      <div class="divider-label">Upcoming Sessions</div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="divider-label">Special Events</div>
+      <div class="cal-grid">
+        <div class="cal-event">
+          <div class="cal-date"><div class="cal-day">1</div><div class="cal-month">Aug</div></div>
+          <div class="cal-info"><div class="cal-title">Q3 Mid-Point Check-In</div><div class="cal-time">Team Strategy Session</div><span class="cal-badge special">Team</span></div>
+        </div>
+        <div class="cal-event">
+          <div class="cal-date"><div class="cal-day">15</div><div class="cal-month">Aug</div></div>
+          <div class="cal-info"><div class="cal-title">Podcast Launch Target</div><div class="cal-time">King Maker Society Podcast</div><span class="cal-badge special">Launch</span></div>
+        </div>
+        <div class="cal-event">
+          <div class="cal-date"><div class="cal-day">1</div><div class="cal-month">Sep</div></div>
+          <div class="cal-info"><div class="cal-title">Q3 Final Push Begins</div><div class="cal-time">200 Member Sprint</div><span class="cal-badge special">Milestone</span></div>
+        </div>
+        <div class="cal-event">
+          <div class="cal-date"><div class="cal-day">30</div><div class="cal-month">Sep</div></div>
+          <div class="cal-info"><div class="cal-title">Q3 Target Deadline</div><div class="cal-time">200 Members · 2 Sponsors</div><span class="cal-badge special">Deadline</span></div>
         </div>
       </div>
     </div>
 
-    <!-- ---- Tab: Resources ---- -->
+    <!-- ==================== TEAM PLANS ==================== -->
+    <div class="dash-panel" id="panel-teamplans">
+
+      <div class="divider-label" style="margin-top:0">Q3 2026 Roadmap · Jun – Sep</div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-badge active">Active Now</span>
+          <span class="phase-title">Phase 1 · Foundation</span>
+          <span class="phase-date">Jun – Jul 2026</span>
+        </div>
+        <div class="team-goal-item"><span class="tg-num">&#10003;</span><span class="tg-text"><strong>Launch kingmakersociety.org</strong> and have the full website live with all pages working. DNS connected.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#10003;</span><span class="tg-text"><strong>Team portal live</strong> with all team members onboarded, individual plans in place, and weekly accountability running.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Hit 100 active paying members.</strong> Run consistent sessions. Sales team active. DM pipeline running daily.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Onboard 5 King's Media contributors</strong> who are posting consistently with KMS branding visible.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Establish sales workflow</strong> — lead tracking sheet live, questionnaire being used consistently, follow-up system running.</span></div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-badge upcoming">Upcoming</span>
+          <span class="phase-title">Phase 2 · Growth</span>
+          <span class="phase-date">Aug 2026</span>
+        </div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Launch King Maker Society Podcast.</strong> First 4 episodes recorded and published. Use existing sessions as content.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Secure first brand deal or sponsor.</strong> Use member count, content reach, and session attendance as leverage.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Hit 150 active members.</strong> Retain current members while closing new ones. Member spotlight program driving word-of-mouth.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Fighter Spotlight Series launches</strong> on @kingsmediamma — featuring King's Media contributors and KMS members.</span></div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-badge future">Future</span>
+          <span class="phase-title">Phase 3 · Scale</span>
+          <span class="phase-date">Sep 2026</span>
+        </div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>200 active members by September 30.</strong> Final sprint. All hands on deck. Every team member pushing.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>King's Media at 10 active contributors</strong> posting under the brand. Affiliate/referral program live.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>2 sponsor or brand deals closed.</strong> Deals bring value to members — discounts, exposure, or opportunity.</span></div>
+        <div class="team-goal-item"><span class="tg-num">&#9675;</span><span class="tg-text"><strong>Plan KMS Annual Summit or Live Event</strong> for late 2026 or early 2027. Start building the concept.</span></div>
+      </div>
+
+      <div class="divider-label">Content Strategy</div>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <span class="resource-card-icon">&#128247;</span>
+          <h3>@kingmakersocial</h3>
+          <p style="margin-bottom:0;color:var(--off-white);font-size:0.82rem;">Minimum 4 posts per week. Mix: session clips (2x), recruitment content (1x), member wins or testimonials (1x). Always tag @kingsmediamma when cross-posting content.</p>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#127909;</span>
+          <h3>@kingsmediamma</h3>
+          <p style="margin-bottom:0;color:var(--off-white);font-size:0.82rem;">Fighter content, training clips, MMA news. Minimum 3 posts per week. Feature KMS members. Always have a call-to-action to @kingmakersocial in the comments.</p>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#127911;</span>
+          <h3>Podcast (Launching Aug)</h3>
+          <p style="margin-bottom:0;color:var(--off-white);font-size:0.82rem;">Record sessions and turn them into episodes. 20-45 min format. Topics: fight IQ, personal brand, discipline, brotherhood, career as a fighter. Upload to Spotify + YouTube.</p>
+        </div>
+      </div>
+
+      <div class="divider-label">Sales Strategy</div>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <span class="resource-card-icon">&#128172;</span>
+          <h3>Daily DM Goal</h3>
+          <p style="margin-bottom:0;color:var(--off-white);font-size:0.82rem;">Every active sales team member sends a minimum of 5 genuine outreach DMs per day. Not copy-paste blasts. Real conversations. Track in the lead sheet.</p>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#128200;</span>
+          <h3>Conversion Flow</h3>
+          <p style="margin-bottom:0;color:var(--off-white);font-size:0.82rem;">Outreach → Build rapport → Ask about goals → Send questionnaire → Personalize pitch → Payment link. Do not skip steps. Relationship first, sale second.</p>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#9888;</span>
+          <h3>What Not To Do</h3>
+          <p style="margin-bottom:0;color:var(--off-white);font-size:0.82rem;">Do not immediately send the payment link. Do not pitch in the first message. Do not spam the questionnaire. Do not guarantee sponsors or income. Do not rush to the call.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== RESOURCES ==================== -->
     <div class="dash-panel" id="panel-resources">
-      <div class="divider-label">Key Links</div>
+
+      <div class="divider-label" style="margin-top:0">All Links</div>
       <div class="quick-links">
         <a class="quick-link" href="https://www.instagram.com/kingmakersocial/" target="_blank">&#128247; @kingmakersocial</a>
         <a class="quick-link" href="https://www.instagram.com/kingsmediamma/" target="_blank">&#127909; @kingsmediamma</a>
-        <a class="quick-link" href="https://calendly.com/jordanaliwork/30min" target="_blank">&#128197; Book A Call Link</a>
-        <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank">&#128203; Member Questionnaire</a>
+        <a class="quick-link" href="https://calendly.com/jordanaliwork/30min" target="_blank">&#128197; Book A Call</a>
+        <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank">&#128203; Questionnaire</a>
         <a class="quick-link" href="https://kingmakersocialwork-netizen.github.io/kings-media-portal/" target="_blank">&#128279; Content Portal</a>
+        <a class="quick-link" href="https://kingmakersociety.org" target="_blank">&#127758; Website</a>
+        <a class="quick-link placeholder">&#128176; Basic Payment</a>
+        <a class="quick-link placeholder">&#11088; VIP Payment</a>
+        <a class="quick-link placeholder">&#128293; Elite Payment</a>
+        <a class="quick-link placeholder">&#128250; Zoom Link</a>
+        <a class="quick-link placeholder">&#129309; Community</a>
       </div>
 
       <div class="divider-label">Sales Scripts</div>
@@ -357,9 +515,18 @@ Asking because we work with a lot of fighters who are trying to grow their brand
 Trying to get a feel for where you're at before I send you anything.</p><button class="copy-btn" onclick="cp('r2',this)">Copy</button></div>
         </div>
         <div class="resource-card">
+          <span class="resource-card-icon">&#128101;</span>
+          <h3>New Follower DM</h3>
+          <p>They just followed the page. Strike while it's warm.</p>
+          <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r3b">Hey [Name], appreciate the follow. You a martial artist?
+
+Just want to put a face to the page before anything else.</p><button class="copy-btn" onclick="cp('r3b',this)">Copy</button></div>
+        </div>
+        <div class="resource-card">
           <span class="resource-card-icon">&#128203;</span>
           <h3>Questionnaire Send</h3>
-          <p>Use this after you've built context on who they are and what they want.</p>
+          <p>Use after you've built context on who they are and what they want.</p>
           <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
           <div class="script-body"><p id="r3">Before I go into detail I want to make sure I point you in the right direction. I have a quick form that takes 2 minutes. It helps us understand where you're at so we're not just throwing stuff at you.
 
@@ -400,6 +567,61 @@ Either way keep training.</p><button class="copy-btn" onclick="cp('r5',this)">Co
 
 Asking because I want to give you an honest answer, not just sell you on it.</p><button class="copy-btn" onclick="cp('r6',this)">Copy</button></div>
         </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#128184;</span>
+          <h3>"I Can't Afford It"</h3>
+          <p>Don't lower the price. Understand what they value.</p>
+          <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r7b">Respect that. $30 is real money depending on the situation.
+
+What's the main thing you're trying to fix right now — accountability, content, mindset, or network?
+
+I want to make sure it's worth it before I push you toward anything.</p><button class="copy-btn" onclick="cp('r7b',this)">Copy</button></div>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#128101;</span>
+          <h3>"Already In A Group"</h3>
+          <p>They have another community. Differentiate, don't dismiss.</p>
+          <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r8b">Respect that. Most groups are either info-heavy or full of people who aren't actually moving.
+
+King Maker Society is different because it's specifically for martial artists who are trying to build something — a brand, a career, a mindset. Not just consume content.
+
+What's the main thing your current group is helping you with?</p><button class="copy-btn" onclick="cp('r8b',this)">Copy</button></div>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#127775;</span>
+          <h3>Content Creator Pitch</h3>
+          <p>They're a martial arts content creator. Focus on brand growth.</p>
+          <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r9">Yo [Name], been following the page for a minute. The content is solid.
+
+I run King Maker Society — it's a brotherhood for martial artists who are building a brand and staying consistent. We work with a lot of creators who are trying to grow their page and turn attention into something real.
+
+Are you trying to grow your martial arts content right now?</p><button class="copy-btn" onclick="cp('r9',this)">Copy</button></div>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#128279;</span>
+          <h3>MMA Page Partnership</h3>
+          <p>They run an MMA page. Pitch them on being a King's Media partner.</p>
+          <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r10">Yo, came across the page — you're putting out good MMA content.
+
+We're building out King's Media, which is the media branch of King Maker Society. We're connecting with MMA content pages to collaborate and cross-promote. You keep posting your normal content, we help amplify it and bring you into the network.
+
+Is that something you'd want to talk about?</p><button class="copy-btn" onclick="cp('r10',this)">Copy</button></div>
+        </div>
+        <div class="resource-card">
+          <span class="resource-card-icon">&#128293;</span>
+          <h3>Sponsor / Brand Outreach</h3>
+          <p>Pitching a brand for a deal. Keep it simple and value-first.</p>
+          <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r11">Hey [Brand], we run King Maker Society — an online brotherhood for martial artists and combat sports athletes. Our community is focused on growth, discipline, and building real careers in martial arts.
+
+We work with fighters, coaches, and content creators across multiple platforms. We're currently exploring brand partnerships that bring real value to our members.
+
+Would you be open to a quick conversation about what that could look like?</p><button class="copy-btn" onclick="cp('r11',this)">Copy</button></div>
+        </div>
       </div>
 
       <div class="divider-label">Content Templates</div>
@@ -436,60 +658,145 @@ Comment "KING" or DM me and I'll send you everything.
 
 @kingmakersocial</p><button class="copy-btn" onclick="cp('r8',this)">Copy</button></div>
         </div>
-      </div>
-    </div>
-
-    <!-- ---- Tab: Team Info ---- -->
-    <div class="dash-panel" id="panel-info">
-
-      <div class="divider-label">Membership Tiers</div>
-      <div class="resource-grid">
         <div class="resource-card">
-          <span class="resource-card-icon">&#128081;</span>
-          <h3>Basic · $30/mo</h3>
-          <p style="margin-bottom:0;color:var(--off-white);">24/7 brotherhood chat. 2 live Master Classes/week. Access to King's Media content Team. Weekly accountability check-ins. Challenge and Rank System.</p>
-        </div>
-        <div class="resource-card">
-          <span class="resource-card-icon">&#9733;</span>
-          <h3>VIP Access · $100/mo</h3>
-          <p style="margin-bottom:0;color:var(--off-white);">Everything in Basic. Monthly 1:1 mini-audit. Personalized weekly check-in. Priority Q&amp;A. Structured monthly game plan customized to their goals. 1-on-1 mentor meeting every other week. Member spotlights.</p>
+          <span class="resource-card-icon">&#127942;</span>
+          <h3>Member Win Post</h3>
+          <p>Highlighting a member result. Social proof that converts.</p>
+          <button class="script-toggle" onclick="tog(this)">View Template <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r12">[Member name] came into King Maker Society [X weeks/months] ago. [One line on where they were].
+
+Since then: [specific win — fight, content growth, accountability, mindset shift].
+
+This is what the brotherhood is about. Real people making real moves.
+
+If you're a martial artist who's serious about what you're building — link in bio.
+
+@kingmakersocial</p><button class="copy-btn" onclick="cp('r12',this)">Copy</button></div>
         </div>
         <div class="resource-card">
           <span class="resource-card-icon">&#128293;</span>
-          <h3>Elite · $300/mo</h3>
-          <p style="margin-bottom:0;color:var(--off-white);">Everything in VIP. Weekly 1-hour mentor call. Personalized weekly routine. Weekly 1-on-1 with Jordan Ali. Full King's Media content creation team access. Top-tier shoutout priority.</p>
+          <h3>Session Announcement</h3>
+          <p>Promote the upcoming Tuesday or Saturday session.</p>
+          <button class="script-toggle" onclick="tog(this)">View Template <span class="arr">&#9662;</span></button>
+          <div class="script-body"><p id="r13">Live session this [Tuesday / Saturday] at 2PM CST.
+
+Topic: [Topic Name]
+
+If you're a martial artist who's working on [relevant pain point], this one is for you.
+
+Members get access. Link in bio to join King Maker Society.
+
+@kingmakersocial</p><button class="copy-btn" onclick="cp('r13',this)">Copy</button></div>
         </div>
       </div>
 
-      <div class="divider-label">Brand Rules</div>
-      <div class="resource-grid">
-        <div class="resource-card">
-          <span class="resource-card-icon">&#128214;</span>
-          <h3>Always Use</h3>
-          <p style="margin-bottom:0;color:var(--off-white);">
-            <strong style="color:var(--gold);">King Maker Society</strong> — public brand (3 words, always)<br><br>
-            <strong style="color:var(--gold);">@kingmakersocial</strong> — main Instagram<br><br>
-            <strong style="color:var(--gold);">@kingsmediamma</strong> — King's Media Instagram
-          </p>
-        </div>
-        <div class="resource-card">
-          <span class="resource-card-icon">&#128683;</span>
-          <h3>Never Say</h3>
-          <p style="margin-bottom:0;color:var(--off-white);">
-            &#10007; "Kingmaker Society"<br>
-            &#10007; "We guarantee results"<br>
-            &#10007; "We guarantee sponsors"<br>
-            &#10007; "Physical training program"<br>
-            &#10007; "Guaranteed income"
-          </p>
-        </div>
-      </div>
-
-      <div class="divider-label">Session Schedule</div>
+      <div class="divider-label">Sales Lead Flow SOP</div>
       <div class="goals-card">
-        <h3>&#128197; Live Sessions · Every Week</h3>
-        <div class="team-goal-item"><span class="tg-num">T</span><span class="tg-text"><strong>Every Tuesday · 2PM CST</strong> — Live Master Class via Zoom. All team members attend and engage.</span></div>
-        <div class="team-goal-item"><span class="tg-num">S</span><span class="tg-text"><strong>Every Saturday · 2PM CST</strong> — Live Master Class via Zoom. Show up, participate, represent.</span></div>
+        <h3>&#128200; Step-By-Step Lead Process</h3>
+        <ol class="sop-steps">
+          <li class="sop-step"><span class="sop-num">1</span><span class="sop-text"><strong>Identify the lead.</strong> Could be a follower, commenter, someone who liked a story, a martial artist found through search. Log their name and Instagram handle in the tracking sheet.</span></li>
+          <li class="sop-step"><span class="sop-num">2</span><span class="sop-text"><strong>Send the first DM.</strong> Use the Cold Outreach or Warm Outreach script. Keep it short. About them. Ask one question only.</span></li>
+          <li class="sop-step"><span class="sop-num">3</span><span class="sop-text"><strong>Build the conversation.</strong> Ask about their martial art, their goals, what they're working on, what's holding them back. Listen more than you pitch.</span></li>
+          <li class="sop-step"><span class="sop-num">4</span><span class="sop-text"><strong>Send the questionnaire.</strong> Once you have enough context, send the form link. Explain it takes 2 minutes and it helps personalize what you send them.</span></li>
+          <li class="sop-step"><span class="sop-num">5</span><span class="sop-text"><strong>Review their answers.</strong> Identify their biggest pain point. Build your pitch around that specific thing — not a generic pitch.</span></li>
+          <li class="sop-step"><span class="sop-num">6</span><span class="sop-text"><strong>Present the membership.</strong> Tie it directly to their pain point. "You said X — that's exactly what the [Basic/VIP] membership is built for." Start with Basic unless VIP is clearly the right fit.</span></li>
+          <li class="sop-step"><span class="sop-num">7</span><span class="sop-text"><strong>Handle objections.</strong> Use the objection scripts. Don't cave on price. Focus on value. If they need time, give them time but stay in contact.</span></li>
+          <li class="sop-step"><span class="sop-num">8</span><span class="sop-text"><strong>Send payment link.</strong> Once they're ready, send clean with no over-explaining. Confirm they received it. Follow up in 24 hours if no action.</span></li>
+          <li class="sop-step"><span class="sop-num">9</span><span class="sop-text"><strong>Onboard them.</strong> As soon as payment clears, send the welcome DM, add them to the group, introduce them, and set their first accountability goal.</span></li>
+          <li class="sop-step"><span class="sop-num">10</span><span class="sop-text"><strong>Update the tracking sheet.</strong> Mark as Joined. Note what worked. Use their story as future social proof content.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ==================== COMING SOON ==================== -->
+    <div class="dash-panel" id="panel-coming">
+      <div class="goals-card" style="margin-bottom:2rem;">
+        <h3>&#128161; What We Are Building</h3>
+        <div class="team-goal-item"><span class="tg-num">&#9679;</span><span class="tg-text">These are the moves coming next for King Maker Society. Some are in progress, some are planned, some are still concepts. Every team member should know what's on the horizon so we can all push in the same direction.</span></div>
+      </div>
+
+      <div class="divider-label" style="margin-top:0">In Progress</div>
+      <div class="coming-grid">
+        <div class="coming-card">
+          <span class="coming-icon">&#127758;</span>
+          <h3>kingmakersociety.org</h3>
+          <p>Custom domain connected. Full website live with all 5 pages, team portal, and King's Media section.</p>
+          <span class="coming-status in-progress">In Progress</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#127909;</span>
+          <h3>King's Media Official Launch</h3>
+          <p>Officially launching @kingsmediamma as the media branch. Building the contributor team and posting schedule.</p>
+          <span class="coming-status in-progress">In Progress</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#128101;</span>
+          <h3>Sales Team Build-Out</h3>
+          <p>Recruiting and training the core sales team. Scripts live, tracking sheet being built, lead pipeline growing.</p>
+          <span class="coming-status in-progress">In Progress</span>
+        </div>
+      </div>
+
+      <div class="divider-label">Coming Soon</div>
+      <div class="coming-grid">
+        <div class="coming-card">
+          <span class="coming-icon">&#127911;</span>
+          <h3>King Maker Society Podcast</h3>
+          <p>A weekly show for martial artists. Fight IQ, discipline, personal brand, brotherhood. Recording starts soon. Launch target: August 2026.</p>
+          <span class="coming-status coming-soon">Coming Aug 2026</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#128293;</span>
+          <h3>Fighter Spotlight Series</h3>
+          <p>Regular features on KMS members and fighters in the community. Drives exposure for members and content for the brand.</p>
+          <span class="coming-status coming-soon">Coming Soon</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#129309;</span>
+          <h3>Affiliate & Referral Program</h3>
+          <p>Members and team earn for bringing in new members. Clean referral tracking system. Incentivizes the whole network to grow.</p>
+          <span class="coming-status coming-soon">Coming Soon</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#128293;</span>
+          <h3>Sponsor Marketplace</h3>
+          <p>Connect KMS members directly with brands looking for martial artists. Fighters get opportunities, brands get authentic reach.</p>
+          <span class="coming-status coming-soon">Coming Soon</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#9654;</span>
+          <h3>YouTube Channel</h3>
+          <p>Long-form content home for King Maker Society. Session recordings, podcast episodes, educational content, member stories.</p>
+          <span class="coming-status coming-soon">Coming Soon</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#127381;</span>
+          <h3>TikTok Presence</h3>
+          <p>Short-form content arm of the brand. Clips from sessions, member highlights, quick value drops. Reach a younger fighter audience.</p>
+          <span class="coming-status coming-soon">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="divider-label">On The Horizon</div>
+      <div class="coming-grid">
+        <div class="coming-card">
+          <span class="coming-icon">&#127942;</span>
+          <h3>KMS Annual Summit</h3>
+          <p>A live in-person event for King Maker Society members, mentors, and partners. Potential late 2026 or early 2027. Concept phase.</p>
+          <span class="coming-status planning">Planning</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#128241;</span>
+          <h3>Mobile App</h3>
+          <p>A dedicated KMS app for members — accountability tracking, session access, community chat, game plans, and content all in one place.</p>
+          <span class="coming-status planning">Concept</span>
+        </div>
+        <div class="coming-card">
+          <span class="coming-icon">&#127944;</span>
+          <h3>KMS Fight Team</h3>
+          <p>An official King Maker Society fight team. Members who compete under the brand, get media coverage, and represent the brotherhood in competition.</p>
+          <span class="coming-status planning">Concept</span>
+        </div>
       </div>
     </div>
 
@@ -499,8 +806,7 @@ Comment "KING" or DM me and I'll send you everything.
 <script src="landing.js"></script>
 <script>
 // ============================================================
-//  TEAM MEMBER CONFIG
-//  PIN: 0000 for all (placeholder — update per member)
+//  TEAM MEMBER CONFIG · All PINs = 0000 (placeholder)
 // ============================================================
 const MEMBERS = [
   {
@@ -511,18 +817,44 @@ const MEMBERS = [
     photo: 'assets/team-jordan.jpg',
     initials: 'JA',
     weeklyGoals: [
-      'Run Tuesday and Saturday live sessions',
-      'Follow up with 5 new leads',
+      'Host Tuesday and Saturday live sessions',
+      'Follow up with 5 new leads personally',
       'Post 3x on @kingmakersocial',
       'Check in with every team member',
-      'Review member retention this week'
+      'Review member retention numbers'
     ],
     monthlyGoals: [
-      'Grow membership to 200 active members',
-      'Secure 1 brand partnership or sponsor',
+      'Grow membership to 200 active members by Q3 end',
+      'Secure 1 brand partnership or sponsor deal',
       'Onboard 2 new King\'s Media contributors',
-      'Launch at least 1 new SOP document'
-    ]
+      'Record first podcast episode'
+    ],
+    plan: {
+      dailyFocus: [
+        'Lead by example — post, engage, and show up visibly',
+        'Review lead pipeline and follow up on open conversations',
+        'Connect with at least 1 new martial artist or creator'
+      ],
+      kpis: [
+        { label: 'Sessions hosted / week', target: '2' },
+        { label: 'New leads contacted / day', target: '5' },
+        { label: 'Active members', target: '200 by Sep' },
+        { label: 'Content posts / week', target: '3+' }
+      ],
+      responsibilities: [
+        'Run all live Zoom sessions (Tuesday + Saturday)',
+        'Final approval on all content and SOPs',
+        'Lead sales calls and VIP onboarding',
+        'Manage team check-ins and accountability',
+        'Build and maintain brand partnerships'
+      ],
+      actions: [
+        'Update questionnaire with new pain point questions',
+        'Record intro video for the website homepage',
+        'Finalize payment links for all 3 membership tiers',
+        'Build out lead tracking spreadsheet for sales team'
+      ]
+    }
   },
   {
     id: 'ryan',
@@ -534,14 +866,38 @@ const MEMBERS = [
     weeklyGoals: [
       'Show up for both live sessions this week',
       'Engage in the brotherhood group chat daily',
-      'Post 2x fight/training content',
+      'Post 2x fight or training content',
       'DM 3 new fighter leads'
     ],
     monthlyGoals: [
-      'Build personal brand presence alongside KMS',
+      'Build personal brand visibility alongside KMS',
       'Help close 5 new members this month',
       'Record 1 podcast or long-form content piece'
-    ]
+    ],
+    plan: {
+      dailyFocus: [
+        'Post or engage on social media as a KMS representative',
+        'Keep at least 2 sales conversations active in DMs',
+        'Train and document your process — your story is a sales tool'
+      ],
+      kpis: [
+        { label: 'Sessions attended / week', target: '2' },
+        { label: 'New members referred / month', target: '5' },
+        { label: 'Content posts / week', target: '2' },
+        { label: 'DM conversations active', target: '2+' }
+      ],
+      responsibilities: [
+        'Represent KMS as a co-founder and active fighter',
+        'Assist with sales conversations and lead follow-ups',
+        'Share fight journey content to attract fighters to KMS',
+        'Engage with members in the group chat and sessions'
+      ],
+      actions: [
+        'Post behind-the-scenes boxing training content this week',
+        'Reach out to 3 pro or amateur fighters about KMS',
+        'Share a personal story about discipline or accountability'
+      ]
+    }
   },
   {
     id: 'willie',
@@ -554,13 +910,38 @@ const MEMBERS = [
       'Complete all scheduled 1-on-1 mentor calls',
       'Check in with every VIP member this week',
       'Engage actively in the brotherhood chat',
-      'Prepare topic for Tuesday or Saturday session'
+      'Prepare a topic or talking point for a live session'
     ],
     monthlyGoals: [
-      'Build the mentorship program to 3 additional mentors',
-      'Develop monthly game plans for all VIP members',
+      'Grow the mentorship program to 3 additional mentors',
+      'Build monthly game plans for all current VIP members',
       'Create 1 piece of mentorship or mindset content'
-    ]
+    ],
+    plan: {
+      dailyFocus: [
+        'Check in with VIP members — a quick message goes a long way',
+        'Engage in the brotherhood group chat and add value',
+        'Document member progress so you can track wins over time'
+      ],
+      kpis: [
+        { label: '1-on-1 calls / week', target: 'Per VIP count' },
+        { label: 'VIP check-ins / week', target: 'All VIPs' },
+        { label: 'New mentors recruited', target: '3 by Aug' },
+        { label: 'Game plans created', target: '1 per VIP / month' }
+      ],
+      responsibilities: [
+        'Lead all 1-on-1 mentor calls for VIP and Elite members',
+        'Build and oversee monthly game plans for VIP members',
+        'Recruit and onboard additional mentors',
+        'Lead or co-host mindset and mentality session topics',
+        'Monitor member progress and flag retention risks'
+      ],
+      actions: [
+        'Create game plan template for VIP members',
+        'Reach out to 2 experienced fighters about becoming mentors',
+        'Prepare a mindset topic for the next Saturday session'
+      ]
+    }
   },
   {
     id: 'aaron',
@@ -570,16 +951,41 @@ const MEMBERS = [
     photo: 'assets/team-aaron.jpg',
     initials: 'AA',
     weeklyGoals: [
-      'Plan and schedule the week\'s content calendar',
+      'Plan and finalize the week\'s content calendar',
       'Post 2x on @kingsmediamma',
       'Edit or oversee 1 long-form content piece',
-      'Review and support other team content'
+      'Review and support team content'
     ],
     monthlyGoals: [
-      'Build King\'s Media to 10 active content contributors',
+      'Build King\'s Media to 10 active contributors',
       'Produce 2 long-form videos or podcast episodes',
-      'Establish a consistent weekly content workflow for the team'
-    ]
+      'Establish the weekly content workflow for all team members'
+    ],
+    plan: {
+      dailyFocus: [
+        'Review and plan content for the next 2-3 days',
+        'Engage with @kingsmediamma and @kingmakersocial posts',
+        'Identify 1 piece of raw material to turn into content'
+      ],
+      kpis: [
+        { label: 'Posts per week (@kingsmediamma)', target: '3+' },
+        { label: 'Long-form pieces / month', target: '2' },
+        { label: 'Active contributors', target: '10 by Sep' },
+        { label: 'Content calendar updated', target: 'Weekly' }
+      ],
+      responsibilities: [
+        'Own the King\'s Media content calendar and strategy',
+        'Edit or oversee long-form content and podcast episodes',
+        'Recruit and manage content contributors',
+        'Coordinate content repurposing from live sessions',
+        'Maintain brand voice across all King\'s Media content'
+      ],
+      actions: [
+        'Build a 4-week content calendar for @kingsmediamma',
+        'Reach out to 3 martial arts creators about contributing',
+        'Clip highlights from the last 2 live sessions for Reels'
+      ]
+    }
   },
   {
     id: 'ty',
@@ -595,10 +1001,35 @@ const MEMBERS = [
       'Share 1 win or update in the group chat'
     ],
     monthlyGoals: [
-      'Grow personal martial arts page with KMS branding',
+      'Grow personal martial arts page with KMS branding visible',
       'Generate at least 2 member leads through content',
-      'Collaborate with 1 other team member on content'
-    ]
+      'Collaborate with 1 other team member on a content piece'
+    ],
+    plan: {
+      dailyFocus: [
+        'Create or plan content around your martial arts training',
+        'Engage on @kingmakersocial and @kingsmediamma',
+        'Look for opportunities to tag and represent KMS in your posts'
+      ],
+      kpis: [
+        { label: 'Content posts / week', target: '2+' },
+        { label: 'Sessions attended / week', target: '2' },
+        { label: 'Leads generated / month', target: '2' },
+        { label: 'Collaborations / month', target: '1' }
+      ],
+      responsibilities: [
+        'Create and post martial arts content under the KMS brand',
+        'Attend and engage in all live sessions',
+        'Tag and promote @kingmakersocial in relevant content',
+        'Share wins and updates in the brotherhood group chat',
+        'Support other team members\' content when possible'
+      ],
+      actions: [
+        'Film 2 short clips this week from training or lifestyle',
+        'Write a caption using the Recruitment Post template',
+        'Comment and engage on the last 5 KMS posts'
+      ]
+    }
   },
   {
     id: 'georgios',
@@ -610,14 +1041,39 @@ const MEMBERS = [
     weeklyGoals: [
       'Reach out to 5 new international martial artists or gyms',
       'Follow up with existing outreach contacts',
-      'Share 1 update in team chat about outreach progress',
+      'Share 1 progress update in the team chat',
       'Identify 2 potential MMA media page partners'
     ],
     monthlyGoals: [
       'Establish 3 new international partnerships or connections',
       'Bring in at least 2 new members from outreach efforts',
       'Map out key markets to target for Q3 expansion'
-    ]
+    ],
+    plan: {
+      dailyFocus: [
+        'Send 5 genuine outreach DMs to international martial artists',
+        'Follow up with any active conversations from the last 48 hours',
+        'Research 1-2 new markets or creators worth targeting'
+      ],
+      kpis: [
+        { label: 'Outreach DMs / day', target: '5' },
+        { label: 'New connections / month', target: '3+' },
+        { label: 'Members brought in / month', target: '2' },
+        { label: 'Page partnerships identified', target: '2/week' }
+      ],
+      responsibilities: [
+        'Lead all international outreach and market research',
+        'Identify and pitch MMA pages and media accounts',
+        'Track outreach conversations and conversion rates',
+        'Bring global fighters and creators into the KMS network',
+        'Report weekly on outreach results and pipeline'
+      ],
+      actions: [
+        'Build a target list of 20 international martial arts pages',
+        'Send King\'s Media partnership DM to 3 MMA pages this week',
+        'Research the top MMA gyms and fighters in 2 new countries'
+      ]
+    }
   },
   {
     id: 'manu',
@@ -630,13 +1086,38 @@ const MEMBERS = [
       'Post 2x fight or lifestyle content this week',
       'Show up for at least 1 live session',
       'Engage with members in the brotherhood chat',
-      'Share training update or win in the group'
+      'Share a training update or win in the group'
     ],
     monthlyGoals: [
       'Build fight career visibility through KMS media',
       'Appear in 1 long-form content piece or podcast episode',
       'Help recruit 2 fighters into the brotherhood'
-    ]
+    ],
+    plan: {
+      dailyFocus: [
+        'Document your training — every session is content',
+        'Engage in the KMS group chat and show up for members',
+        'Think about 1 fighter or martial artist you can introduce to KMS'
+      ],
+      kpis: [
+        { label: 'Content posts / week', target: '2' },
+        { label: 'Sessions attended / week', target: '1+' },
+        { label: 'Fighters referred / month', target: '2' },
+        { label: 'Long-form appearances / month', target: '1' }
+      ],
+      responsibilities: [
+        'Create fight and training content that represents KMS',
+        'Be a visible face of the brotherhood for fighters',
+        'Participate in sessions and bring fight IQ to discussions',
+        'Help recruit fighters from your training and fight circles',
+        'Collaborate with Aaron and King\'s Media team on content'
+      ],
+      actions: [
+        'Film a short clip from training this week — raw and real',
+        'DM 2 fighters you know who would benefit from KMS',
+        'Reach out to Aaron about doing a fighter spotlight feature'
+      ]
+    }
   }
 ];
 
@@ -664,6 +1145,46 @@ MEMBERS.forEach(m => {
 });
 
 // ============================================================
+//  CALENDAR GENERATOR
+// ============================================================
+function buildCalendar() {
+  const calGrid = document.getElementById('cal-grid');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const events = [];
+  const end = new Date(today);
+  end.setDate(end.getDate() + 56); // 8 weeks
+  const d = new Date(today);
+  while (d <= end) {
+    const dow = d.getDay();
+    if (dow === 2 || dow === 6) { // Tuesday=2, Saturday=6
+      events.push({ date: new Date(d), label: dow === 2 ? 'Tuesday Session' : 'Saturday Session' });
+    }
+    d.setDate(d.getDate() + 1);
+  }
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let firstUpcoming = true;
+  events.forEach(ev => {
+    const isNext = firstUpcoming && ev.date >= today;
+    if (isNext) firstUpcoming = false;
+    const div = document.createElement('div');
+    div.className = 'cal-event' + (isNext ? ' next' : '');
+    div.innerHTML = `
+      <div class="cal-date">
+        <div class="cal-day">${ev.date.getDate()}</div>
+        <div class="cal-month">${months[ev.date.getMonth()]}</div>
+      </div>
+      <div class="cal-info">
+        <div class="cal-title">${ev.label}</div>
+        <div class="cal-time">2:00 PM CST · Zoom</div>
+        <span class="cal-badge ${isNext ? 'next-badge' : 'live'}">${isNext ? 'Next Up' : 'Live'}</span>
+      </div>`;
+    calGrid.appendChild(div);
+  });
+}
+buildCalendar();
+
+// ============================================================
 //  SCREEN SWITCHER
 // ============================================================
 function showScreen(id) {
@@ -678,8 +1199,6 @@ function selectMember(id) {
   currentMember = MEMBERS.find(m => m.id === id);
   pinBuffer = '';
   resetDots();
-
-  // Fill pin screen
   const photoHTML = `<img class="pin-avatar" src="${currentMember.photo}" alt="${currentMember.name}"
     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
     <div class="pin-avatar-fallback" style="display:none">${currentMember.initials}</div>`;
@@ -687,14 +1206,10 @@ function selectMember(id) {
   document.getElementById('pin-name').textContent = currentMember.name;
   document.getElementById('pin-role').textContent = currentMember.role;
   document.getElementById('pin-error').textContent = '';
-
   showScreen('screen-pin');
 }
 
-function backToSelect() {
-  pinBuffer = '';
-  showScreen('screen-select');
-}
+function backToSelect() { pinBuffer = ''; showScreen('screen-select'); }
 
 // ============================================================
 //  PIN LOGIC
@@ -703,17 +1218,13 @@ function pinKey(digit) {
   if (pinBuffer.length >= 4) return;
   pinBuffer += digit;
   updateDots();
-  if (pinBuffer.length === 4) {
-    setTimeout(checkPin, 120);
-  }
+  if (pinBuffer.length === 4) setTimeout(checkPin, 120);
 }
-
 function pinDel() {
   if (pinBuffer.length === 0) return;
   pinBuffer = pinBuffer.slice(0, -1);
   updateDots();
 }
-
 function updateDots() {
   for (let i = 0; i < 4; i++) {
     const dot = document.getElementById('dot-' + i);
@@ -721,35 +1232,22 @@ function updateDots() {
     dot.classList.remove('error');
   }
 }
-
 function resetDots() {
-  for (let i = 0; i < 4; i++) {
-    const dot = document.getElementById('dot-' + i);
-    dot.classList.remove('filled', 'error');
-  }
+  for (let i = 0; i < 4; i++) document.getElementById('dot-' + i).classList.remove('filled', 'error');
 }
-
 function checkPin() {
   if (pinBuffer === currentMember.pin) {
     loadDashboard(currentMember);
     showScreen('screen-portal');
     sessionStorage.setItem('kms-member', currentMember.id);
   } else {
-    for (let i = 0; i < 4; i++) {
-      document.getElementById('dot-' + i).classList.add('error');
-    }
+    for (let i = 0; i < 4; i++) document.getElementById('dot-' + i).classList.add('error');
     document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
-    setTimeout(() => {
-      pinBuffer = '';
-      resetDots();
-    }, 800);
+    setTimeout(() => { pinBuffer = ''; resetDots(); }, 800);
   }
 }
-
-// Keyboard support on PIN screen
 document.addEventListener('keydown', e => {
-  const pinScreen = document.getElementById('screen-pin');
-  if (!pinScreen.classList.contains('active')) return;
+  if (!document.getElementById('screen-pin').classList.contains('active')) return;
   if (e.key >= '0' && e.key <= '9') pinKey(e.key);
   if (e.key === 'Backspace') pinDel();
 });
@@ -758,10 +1256,7 @@ document.addEventListener('keydown', e => {
 //  DASHBOARD LOADER
 // ============================================================
 function loadDashboard(m) {
-  // Nav
   document.getElementById('dash-welcome-name').textContent = m.name.split(' ')[0];
-
-  // Hero
   const avatarHTML = `<img class="dash-hero-avatar" src="${m.photo}" alt="${m.name}"
     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
     <div class="dash-hero-avatar-fb" style="display:none">${m.initials}</div>`;
@@ -775,7 +1270,7 @@ function loadDashboard(m) {
     const key = `${m.id}-wg-${i}`;
     const done = localStorage.getItem(key) === '1';
     return `<div class="goal-item">
-      <div class="goal-check${done ? ' done' : ''}" onclick="toggleGoal(this, '${key}')"></div>
+      <div class="goal-check${done ? ' done' : ''}" onclick="toggleGoal(this,'${key}')"></div>
       <span class="goal-text${done ? ' done' : ''}">${g}</span>
     </div>`;
   }).join('');
@@ -786,13 +1281,43 @@ function loadDashboard(m) {
     const key = `${m.id}-mg-${i}`;
     const done = localStorage.getItem(key) === '1';
     return `<div class="goal-item">
-      <div class="goal-check${done ? ' done' : ''}" onclick="toggleGoal(this, '${key}')"></div>
+      <div class="goal-check${done ? ' done' : ''}" onclick="toggleGoal(this,'${key}')"></div>
       <span class="goal-text${done ? ' done' : ''}">${g}</span>
     </div>`;
   }).join('');
 
-  // Reset to first tab
-  dashTab('goals', document.querySelector('.dash-tab'));
+  // Individual plan
+  const plan = m.plan;
+  document.getElementById('plan-content').innerHTML = `
+    <div class="plan-grid">
+      <div class="plan-card">
+        <h3>&#128293; Daily Focus Areas</h3>
+        ${plan.dailyFocus.map(f => `<div class="plan-item">${f}</div>`).join('')}
+      </div>
+      <div class="plan-card">
+        <h3>&#128200; My KPIs</h3>
+        ${plan.kpis.map(k => `<div class="kpi-row"><span class="kpi-label">${k.label}</span><span class="kpi-val">${k.target}</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="plan-grid">
+      <div class="plan-card">
+        <h3>&#127775; My Responsibilities</h3>
+        ${plan.responsibilities.map(r => `<div class="plan-item">${r}</div>`).join('')}
+      </div>
+      <div class="plan-card">
+        <h3>&#9997;&#65039; Current Action Items</h3>
+        ${plan.actions.map((a, i) => {
+          const key = `${m.id}-action-${i}`;
+          const done = localStorage.getItem(key) === '1';
+          return `<div class="goal-item">
+            <div class="goal-check${done ? ' done' : ''}" onclick="toggleGoal(this,'${key}')"></div>
+            <span class="goal-text${done ? ' done' : ''}">${a}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  dashTab('overview', document.querySelector('.dash-tab'));
 }
 
 function toggleGoal(el, key) {
@@ -802,7 +1327,7 @@ function toggleGoal(el, key) {
 }
 
 // ============================================================
-//  DASHBOARD TABS
+//  TABS
 // ============================================================
 function dashTab(name, btn) {
   document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
