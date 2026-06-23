@@ -421,12 +421,11 @@
     <!-- Tabs -->
     <div class="dash-tabs">
       <button class="dash-tab active" onclick="dashTab('overview', this)">Overview</button>
-      <button class="dash-tab" onclick="dashTab('goals', this)">My Goals</button>
-      <button class="dash-tab" onclick="dashTab('plan', this)">My Plan</button>
-      <button class="dash-tab" onclick="dashTab('calendar', this)">Calendar</button>
-      <button class="dash-tab" onclick="dashTab('teamplans', this)">Team Plans</button>
-      <button class="dash-tab" onclick="dashTab('resources', this)">Resources</button>
       <button class="dash-tab" onclick="dashTab('wins', this)">&#127942; Wins</button>
+      <button class="dash-tab" onclick="dashTab('teamplans', this)">Team Plans &amp; Goals</button>
+      <button class="dash-tab" onclick="dashTab('myplans', this)">My Plan &amp; Goals</button>
+      <button class="dash-tab" onclick="dashTab('calendar', this)">Calendar</button>
+      <button class="dash-tab" onclick="dashTab('resources', this)">Resources</button>
       <button class="dash-tab" onclick="dashTab('coming', this)">Coming Soon</button>
     </div>
 
@@ -509,10 +508,12 @@
     </div>
 
     <!-- ==================== MY GOALS ==================== -->
-    <div class="dash-panel" id="panel-goals">
-      <div class="goals-grid">
+    <!-- ==================== MY PLAN & GOALS ==================== -->
+    <div class="dash-panel" id="panel-myplans">
+      <div id="plan-content"></div>
+      <div class="goals-grid" style="margin-top:1.75rem;">
         <div class="goals-card">
-          <h3>&#127919; This Week</h3>
+          <h3>&#127919; This Week's Goals</h3>
           <div id="goals-weekly"></div>
         </div>
         <div class="goals-card">
@@ -520,11 +521,6 @@
           <div id="goals-monthly"></div>
         </div>
       </div>
-    </div>
-
-    <!-- ==================== MY PLAN ==================== -->
-    <div class="dash-panel" id="panel-plan">
-      <div id="plan-content"></div>
     </div>
 
     <!-- ==================== CALENDAR ==================== -->
@@ -1478,7 +1474,7 @@ const MEMBERS = [
   {
     id: 'mohammed',
     name: 'Mohammed Ali',
-    role: 'Host · Head Of Short-Form Content · Mentor',
+    role: 'King\'s Media Host · Head Of Short-Form Content · Mentor',
     pin: '0000',
     photo: 'assets/team-mohammed.jpg',
     initials: 'MA',
