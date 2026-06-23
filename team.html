@@ -426,6 +426,7 @@
       <button class="dash-tab" onclick="dashTab('myplans', this)">My Plan &amp; Goals</button>
       <button class="dash-tab" onclick="dashTab('calendar', this)">Calendar</button>
       <button class="dash-tab" onclick="dashTab('resources', this)">Resources</button>
+      <button class="dash-tab" onclick="dashTab('teamboard', this)">&#128172; Team Board</button>
       <button class="dash-tab" onclick="dashTab('coming', this)">Coming Soon</button>
     </div>
 
@@ -1119,6 +1120,63 @@ Members get access. Link in bio to join King Maker Society.
       </div>
       <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:0.5rem;">Greyed out badges are locked. Every one unlocks as King Maker Society grows.</p>
 
+      <!-- Member of the Month -->
+      <div class="divider-label">&#127881; Member of the Month</div>
+      <div id="motm-card" class="goals-card" style="border:1px solid rgba(201,168,76,0.4);background:linear-gradient(135deg,rgba(201,168,76,0.07) 0%,rgba(201,168,76,0.02) 100%);padding:1.75rem;"></div>
+
+    </div>
+
+    <!-- ==================== TEAM BOARD ==================== -->
+    <div class="dash-panel" id="panel-teamboard">
+
+      <!-- TEAM CHAT -->
+      <div class="divider-label" style="margin-top:0">&#128172; Team Chat</div>
+      <div class="goals-card" style="padding:0;overflow:hidden;margin-bottom:1.75rem;">
+        <div id="chat-messages" style="height:320px;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="text-align:center;color:var(--muted);font-size:0.78rem;padding:2rem 0;">Messages are saved on this device. Share in group chat to reach everyone.</div>
+        </div>
+        <div style="border-top:1px solid var(--hairline);padding:0.9rem 1.25rem;display:flex;gap:0.75rem;align-items:flex-end;background:rgba(0,0,0,0.18);">
+          <textarea id="chat-input" placeholder="Type a message... (Enter to send)" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.6rem 0.85rem;resize:none;height:38px;font-family:inherit;line-height:1.5;box-sizing:border-box;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg();}"></textarea>
+          <button onclick="sendChatMsg()" style="background:var(--gold);color:#0a0a08;border:none;border-radius:8px;padding:0.55rem 1rem;font-family:var(--font-label);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap;flex-shrink:0;">Send</button>
+        </div>
+      </div>
+
+      <!-- COLLAB BUILDER -->
+      <div class="divider-label">&#129309; Collab Builder</div>
+      <div class="goals-card" style="margin-bottom:1.75rem;">
+        <p style="font-size:0.83rem;color:var(--off-white);margin-bottom:1.1rem;line-height:1.6;">Set up a collab with a team member. Post your idea, who you want to work with, and what type of content you're building.</p>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <select id="collab-with" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;width:100%;">
+            <option value="">Who do you want to collab with?</option>
+          </select>
+          <input id="collab-type" placeholder="Type of collab (e.g. Reel, Podcast, Story series, Live...)" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;width:100%;box-sizing:border-box;">
+          <textarea id="collab-idea" placeholder="Describe the idea briefly..." style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;resize:vertical;min-height:80px;font-family:inherit;width:100%;box-sizing:border-box;line-height:1.6;"></textarea>
+          <button onclick="submitCollab()" style="background:var(--gold);color:#0a0a08;border:none;border-radius:8px;padding:0.6rem 1.25rem;font-family:var(--font-label);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;align-self:flex-start;">&#128279; Post Collab Request</button>
+        </div>
+        <div id="collab-list" style="margin-top:1.25rem;display:flex;flex-direction:column;gap:0.75rem;"></div>
+      </div>
+
+      <!-- TEAM IDEAS -->
+      <div class="divider-label">&#128161; Team Ideas</div>
+      <div class="goals-card" style="margin-bottom:1.75rem;">
+        <p style="font-size:0.83rem;color:var(--off-white);margin-bottom:1rem;line-height:1.6;">Got an idea to grow King Maker Society? Drop it here. Every idea gets seen by the team.</p>
+        <textarea id="idea-input" placeholder="Share your idea..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.75rem 1rem;resize:vertical;min-height:80px;font-family:inherit;line-height:1.6;box-sizing:border-box;"></textarea>
+        <button onclick="submitIdea()" style="margin-top:0.75rem;background:var(--gold);color:#0a0a08;border:none;border-radius:8px;padding:0.6rem 1.25rem;font-family:var(--font-label);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">&#128161; Submit Idea</button>
+        <div id="ideas-list" style="margin-top:1.25rem;display:flex;flex-direction:column;gap:0.7rem;"></div>
+      </div>
+
+      <!-- TEAM CONCERNS -->
+      <div class="divider-label">&#128681; Team Concerns</div>
+      <div class="goals-card">
+        <p style="font-size:0.83rem;color:var(--off-white);margin-bottom:1rem;line-height:1.6;">Something isn't working? Post it here. You can go anonymous. Jordan reviews all concerns.</p>
+        <label style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--off-white);cursor:pointer;margin-bottom:0.75rem;">
+          <input type="checkbox" id="concern-anon" style="accent-color:var(--gold);width:14px;height:14px;"> Post anonymously
+        </label>
+        <textarea id="concern-input" placeholder="Describe your concern..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.75rem 1rem;resize:vertical;min-height:80px;font-family:inherit;line-height:1.6;box-sizing:border-box;"></textarea>
+        <button onclick="submitConcern()" style="margin-top:0.75rem;background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:0.6rem 1.25rem;font-family:var(--font-label);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">&#128681; Submit Concern</button>
+        <div id="concerns-list" style="margin-top:1.25rem;display:flex;flex-direction:column;gap:0.7rem;"></div>
+      </div>
+
     </div>
 
     <!-- ==================== COMING SOON ==================== -->
@@ -1740,6 +1798,8 @@ document.addEventListener('keydown', e => {
 //  DASHBOARD LOADER
 // ============================================================
 function loadDashboard(m) {
+  // Store current user globally for Team Board features
+  window._kmsUser = m;
   // Days in business counter (founded March 16, 2026)
   const founded = new Date('2026-03-16T00:00:00');
   const today = new Date();
@@ -1889,7 +1949,9 @@ function dashTab(name, btn) {
     el.style.animation = '';
   });
   // Run counters when wins tab opens
-  if (name === 'wins') runCounters();
+  if (name === 'wins') { runCounters(); renderMotm(); }
+  // Init team board when that tab opens
+  if (name === 'teamboard') initTeamBoard();
 }
 
 // ============================================================
@@ -2127,6 +2189,184 @@ if (savedId) {
   }
   draw();
 })();
+
+// ============================================================
+//  MEMBER OF THE MONTH
+// ============================================================
+const MOTM = {
+  name: 'Jordan Ali',
+  role: 'Founder · CEO',
+  month: 'June 2026',
+  highlight: 'Built the entire King Maker Society operating system from scratch — website, team portal, media pages, SOPs, and the full team structure. The foundation every team member is standing on right now.',
+  photo: 'assets/team-jordan.jpg',
+  initials: 'JA'
+};
+
+function renderMotm() {
+  const el = document.getElementById('motm-card');
+  if (!el) return;
+  el.innerHTML = `
+    <div style="display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap;">
+      <div style="position:relative;flex-shrink:0;">
+        <img src="${MOTM.photo}" alt="${MOTM.name}" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div style="display:none;width:72px;height:72px;border-radius:50%;background:rgba(201,168,76,0.15);border:2px solid var(--gold);align-items:center;justify-content:center;font-family:var(--font-label);font-size:1rem;font-weight:700;color:var(--gold);">${MOTM.initials}</div>
+        <div style="position:absolute;bottom:-4px;right:-4px;background:var(--gold);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;">&#127881;</div>
+      </div>
+      <div style="flex:1;min-width:180px;">
+        <div style="font-family:var(--font-label);font-size:0.62rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:0.25rem;">${MOTM.month} · Member of the Month</div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:0.2rem;">${MOTM.name}</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.75rem;">${MOTM.role}</div>
+        <p style="font-size:0.84rem;color:var(--off-white);line-height:1.65;margin:0;">${MOTM.highlight}</p>
+      </div>
+    </div>`;
+}
+
+// ============================================================
+//  TEAM BOARD — Chat, Collab, Ideas, Concerns
+// ============================================================
+function initTeamBoard() {
+  // Populate collab-with dropdown with all members except current user
+  const sel = document.getElementById('collab-with');
+  if (sel && sel.options.length <= 1) {
+    const others = MEMBERS.filter(m => m.id !== (window._kmsUser ? window._kmsUser.id : ''));
+    others.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.name;
+      opt.textContent = m.name + ' · ' + (m.role ? m.role.split('·')[0].trim() : '');
+      sel.appendChild(opt);
+    });
+    const any = document.createElement('option');
+    any.value = 'Anyone';
+    any.textContent = 'Open to anyone on the team';
+    sel.appendChild(any);
+  }
+  renderChat();
+  renderCollabs();
+  renderIdeas();
+  renderConcerns();
+}
+
+function tbGet(key) {
+  try { return JSON.parse(localStorage.getItem('kms-' + key) || '[]'); } catch { return []; }
+}
+function tbSet(key, arr) {
+  try { localStorage.setItem('kms-' + key, JSON.stringify(arr)); } catch {}
+}
+function tbAuthor() {
+  const u = window._kmsUser;
+  return u ? u.name : 'Team Member';
+}
+function tbTime() {
+  return new Date().toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
+}
+
+// --- CHAT ---
+function sendChatMsg() {
+  const inp = document.getElementById('chat-input');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  const msgs = tbGet('chat');
+  msgs.push({author: tbAuthor(), text: txt, time: tbTime()});
+  if (msgs.length > 100) msgs.splice(0, msgs.length - 100);
+  tbSet('chat', msgs);
+  inp.value = '';
+  renderChat();
+}
+function renderChat() {
+  const el = document.getElementById('chat-messages');
+  if (!el) return;
+  const msgs = tbGet('chat');
+  if (!msgs.length) {
+    el.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.78rem;padding:2rem 0;">Messages are saved on this device. Share in group chat to reach everyone.</div>';
+    return;
+  }
+  const me = tbAuthor();
+  el.innerHTML = msgs.map(m => {
+    const isMe = m.author === me;
+    return `<div style="display:flex;flex-direction:column;align-items:${isMe?'flex-end':'flex-start'};gap:0.2rem;">
+      <span style="font-size:0.68rem;color:var(--muted);">${isMe?'You':m.author} · ${m.time}</span>
+      <div style="max-width:75%;background:${isMe?'rgba(201,168,76,0.18)':'rgba(255,255,255,0.06)'};border:1px solid ${isMe?'rgba(201,168,76,0.3)':'var(--hairline)'};border-radius:${isMe?'12px 12px 2px 12px':'12px 12px 12px 2px'};padding:0.6rem 0.9rem;font-size:0.84rem;color:var(--white);line-height:1.55;word-break:break-word;">${m.text}</div>
+    </div>`;
+  }).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+// --- COLLABS ---
+function submitCollab() {
+  const withWho = document.getElementById('collab-with').value;
+  const type = document.getElementById('collab-type').value.trim();
+  const idea = document.getElementById('collab-idea').value.trim();
+  if (!withWho || !idea) { alert('Please select who you want to collab with and describe the idea.'); return; }
+  const collabs = tbGet('collabs');
+  collabs.unshift({from: tbAuthor(), withWho, type: type || 'General', idea, time: tbTime(), status: 'open'});
+  tbSet('collabs', collabs);
+  document.getElementById('collab-with').value = '';
+  document.getElementById('collab-type').value = '';
+  document.getElementById('collab-idea').value = '';
+  renderCollabs();
+}
+function renderCollabs() {
+  const el = document.getElementById('collab-list');
+  if (!el) return;
+  const collabs = tbGet('collabs');
+  if (!collabs.length) { el.innerHTML = '<p style="font-size:0.78rem;color:var(--muted);">No collab requests yet. Be the first to post one.</p>'; return; }
+  el.innerHTML = collabs.slice(0,10).map((c,i) => `
+    <div style="background:rgba(255,255,255,0.04);border:1px solid var(--hairline);border-radius:10px;padding:1rem 1.15rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;">
+        <span style="font-family:var(--font-label);font-size:0.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;">${c.type}</span>
+        <span style="font-size:0.68rem;color:var(--muted);">${c.time}</span>
+      </div>
+      <p style="font-size:0.84rem;color:var(--white);margin:0 0 0.5rem;line-height:1.55;">${c.idea}</p>
+      <div style="font-size:0.75rem;color:var(--muted);">From <strong style="color:var(--off-white);">${c.from}</strong> &#8594; <strong style="color:var(--gold);">${c.withWho}</strong></div>
+    </div>`).join('');
+}
+
+// --- IDEAS ---
+function submitIdea() {
+  const inp = document.getElementById('idea-input');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  const ideas = tbGet('ideas');
+  ideas.unshift({author: tbAuthor(), text: txt, time: tbTime()});
+  tbSet('ideas', ideas);
+  inp.value = '';
+  renderIdeas();
+}
+function renderIdeas() {
+  const el = document.getElementById('ideas-list');
+  if (!el) return;
+  const ideas = tbGet('ideas');
+  if (!ideas.length) { el.innerHTML = '<p style="font-size:0.78rem;color:var(--muted);">No ideas yet. Drop the first one.</p>'; return; }
+  el.innerHTML = ideas.slice(0,15).map(d => `
+    <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:0.9rem 1.1rem;">
+      <div style="font-size:0.84rem;color:var(--white);line-height:1.55;margin-bottom:0.4rem;">${d.text}</div>
+      <div style="font-size:0.7rem;color:var(--muted);">${d.author} · ${d.time}</div>
+    </div>`).join('');
+}
+
+// --- CONCERNS ---
+function submitConcern() {
+  const inp = document.getElementById('concern-input');
+  const txt = inp.value.trim();
+  const anon = document.getElementById('concern-anon').checked;
+  if (!txt) return;
+  const concerns = tbGet('concerns');
+  concerns.unshift({author: anon ? 'Anonymous' : tbAuthor(), text: txt, time: tbTime()});
+  tbSet('concerns', concerns);
+  inp.value = '';
+  renderConcerns();
+}
+function renderConcerns() {
+  const el = document.getElementById('concerns-list');
+  if (!el) return;
+  const concerns = tbGet('concerns');
+  if (!concerns.length) { el.innerHTML = '<p style="font-size:0.78rem;color:var(--muted);">No concerns posted. All good so far.</p>'; return; }
+  el.innerHTML = concerns.slice(0,15).map(c => `
+    <div style="background:rgba(255,50,50,0.04);border:1px solid rgba(255,100,100,0.15);border-radius:10px;padding:0.9rem 1.1rem;">
+      <div style="font-size:0.84rem;color:var(--white);line-height:1.55;margin-bottom:0.4rem;">${c.text}</div>
+      <div style="font-size:0.7rem;color:var(--muted);">${c.author} · ${c.time}</div>
+    </div>`).join('');
+}
 </script>
 </body>
 </html>
