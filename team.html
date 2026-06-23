@@ -1478,7 +1478,7 @@ const MEMBERS = [
   {
     id: 'mohammed',
     name: 'Mohammed Ali',
-    role: 'Head Of Short-Form Content · Mentor',
+    role: 'Host · Head Of Short-Form Content · Mentor',
     pin: '0000',
     photo: 'assets/team-mohammed.jpg',
     initials: 'MA',
@@ -1868,13 +1868,13 @@ if (savedId) {
 }
 
 // ============================================================
-//  PORTAL BACKGROUND — GOLD PARTICLE FIELD
+//  PORTAL BACKGROUND — FALLING GOLD FLAKES
 // ============================================================
 (function initPortalBg() {
   const canvas = document.getElementById('portal-particles');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, raf;
+  let W, H;
 
   function resize() {
     W = canvas.width = window.innerWidth;
@@ -1883,142 +1883,165 @@ if (savedId) {
   resize();
   window.addEventListener('resize', resize);
 
-  // Gold palette
-  const GOLD = [201, 168, 76];
+  // Flake shape types: 0 = diamond, 1 = star4, 2 = hexstar, 3 = dot glow
+  const COLORS = [
+    [255, 220, 100],   // bright gold
+    [201, 168,  76],   // classic gold
+    [232, 196, 110],   // warm gold
+    [255, 245, 180],   // near-white shimmer
+  ];
 
-  class Orb {
-    constructor(rand) {
-      this.init(rand);
+  class Flake {
+    constructor(scatter) {
+      this.reset(scatter);
     }
-    init(rand) {
-      this.x = rand ? Math.random() * W : (Math.random() > 0.5 ? -20 : W + 20);
-      this.y = rand ? Math.random() * H : Math.random() * H;
-      this.r = Math.random() * 2.2 + 0.4;
-      this.baseAlpha = Math.random() * 0.28 + 0.04;
-      this.alpha = this.baseAlpha;
-      this.vx = (Math.random() - 0.5) * 0.35;
-      this.vy = (Math.random() - 0.5) * 0.22 - 0.06;
-      this.pulse = Math.random() * Math.PI * 2;
-      this.pulseSpeed = 0.008 + Math.random() * 0.015;
-      this.twinkle = Math.random() * Math.PI * 2;
-      this.twinkleSpeed = 0.04 + Math.random() * 0.06;
+    reset(scatter) {
+      this.x     = Math.random() * W;
+      this.y     = scatter ? Math.random() * H : -10 - Math.random() * 80;
+      this.size  = Math.random() * 4.5 + 1.2;       // 1.2–5.7 px half-size
+      this.type  = Math.floor(Math.random() * 4);
+      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      this.alpha = Math.random() * 0.55 + 0.12;
+      this.vy    = 0.35 + Math.random() * 0.9;       // fall speed
+      this.vx    = (Math.random() - 0.5) * 0.45;     // slight horizontal drift
+      this.rot   = Math.random() * Math.PI * 2;
+      this.rotV  = (Math.random() - 0.5) * 0.025;    // slow spin
+      this.sway  = Math.random() * Math.PI * 2;
+      this.swayS = 0.005 + Math.random() * 0.01;
+      this.swayA = 0.18 + Math.random() * 0.28;
+      // twinkle
+      this.twk   = Math.random() * Math.PI * 2;
+      this.twkS  = 0.025 + Math.random() * 0.04;
     }
     update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.pulse += this.pulseSpeed;
-      this.twinkle += this.twinkleSpeed;
-      this.alpha = this.baseAlpha * (0.6 + 0.4 * Math.sin(this.twinkle));
-      if (this.x < -30 || this.x > W + 30 || this.y < -30 || this.y > H + 30) {
-        this.init(false);
+      this.sway += this.swayS;
+      this.x   += this.vx + Math.sin(this.sway) * this.swayA;
+      this.y   += this.vy;
+      this.rot += this.rotV;
+      this.twk += this.twkS;
+      this.alpha = (Math.random() * 0.15 + 0.48) * (0.75 + 0.25 * Math.sin(this.twk));
+      if (this.y > H + 20 || this.x < -30 || this.x > W + 30) this.reset(false);
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rot);
+      ctx.globalAlpha = this.alpha;
+      const [r, g, b] = this.color;
+      const s = this.size;
+
+      if (this.type === 0) {
+        // Diamond shape
+        ctx.beginPath();
+        ctx.moveTo(0, -s);
+        ctx.lineTo(s * 0.55, 0);
+        ctx.lineTo(0, s);
+        ctx.lineTo(-s * 0.55, 0);
+        ctx.closePath();
+        const grd = ctx.createRadialGradient(0, -s * 0.3, 0, 0, 0, s * 1.1);
+        grd.addColorStop(0, `rgba(255,250,200,${this.alpha * 1.4})`);
+        grd.addColorStop(0.5, `rgba(${r},${g},${b},${this.alpha})`);
+        grd.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.fillStyle = grd;
+        ctx.fill();
+
+      } else if (this.type === 1) {
+        // 4-point star
+        ctx.beginPath();
+        for (let i = 0; i < 8; i++) {
+          const angle = (i * Math.PI) / 4;
+          const rad   = i % 2 === 0 ? s : s * 0.38;
+          i === 0 ? ctx.moveTo(Math.cos(angle) * rad, Math.sin(angle) * rad)
+                  : ctx.lineTo(Math.cos(angle) * rad, Math.sin(angle) * rad);
+        }
+        ctx.closePath();
+        ctx.fillStyle = `rgba(${r},${g},${b},${this.alpha})`;
+        ctx.fill();
+        // center glow
+        const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, s * 0.7);
+        cg.addColorStop(0, `rgba(255,250,210,${this.alpha * 1.6})`);
+        cg.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.beginPath(); ctx.arc(0, 0, s * 0.7, 0, Math.PI * 2);
+        ctx.fillStyle = cg; ctx.fill();
+
+      } else if (this.type === 2) {
+        // 6-point snowflake lines
+        ctx.strokeStyle = `rgba(${r},${g},${b},${this.alpha * 0.9})`;
+        ctx.lineWidth = Math.max(0.5, s * 0.18);
+        for (let i = 0; i < 3; i++) {
+          const a = (i * Math.PI) / 3;
+          ctx.beginPath();
+          ctx.moveTo(Math.cos(a) * s, Math.sin(a) * s);
+          ctx.lineTo(-Math.cos(a) * s, -Math.sin(a) * s);
+          ctx.stroke();
+          // small cross-branches
+          const bx = Math.cos(a) * s * 0.5;
+          const by = Math.sin(a) * s * 0.5;
+          const px = -Math.sin(a) * s * 0.3;
+          const py =  Math.cos(a) * s * 0.3;
+          ctx.beginPath(); ctx.moveTo(bx + px, by + py); ctx.lineTo(bx - px, by - py); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(-bx + px, -by + py); ctx.lineTo(-bx - px, -by - py); ctx.stroke();
+        }
+        // center dot
+        ctx.beginPath(); ctx.arc(0, 0, s * 0.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,248,200,${this.alpha * 1.5})`; ctx.fill();
+
+      } else {
+        // Glowing orb with cross sparkle
+        const gr = ctx.createRadialGradient(0, 0, 0, 0, 0, s * 2.2);
+        gr.addColorStop(0, `rgba(255,252,215,${this.alpha * 1.5})`);
+        gr.addColorStop(0.35, `rgba(${r},${g},${b},${this.alpha * 0.7})`);
+        gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.beginPath(); ctx.arc(0, 0, s * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = gr; ctx.fill();
+        // lens flare cross
+        ctx.strokeStyle = `rgba(255,252,215,${this.alpha * 0.5})`;
+        ctx.lineWidth = 0.6;
+        ctx.beginPath(); ctx.moveTo(-s * 3, 0); ctx.lineTo(s * 3, 0); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, -s * 3); ctx.lineTo(0, s * 3); ctx.stroke();
       }
-    }
-    draw() {
-      const glow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * (3 + 2 * Math.sin(this.pulse)));
-      glow.addColorStop(0, `rgba(${GOLD.join(',')},${this.alpha})`);
-      glow.addColorStop(0.4, `rgba(${GOLD.join(',')},${this.alpha * 0.4})`);
-      glow.addColorStop(1, `rgba(${GOLD.join(',')},0)`);
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r * (3 + 2 * Math.sin(this.pulse)), 0, Math.PI * 2);
-      ctx.fillStyle = glow;
-      ctx.fill();
-      // Hard center dot
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r * 0.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,240,160,${this.alpha * 1.8})`;
-      ctx.fill();
+
+      ctx.restore();
     }
   }
 
-  // Shooting streak
-  class Streak {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * W * 1.5 - W * 0.25;
-      this.y = -10;
-      this.len = 60 + Math.random() * 80;
-      this.speed = 1.5 + Math.random() * 2;
-      this.angle = (Math.PI / 2) + (Math.random() - 0.5) * 0.3;
-      this.alpha = 0;
-      this.life = 0;
-      this.maxLife = 80 + Math.random() * 60;
-      this.active = false;
-    }
-    trigger() {
-      this.reset();
-      this.active = true;
-    }
-    update() {
-      if (!this.active) return;
-      this.life++;
-      this.x += Math.cos(this.angle) * this.speed;
-      this.y += Math.sin(this.angle) * this.speed;
-      const t = this.life / this.maxLife;
-      this.alpha = t < 0.2 ? t / 0.2 : t > 0.7 ? (1 - t) / 0.3 : 1;
-      if (this.life >= this.maxLife) this.active = false;
-    }
-    draw() {
-      if (!this.active) return;
-      const ex = this.x - Math.cos(this.angle) * this.len;
-      const ey = this.y - Math.sin(this.angle) * this.len;
-      const grad = ctx.createLinearGradient(ex, ey, this.x, this.y);
-      grad.addColorStop(0, `rgba(${GOLD.join(',')},0)`);
-      grad.addColorStop(0.7, `rgba(${GOLD.join(',')},${this.alpha * 0.6})`);
-      grad.addColorStop(1, `rgba(255,248,200,${this.alpha})`);
-      ctx.beginPath();
-      ctx.moveTo(ex, ey);
-      ctx.lineTo(this.x, this.y);
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-    }
+  // Ambient deep glow — drawn once per frame behind flakes
+  function drawAmbientGlow() {
+    const rg = ctx.createRadialGradient(W * 0.5, H * 0.3, 0, W * 0.5, H * 0.3, W * 0.6);
+    rg.addColorStop(0, 'rgba(201,168,76,0.055)');
+    rg.addColorStop(0.55, 'rgba(160,120,40,0.018)');
+    rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = rg;
+    ctx.fillRect(0, 0, W, H);
+    // subtle bottom-left warm flare
+    const rg2 = ctx.createRadialGradient(W * 0.15, H * 0.85, 0, W * 0.15, H * 0.85, W * 0.35);
+    rg2.addColorStop(0, 'rgba(201,140,40,0.035)');
+    rg2.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = rg2;
+    ctx.fillRect(0, 0, W, H);
   }
 
-  const orbs = Array.from({length: 90}, (_, i) => new Orb(true));
-  const streaks = Array.from({length: 5}, () => new Streak());
-
-  // Trigger streaks at random intervals
-  function triggerStreak() {
-    const idle = streaks.find(s => !s.active);
-    if (idle) idle.trigger();
-    setTimeout(triggerStreak, 2000 + Math.random() * 5000);
-  }
-  setTimeout(triggerStreak, 1500);
+  // 120 flakes — mix of sizes/types for depth
+  const FLAKE_COUNT = 120;
+  const flakes = Array.from({length: FLAKE_COUNT}, () => new Flake(true));
 
   let portalVisible = false;
   function draw() {
-    if (!portalVisible) { raf = requestAnimationFrame(draw); return; }
+    if (!portalVisible) { requestAnimationFrame(draw); return; }
     ctx.clearRect(0, 0, W, H);
-
-    // Deep center glow
-    const radGrad = ctx.createRadialGradient(W * 0.5, H * 0.35, 0, W * 0.5, H * 0.35, W * 0.55);
-    radGrad.addColorStop(0, 'rgba(201,168,76,0.04)');
-    radGrad.addColorStop(0.5, 'rgba(201,140,40,0.015)');
-    radGrad.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = radGrad;
-    ctx.fillRect(0, 0, W, H);
-
-    orbs.forEach(o => { o.update(); o.draw(); });
-    streaks.forEach(s => { s.update(); s.draw(); });
-    raf = requestAnimationFrame(draw);
+    drawAmbientGlow();
+    flakes.forEach(f => { f.update(); f.draw(); });
+    requestAnimationFrame(draw);
   }
   draw();
 
-  // Show/hide based on portal screen
-  const orig_showScreen = window.showScreen;
-  window.showScreenWithBg = function(id) {
-    portalVisible = (id === 'screen-portal');
-    canvas.style.opacity = portalVisible ? '1' : '0';
-    orig_showScreen(id);
-  };
-  // Patch showScreen
+  // Patch showScreen to show/hide canvas
   const _orig = showScreen;
   window.showScreen = function(id) {
     portalVisible = (id === 'screen-portal');
     canvas.style.opacity = portalVisible ? '1' : '0';
     _orig(id);
   };
-  // Check initial state
   if (document.getElementById('screen-portal').classList.contains('active')) {
     portalVisible = true;
     canvas.style.opacity = '1';
