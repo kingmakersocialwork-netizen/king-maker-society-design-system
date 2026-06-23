@@ -505,6 +505,13 @@
         <a class="quick-link" href="https://docs.google.com/document/d/1wBgvIAFgLOz2dopaWsc_rN8FZI1LekxMHUrfrmkgcKU/edit" target="_blank">&#128196; SOP 05 · Lead Tracking</a>
         <a class="quick-link" href="https://docs.google.com/document/d/1wwhkuDaAARj1oSZWMrusUVlDcPT5IAkL_lkMNRYMNdI/edit" target="_blank">&#128196; SOP 06 · Objections</a>
       </div>
+
+      <!-- SALES LEADERBOARD -->
+      <div class="divider-label">&#127942; Membership Leaderboard</div>
+      <div class="goals-card" id="leaderboard-card" style="padding:1.5rem 1.75rem;">
+        <div id="leaderboard-list" style="display:flex;flex-direction:column;gap:0.85rem;"></div>
+      </div>
+
     </div>
 
     <!-- ==================== MY GOALS ==================== -->
@@ -1202,6 +1209,7 @@ const MEMBERS = [
     initials: 'JA',
     leadForm: 'https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform',
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
+    sales: 1,
     weeklyGoals: [
       'Host Tuesday and Saturday live sessions',
       'Follow up with 5 new leads personally',
@@ -1251,6 +1259,7 @@ const MEMBERS = [
     initials: 'RB',
     leadForm: 'https://docs.google.com/forms/d/e/1FAIpQLSe3ona4EnvUk0RNolowP5HUWizjaj88bOYk85dHDdobqilqUA/viewform',
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
+    sales: 1,
     weeklyGoals: [
       'Show up for both live sessions this week',
       'Engage in the brotherhood group chat daily',
@@ -1296,6 +1305,7 @@ const MEMBERS = [
     initials: 'WS',
     leadForm: null,
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
+    sales: 0,
     weeklyGoals: [
       'Complete all scheduled 1-on-1 mentor calls',
       'Check in with every VIP member this week',
@@ -1342,6 +1352,7 @@ const MEMBERS = [
     initials: 'AA',
     leadForm: 'https://docs.google.com/forms/d/e/1FAIpQLSdhn589KPqWyl9IPJQs12PNKIl5Y21iq7bo9zFVPtT-pCflqw/viewform',
     paymentLink: 'https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05',
+    sales: 0,
     weeklyGoals: [
       'Plan and finalize the week\'s content calendar',
       'Post 2x on @kingsmediamma',
@@ -1388,6 +1399,7 @@ const MEMBERS = [
     initials: 'TY',
     leadForm: null,
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
+    sales: 0,
     weeklyGoals: [
       'Post 2x content pieces this week',
       'Attend both live sessions (Tue & Sat)',
@@ -1434,6 +1446,7 @@ const MEMBERS = [
     initials: 'GM',
     leadForm: 'https://forms.gle/zEWAzagQFFWMQyou9',
     paymentLink: 'https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04',
+    sales: 0,
     weeklyGoals: [
       'Reach out to 5 new international martial artists or gyms',
       'Follow up with existing outreach contacts',
@@ -1480,6 +1493,7 @@ const MEMBERS = [
     initials: 'MA',
     leadForm: null,
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
+    sales: 0,
     weeklyGoals: [
       'Post 3x short-form content pieces (Reels, TikTok, Shorts)',
       'Engage with members and leads in the group chat',
@@ -1529,6 +1543,7 @@ const MEMBERS = [
     initials: 'MG',
     leadForm: null,
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
+    sales: 0,
     weeklyGoals: [
       'Post 2x fight or lifestyle content this week',
       'Show up for at least 1 live session',
@@ -1779,7 +1794,49 @@ function loadDashboard(m) {
       </div>
     </div>`;
 
+  // Build leaderboard
+  buildLeaderboard();
+
   dashTab('overview', document.querySelector('.dash-tab'));
+}
+
+function buildLeaderboard() {
+  const el = document.getElementById('leaderboard-list');
+  if (!el) return;
+
+  // Sort by sales desc, stable (preserve original order for ties)
+  const sorted = [...MEMBERS].sort((a, b) => (b.sales || 0) - (a.sales || 0));
+  const max = Math.max(...sorted.map(m => m.sales || 0), 1);
+
+  let rank = 1;
+  el.innerHTML = sorted.map((m, i) => {
+    const sales = m.sales || 0;
+    // Assign rank (same rank for ties)
+    if (i > 0 && sales < (sorted[i-1].sales || 0)) rank = i + 1;
+    const pct = Math.round((sales / max) * 100);
+    const barW = sales === 0 ? 2 : Math.max(pct, 4);
+    const isTop = rank === 1 && sales > 0;
+    const medal = rank === 1 && sales > 0 ? '&#129351;' : rank === 2 && sales > 0 ? '&#129352;' : rank === 3 && sales > 0 ? '&#129353;' : `<span style="font-size:0.7rem;color:var(--muted);font-family:var(--font-label);">#${rank}</span>`;
+    return `
+    <div style="display:flex;align-items:center;gap:0.85rem;padding:0.6rem 0;${i < sorted.length-1 ? 'border-bottom:1px solid rgba(201,168,76,0.07);' : ''}">
+      <div style="width:28px;text-align:center;flex-shrink:0;">${medal}</div>
+      <div style="position:relative;width:40px;height:40px;flex-shrink:0;">
+        <img src="${m.photo}" alt="${m.name}"
+          style="width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid ${isTop ? 'var(--gold)' : 'rgba(201,168,76,0.25)'};"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;width:40px;height:40px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.25);align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.85rem;color:var(--gold);">${m.initials}</div>
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+          <span style="font-size:0.82rem;color:var(--off-white);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${m.name.split(' ')[0]}</span>
+          <span style="font-family:var(--font-label);font-size:0.72rem;color:${sales > 0 ? 'var(--gold)' : 'var(--muted)'};margin-left:0.5rem;flex-shrink:0;">${sales} sold</span>
+        </div>
+        <div style="height:7px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${barW}%;background:${isTop ? 'linear-gradient(90deg,var(--gold),rgba(255,220,100,0.8))' : 'rgba(201,168,76,0.35)'};border-radius:4px;transition:width 0.6s ease;"></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function toggleGoal(el, key) {
