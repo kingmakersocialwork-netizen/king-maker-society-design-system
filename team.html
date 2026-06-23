@@ -17,7 +17,7 @@
 .screen.active { display: flex; flex-direction: column; }
 
 /* ---- Member Select ---- */
-#screen-select { align-items: center; justify-content: center; padding: 2rem; background: var(--black); position: relative; overflow: hidden; }
+#screen-select { align-items: center; justify-content: center; padding: 2rem; background: transparent; position: relative; overflow: hidden; }
 #screen-select::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 70%); pointer-events: none; }
 .select-wrap { width: 100%; max-width: 760px; text-align: center; position: relative; z-index: 1; }
 .select-logo { width: 68px; height: 68px; object-fit: contain; margin: 0 auto 1.25rem; filter: drop-shadow(0 0 22px rgba(201,168,76,0.5)); }
@@ -35,7 +35,7 @@
 .member-tile-role { font-size: 0.7rem; color: var(--muted); text-align: center; }
 
 /* ---- PIN Screen ---- */
-#screen-pin { align-items: center; justify-content: center; padding: 2rem; background: var(--black); position: relative; overflow: hidden; }
+#screen-pin { align-items: center; justify-content: center; padding: 2rem; background: transparent; position: relative; overflow: hidden; }
 #screen-pin::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%); pointer-events: none; }
 .pin-card { background: linear-gradient(160deg, rgba(28,24,16,0.98) 0%, rgba(18,15,8,0.99) 100%); border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; padding: 2.5rem 2rem; width: 100%; max-width: 340px; text-align: center; box-shadow: 0 40px 100px -20px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.1); position: relative; z-index: 1; }
 .pin-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid var(--gold); margin: 0 auto 0.8rem; display: block; }
@@ -56,7 +56,7 @@
 .pin-error-msg { font-size: 0.78rem; color: var(--red-light); margin-bottom: 0.75rem; min-height: 1.2em; }
 
 /* ---- Portal / Dashboard ---- */
-#screen-portal { background: var(--black); min-height: 100vh; display: none; flex-direction: column; position: relative; }
+#screen-portal { background: transparent; min-height: 100vh; display: none; flex-direction: column; position: relative; }
 #screen-portal.active { display: flex; }
 .portal-nav { position: sticky; top: 0; z-index: 100; background: rgba(8,7,4,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(201,168,76,0.15); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 1px 0 rgba(201,168,76,0.08), 0 4px 24px rgba(0,0,0,0.4); }
 .portal-nav::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), rgba(201,168,76,0.4), var(--gold), transparent); }
@@ -348,9 +348,9 @@
 }
 </style>
 </head>
-<body>
+<body style="background:#0A0A08;">
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
-<canvas id="portal-particles" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0;transition:opacity 1s ease;"></canvas>
+<canvas id="portal-particles" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:1;transition:opacity 0.5s ease;"></canvas>
 
 <!-- ===== SCREEN 1: MEMBER SELECT ===== -->
 <div class="screen active" id="screen-select">
@@ -2025,27 +2025,14 @@ if (savedId) {
   const FLAKE_COUNT = 120;
   const flakes = Array.from({length: FLAKE_COUNT}, () => new Flake(true));
 
-  let portalVisible = false;
+  // Run flakes on all screens — always visible
   function draw() {
-    if (!portalVisible) { requestAnimationFrame(draw); return; }
     ctx.clearRect(0, 0, W, H);
     drawAmbientGlow();
     flakes.forEach(f => { f.update(); f.draw(); });
     requestAnimationFrame(draw);
   }
   draw();
-
-  // Patch showScreen to show/hide canvas
-  const _orig = showScreen;
-  window.showScreen = function(id) {
-    portalVisible = (id === 'screen-portal');
-    canvas.style.opacity = portalVisible ? '1' : '0';
-    _orig(id);
-  };
-  if (document.getElementById('screen-portal').classList.contains('active')) {
-    portalVisible = true;
-    canvas.style.opacity = '1';
-  }
 })();
 </script>
 </body>
