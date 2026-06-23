@@ -427,6 +427,7 @@
       <button class="dash-tab" onclick="dashTab('calendar', this)">Calendar</button>
       <button class="dash-tab" onclick="dashTab('resources', this)">Resources</button>
       <button class="dash-tab" onclick="dashTab('teamboard', this)">&#128172; Team Board</button>
+      <button class="dash-tab" onclick="dashTab('challenges', this)">&#127942; Challenges</button>
       <button class="dash-tab" onclick="dashTab('coming', this)">Coming Soon</button>
     </div>
 
@@ -1176,6 +1177,52 @@ Members get access. Link in bio to join King Maker Society.
         <button onclick="submitConcern()" style="margin-top:0.75rem;background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:0.6rem 1.25rem;font-family:var(--font-label);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">&#128681; Submit Concern</button>
         <div id="concerns-list" style="margin-top:1.25rem;display:flex;flex-direction:column;gap:0.7rem;"></div>
       </div>
+
+    </div>
+
+    <!-- ==================== CHALLENGES ==================== -->
+    <div class="dash-panel" id="panel-challenges">
+
+      <!-- Active Team Challenges -->
+      <div class="divider-label" style="margin-top:0">&#128293; Active Team Challenges</div>
+      <div id="team-challenges-list" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;"></div>
+
+      <!-- Active Community Challenges -->
+      <div class="divider-label">&#127758; Active Community Challenges</div>
+      <div id="community-challenges-list" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;"></div>
+
+      <!-- Post New Challenge (Jordan only or any member) -->
+      <div class="divider-label">&#43; Post a Challenge</div>
+      <div class="goals-card" style="margin-bottom:1.75rem;">
+        <p style="font-size:0.83rem;color:var(--off-white);margin-bottom:1.1rem;line-height:1.6;">Set a new challenge for the team or the community. Challenges keep the energy high and give everyone a target to push toward.</p>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <select id="ch-type" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
+              <option value="team">Team Challenge</option>
+              <option value="community">Community Challenge</option>
+            </select>
+            <select id="ch-category" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
+              <option value="Sales">&#128176; Sales</option>
+              <option value="Content">&#127909; Content</option>
+              <option value="Training">&#129354; Training</option>
+              <option value="Accountability">&#128081; Accountability</option>
+              <option value="Growth">&#128200; Growth</option>
+              <option value="Mindset">&#129504; Mindset</option>
+            </select>
+          </div>
+          <input id="ch-title" placeholder="Challenge title (e.g. Close 5 Memberships This Week)" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;width:100%;box-sizing:border-box;">
+          <textarea id="ch-desc" placeholder="Describe the challenge — what needs to be done and why it matters..." style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;resize:vertical;min-height:80px;font-family:inherit;width:100%;box-sizing:border-box;line-height:1.6;"></textarea>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <input id="ch-prize" placeholder="Prize or reward (optional)" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:200px;box-sizing:border-box;">
+            <input id="ch-deadline" type="date" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;box-sizing:border-box;">
+          </div>
+          <button onclick="postChallenge()" style="background:var(--gold);color:#0a0a08;border:none;border-radius:8px;padding:0.65rem 1.5rem;font-family:var(--font-label);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;align-self:flex-start;">&#127942; Post Challenge</button>
+        </div>
+      </div>
+
+      <!-- Completed Challenges -->
+      <div class="divider-label">&#10003; Completed Challenges</div>
+      <div id="completed-challenges-list" style="display:flex;flex-direction:column;gap:0.85rem;"></div>
 
     </div>
 
@@ -1952,6 +1999,8 @@ function dashTab(name, btn) {
   if (name === 'wins') { runCounters(); renderMotm(); }
   // Init team board when that tab opens
   if (name === 'teamboard') initTeamBoard();
+  // Init challenges when that tab opens
+  if (name === 'challenges') initChallenges();
 }
 
 // ============================================================
@@ -2189,6 +2238,162 @@ if (savedId) {
   }
   draw();
 })();
+
+// ============================================================
+//  CHALLENGES
+// ============================================================
+const DEFAULT_CHALLENGES = [
+  {
+    id: 'ch-jul-sales',
+    type: 'team',
+    category: 'Sales',
+    title: 'July–August Membership Challenge',
+    desc: 'Close the most memberships between July 1 and August 31. The team member with the highest sales count wins custom King Maker Society fight gear. Every DM, every follow-up, every close counts.',
+    prize: 'Custom King Maker Society Fight Gear',
+    deadline: '2026-08-31',
+    postedBy: 'Jordan Ali',
+    postedAt: 'Jul 1, 2026',
+    status: 'active',
+    completedBy: []
+  },
+  {
+    id: 'ch-competition-clips',
+    type: 'community',
+    category: 'Content',
+    title: 'Post Your Competition Clip',
+    desc: 'If you have a fight coming up or just competed — post a clip on Instagram and tag @kingmakersocial. We will repost the best ones. Show the brotherhood what you are made of.',
+    prize: 'Repost + Feature on @kingmakersocial',
+    deadline: '2026-07-31',
+    postedBy: 'Jordan Ali',
+    postedAt: 'Jun 23, 2026',
+    status: 'active',
+    completedBy: []
+  },
+  {
+    id: 'ch-5-dms',
+    type: 'team',
+    category: 'Sales',
+    title: '5 Real DMs Per Day This Week',
+    desc: 'Every active sales team member sends 5 genuine outreach DMs per day for 7 days straight. Not blasts. Real conversations. Track them in the lead sheet and post your daily count in the team chat.',
+    prize: 'Accountability recognition + bragging rights',
+    deadline: '2026-06-30',
+    postedBy: 'Jordan Ali',
+    postedAt: 'Jun 23, 2026',
+    status: 'active',
+    completedBy: []
+  },
+  {
+    id: 'ch-morning-routine',
+    type: 'community',
+    category: 'Accountability',
+    title: 'Morning Routine Challenge',
+    desc: 'Post your morning routine in the group for 7 days straight. Wake time, training, mindset work — show up every day. Tag @kingmakersocial on at least one post this week.',
+    prize: 'Member spotlight post on @kingmakersocial',
+    deadline: '2026-06-30',
+    postedBy: 'Jordan Ali',
+    postedAt: 'Jun 23, 2026',
+    status: 'active',
+    completedBy: []
+  }
+];
+
+const CATEGORY_ICONS = { Sales:'&#128176;', Content:'&#127909;', Training:'&#129354;', Accountability:'&#128081;', Growth:'&#128200;', Mindset:'&#129504;' };
+
+function initChallenges() {
+  // Seed defaults if storage is empty
+  let stored = tbGet('challenges');
+  if (!stored.length) {
+    tbSet('challenges', DEFAULT_CHALLENGES);
+    stored = DEFAULT_CHALLENGES;
+  }
+  renderChallengesSections(stored);
+}
+
+function renderChallengesSections(all) {
+  const active_team = all.filter(c => c.type === 'team' && c.status === 'active');
+  const active_comm = all.filter(c => c.type === 'community' && c.status === 'active');
+  const done = all.filter(c => c.status === 'completed');
+
+  const teamEl = document.getElementById('team-challenges-list');
+  const commEl = document.getElementById('community-challenges-list');
+  const doneEl = document.getElementById('completed-challenges-list');
+
+  if (teamEl) teamEl.innerHTML = active_team.length ? active_team.map(c => buildChallengeCard(c)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No active team challenges. Post one below.</p>';
+  if (commEl) commEl.innerHTML = active_comm.length ? active_comm.map(c => buildChallengeCard(c)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No active community challenges. Post one below.</p>';
+  if (doneEl) doneEl.innerHTML = done.length ? done.map(c => buildChallengeCard(c, true)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No completed challenges yet.</p>';
+}
+
+function buildChallengeCard(c, isDone) {
+  const icon = CATEGORY_ICONS[c.category] || '&#127942;';
+  const daysLeft = c.deadline ? Math.ceil((new Date(c.deadline) - new Date()) / 86400000) : null;
+  const deadlineStr = c.deadline ? new Date(c.deadline).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+  const urgency = daysLeft !== null ? (daysLeft <= 3 ? '#ff6b6b' : daysLeft <= 7 ? '#ffa94d' : 'var(--gold)') : 'var(--gold)';
+  const me = window._kmsUser ? window._kmsUser.name : '';
+  const alreadyDone = c.completedBy && c.completedBy.includes(me);
+
+  return `<div style="background:rgba(255,255,255,0.04);border:1px solid ${isDone ? 'rgba(255,255,255,0.06)' : 'rgba(201,168,76,0.2)'};border-radius:14px;padding:1.25rem 1.4rem;${isDone?'opacity:0.55':''}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:0.75rem;">
+      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+        <span style="font-size:1.2rem;">${icon}</span>
+        <div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.15rem;">${c.title}</div>
+          <div style="font-size:0.72rem;color:var(--muted);">${c.category} &middot; Posted by ${c.postedBy} &middot; ${c.postedAt}</div>
+        </div>
+      </div>
+      ${!isDone && daysLeft !== null ? `<div style="text-align:right;flex-shrink:0;"><div style="font-family:var(--font-label);font-size:0.62rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;">Ends</div><div style="font-size:0.82rem;font-weight:700;color:${urgency};">${deadlineStr}</div>${daysLeft > 0 ? `<div style="font-size:0.68rem;color:${urgency};">${daysLeft}d left</div>` : '<div style="font-size:0.68rem;color:#ff6b6b;">Ending today</div>'}</div>` : ''}
+    </div>
+    <p style="font-size:0.83rem;color:var(--off-white);line-height:1.65;margin:0 0 0.85rem;">${c.desc}</p>
+    ${c.prize ? `<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.85rem;"><span style="font-size:0.8rem;">&#127873;</span><span style="font-size:0.8rem;color:var(--gold);font-weight:600;">Prize: ${c.prize}</span></div>` : ''}
+    ${!isDone ? `<div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;">
+      ${!alreadyDone ? `<button onclick="markChallengeComplete('${c.id}')" style="background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:0.45rem 1rem;font-family:var(--font-label);font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">&#10003; Mark Complete</button>` : `<span style="font-size:0.78rem;color:var(--gold);">&#10003; Marked complete by you</span>`}
+      <button onclick="closeChallenge('${c.id}')" style="background:transparent;color:var(--muted);border:1px solid var(--hairline);border-radius:8px;padding:0.45rem 0.9rem;font-family:var(--font-label);font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">Archive</button>
+    </div>` : ''}
+  </div>`;
+}
+
+function postChallenge() {
+  const title = document.getElementById('ch-title').value.trim();
+  const desc = document.getElementById('ch-desc').value.trim();
+  if (!title || !desc) { alert('Please add a title and description.'); return; }
+  const ch = {
+    id: 'ch-' + Date.now(),
+    type: document.getElementById('ch-type').value,
+    category: document.getElementById('ch-category').value,
+    title,
+    desc,
+    prize: document.getElementById('ch-prize').value.trim(),
+    deadline: document.getElementById('ch-deadline').value,
+    postedBy: tbAuthor(),
+    postedAt: tbTime(),
+    status: 'active',
+    completedBy: []
+  };
+  const all = tbGet('challenges');
+  all.unshift(ch);
+  tbSet('challenges', all);
+  ['ch-title','ch-desc','ch-prize','ch-deadline'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  renderChallengesSections(all);
+}
+
+function markChallengeComplete(id) {
+  const all = tbGet('challenges');
+  const ch = all.find(c => c.id === id);
+  if (!ch) return;
+  const me = tbAuthor();
+  if (!ch.completedBy) ch.completedBy = [];
+  if (!ch.completedBy.includes(me)) ch.completedBy.push(me);
+  tbSet('challenges', all);
+  renderChallengesSections(all);
+}
+
+function closeChallenge(id) {
+  if (!confirm('Archive this challenge?')) return;
+  const all = tbGet('challenges');
+  const ch = all.find(c => c.id === id);
+  if (ch) ch.status = 'completed';
+  tbSet('challenges', all);
+  renderChallengesSections(all);
+}
 
 // ============================================================
 //  MEMBER OF THE MONTH
