@@ -683,12 +683,22 @@
       </div>
       <div class="divider-label">Payment Links</div>
       <div class="quick-links">
-        <a class="quick-link" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank">&#128176; Jordan &amp; Ryan · $30</a>
-        <a class="quick-link" href="https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08" target="_blank">&#128081; Jordan &amp; Ryan · $100 VIP</a>
+        <a class="quick-link" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank">&#128176; Jordan · $30</a>
+        <a class="quick-link" href="https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08" target="_blank">&#128081; Jordan · $100 VIP</a>
+        <a class="quick-link" href="https://buy.stripe.com/14A28sgfKd7B5Bi6j757W0b" target="_blank">&#11088; Jordan · $300 Elite</a>
+        <a class="quick-link" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank">&#128176; Ryan · $30</a>
+        <a class="quick-link" href="https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08" target="_blank">&#128081; Ryan · $100 VIP</a>
+        <a class="quick-link" href="https://buy.stripe.com/fZuaEYd3y0kP3tafTH57W0c" target="_blank">&#11088; Ryan · $300 Elite</a>
+        <a class="quick-link" href="https://buy.stripe.com/bJe14oe7C3x1fbSfTH57W0g" target="_blank">&#128176; Willie · $30</a>
         <a class="quick-link" href="https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05" target="_blank">&#128176; Aaron · $30</a>
         <a class="quick-link" href="https://buy.stripe.com/8x24gA9Rm3x1d3K6j757W09" target="_blank">&#128081; Aaron · $100 VIP</a>
+        <a class="quick-link" href="https://buy.stripe.com/7sYeVe3sY1oTe7OdLz57W0f" target="_blank">&#11088; Aaron · $300 Elite</a>
+        <a class="quick-link" href="https://buy.stripe.com/00wfZigfK7Nh8Nu36V57W0h" target="_blank">&#128176; Ty · $30</a>
+        <a class="quick-link" href="https://buy.stripe.com/28E7sM7Je6Jde7O6j757W0j" target="_blank">&#128081; Ty · $100 VIP</a>
         <a class="quick-link" href="https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04" target="_blank">&#128176; Georgios · $30</a>
         <a class="quick-link" href="https://buy.stripe.com/6oUfZi1kQ6Jd9RydLz57W0a" target="_blank">&#128081; Georgios · $100 VIP</a>
+        <a class="quick-link" href="https://buy.stripe.com/28EaEY3sY6Jdd3K9vj57W0e" target="_blank">&#11088; Georgios · $300 Elite</a>
+        <a class="quick-link" href="https://buy.stripe.com/fZu14obZu9Vp3ta5f357W0i" target="_blank">&#128176; Mohammed · $30</a>
       </div>
       <div class="divider-label">Operations</div>
       <div class="quick-links">
@@ -1328,6 +1338,7 @@ const MEMBERS = [
     leadForm: 'https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform',
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
     paymentLinkVip: 'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08',
+    paymentLinkElite: 'https://buy.stripe.com/14A28sgfKd7B5Bi6j757W0b',
     sales: 1,
     weeklyGoals: [
       'Host Tuesday and Saturday live sessions',
@@ -1379,6 +1390,7 @@ const MEMBERS = [
     leadForm: 'https://docs.google.com/forms/d/e/1FAIpQLSe3ona4EnvUk0RNolowP5HUWizjaj88bOYk85dHDdobqilqUA/viewform',
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
     paymentLinkVip: 'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08',
+    paymentLinkElite: 'https://buy.stripe.com/fZuaEYd3y0kP3tafTH57W0c',
     sales: 1,
     weeklyGoals: [
       'Show up for both live sessions this week',
@@ -1424,8 +1436,9 @@ const MEMBERS = [
     photo: 'assets/team-willie.png',
     initials: 'WS',
     leadForm: null,
-    paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
-    paymentLinkVip: 'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08',
+    paymentLink: 'https://buy.stripe.com/bJe14oe7C3x1fbSfTH57W0g',
+    paymentLinkVip: null,
+    paymentLinkElite: null,
     sales: 0,
     weeklyGoals: [
       'Complete all scheduled 1-on-1 mentor calls',
@@ -1474,6 +1487,7 @@ const MEMBERS = [
     leadForm: 'https://docs.google.com/forms/d/e/1FAIpQLSdhn589KPqWyl9IPJQs12PNKIl5Y21iq7bo9zFVPtT-pCflqw/viewform',
     paymentLink: 'https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05',
     paymentLinkVip: 'https://buy.stripe.com/8x24gA9Rm3x1d3K6j757W09',
+    paymentLinkElite: 'https://buy.stripe.com/7sYeVe3sY1oTe7OdLz57W0f',
     sales: 0,
     weeklyGoals: [
       'Plan and finalize the week\'s content calendar',
@@ -1520,8 +1534,9 @@ const MEMBERS = [
     photo: 'assets/team-ty.jpg',
     initials: 'TY',
     leadForm: null,
-    paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
-    paymentLinkVip: 'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08',
+    paymentLink: 'https://buy.stripe.com/00wfZigfK7Nh8Nu36V57W0h',
+    paymentLinkVip: 'https://buy.stripe.com/28E7sM7Je6Jde7O6j757W0j',
+    paymentLinkElite: null,
     sales: 0,
     weeklyGoals: [
       'Post 2x content pieces this week',
@@ -1570,6 +1585,7 @@ const MEMBERS = [
     leadForm: 'https://forms.gle/zEWAzagQFFWMQyou9',
     paymentLink: 'https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04',
     paymentLinkVip: 'https://buy.stripe.com/6oUfZi1kQ6Jd9RydLz57W0a',
+    paymentLinkElite: 'https://buy.stripe.com/28EaEY3sY6Jdd3K9vj57W0e',
     sales: 0,
     weeklyGoals: [
       'Reach out to 5 new international martial artists or gyms',
@@ -1616,8 +1632,9 @@ const MEMBERS = [
     photo: 'assets/team-mohammed.jpg',
     initials: 'MA',
     leadForm: null,
-    paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
-    paymentLinkVip: 'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08',
+    paymentLink: 'https://buy.stripe.com/fZu14obZu9Vp3ta5f357W0i',
+    paymentLinkVip: null,
+    paymentLinkElite: null,
     sales: 0,
     weeklyGoals: [
       'Post 3x short-form content pieces (Reels, TikTok, Shorts)',
@@ -1668,7 +1685,8 @@ const MEMBERS = [
     initials: 'MG',
     leadForm: null,
     paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
-    paymentLinkVip: 'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08',
+    paymentLinkVip: null,
+    paymentLinkElite: null,
     sales: 0,
     weeklyGoals: [
       'Post 2x fight or lifestyle content this week',
@@ -1890,8 +1908,9 @@ function loadDashboard(m) {
       <h3>&#128279; My Links</h3>
       <div style="display:flex;flex-wrap:wrap;gap:0.65rem;margin-top:0.5rem;">
         ${m.leadForm ? `<a class="quick-link" href="${m.leadForm}" target="_blank">&#128203; My Lead Form (1-Week Free Trial)</a>` : ''}
-        ${m.paymentLink ? `<a class="quick-link" href="${m.paymentLink}" target="_blank">&#128176; My Payment Link · $30</a>` : ''}
-        ${m.paymentLinkVip ? `<a class="quick-link" href="${m.paymentLinkVip}" target="_blank">&#128081; My Payment Link · $100 VIP</a>` : ''}
+        ${m.paymentLink ? `<a class="quick-link" href="${m.paymentLink}" target="_blank">&#128176; My Link · $30 General</a>` : ''}
+        ${m.paymentLinkVip ? `<a class="quick-link" href="${m.paymentLinkVip}" target="_blank">&#128081; My Link · $100 VIP</a>` : ''}
+        ${m.paymentLinkElite ? `<a class="quick-link" href="${m.paymentLinkElite}" target="_blank">&#11088; My Link · $300 Elite</a>` : ''}
       </div>
     </div>` : '';
   document.getElementById('plan-content').innerHTML = myLinksHTML + `
