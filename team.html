@@ -515,13 +515,13 @@
           <div style="flex:1;min-width:200px;">
             <div style="font-family:var(--font-label);font-size:0.65rem;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Prize</div>
             <div style="font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:0.35rem;">Custom King Maker Society Fight Gear</div>
-            <div style="font-size:0.82rem;color:var(--off-white);line-height:1.6;">The team member who closes the most memberships from July 1 to August 31 wins custom KMS fight gear. Every sale counts. Every conversation matters. The board resets at the start of the challenge.</div>
+            <div style="font-size:0.82rem;color:var(--off-white);line-height:1.6;">The team member who closes the most memberships from July 1 to August 15 wins custom KMS fight gear. Every sale counts. Every conversation matters. The board resets at the start of the challenge.</div>
           </div>
           <div style="text-align:center;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:1rem 1.25rem;min-width:110px;">
             <div style="font-size:0.65rem;font-family:var(--font-label);color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Challenge Period</div>
             <div style="font-size:0.95rem;font-weight:700;color:var(--white);">Jul 1</div>
             <div style="color:var(--muted);font-size:0.75rem;">to</div>
-            <div style="font-size:0.95rem;font-weight:700;color:var(--white);">Aug 31</div>
+            <div style="font-size:0.95rem;font-weight:700;color:var(--white);">Aug 15</div>
           </div>
         </div>
       </div>
@@ -2231,53 +2231,68 @@ if (savedId) {
 //  CHALLENGES
 // ============================================================
 const DEFAULT_CHALLENGES = [
+  // ── TEAM CHALLENGES ──────────────────────────────────────────────
   {
     id: 'ch-jul-sales',
     type: 'team',
     category: 'Sales',
-    title: 'July–August Membership Challenge',
-    desc: 'Close the most memberships between July 1 and August 31. The team member with the highest sales count wins custom King Maker Society fight gear, a cash bonus, and the King Maker of the Month title. Every DM, every follow-up, every close counts.',
-    prize: 'Custom KMS Fight Gear + Cash Bonus + King Maker of the Month Title',
-    deadline: '2026-08-31',
+    title: 'July – August Membership Challenge',
+    desc: 'Close the most memberships between July 1 and August 15. The team member with the highest sales count wins custom King Maker Society fight gear, a cash bonus, and the King Maker of the Month title. Every DM, every follow-up, every close counts.',
+    prize: 'Custom King Maker Society Fight Gear + Cash Bonus + King Maker of the Month Title',
+    deadline: '2026-08-15',
     postedBy: 'Jordan Ali',
     postedAt: 'Jul 1, 2026',
     status: 'active',
     completedBy: []
   },
   {
-    id: 'ch-competition-clips',
+    id: 'ch-content-30day',
+    type: 'team',
+    category: 'Content',
+    title: '30-Day KMS Content Challenge',
+    desc: 'Who can post the most King Maker Society related content over 30 days? Reels, stories, clips, highlights — every post that represents the brand counts. Keep a running log and drop your count in the group at the end of each week. Most posts by the deadline wins.',
+    prize: 'Custom King Maker Society Medal',
+    deadline: '2026-07-23',
+    postedBy: 'Jordan Ali',
+    postedAt: 'Jun 23, 2026',
+    status: 'active',
+    completedBy: []
+  },
+  {
+    id: 'ch-banner-team',
+    type: 'team',
+    category: 'Growth',
+    title: 'Most New Leads Brought In',
+    desc: 'Which team member can bring in the most new qualified leads over the next 30 days? Warm DMs, referrals, comment-to-DM flows — document every new lead you bring into the pipeline. The team member with the most new conversations started wins.',
+    prize: 'Custom King Maker Society Banner',
+    deadline: '2026-07-23',
+    postedBy: 'Jordan Ali',
+    postedAt: 'Jun 23, 2026',
+    status: 'active',
+    completedBy: []
+  },
+  // ── COMMUNITY CHALLENGES ─────────────────────────────────────────
+  {
+    id: 'ch-content-community',
     type: 'community',
     category: 'Content',
-    title: 'Post Your Competition Clip',
-    desc: 'If you have a fight coming up or just competed — post a clip on Instagram and tag @kingmakersocial. We will repost the best ones. Show the brotherhood what you are made of.',
-    prize: 'Featured across @kingmakersocial, @kingsmediamma, and YouTube Shorts',
-    deadline: '2026-07-31',
+    title: '30-Day Consistency Challenge',
+    desc: 'Post every single day for 30 days — training content, mindset content, fight clips, or anything showing your martial arts lifestyle. Tag @kingmakersocial on every post. The member with the most consistent posting streak over the 30 days wins.',
+    prize: 'Custom King Maker Society Medal',
+    deadline: '2026-07-23',
     postedBy: 'Jordan Ali',
     postedAt: 'Jun 23, 2026',
     status: 'active',
     completedBy: []
   },
   {
-    id: 'ch-5-dms',
-    type: 'team',
-    category: 'Sales',
-    title: '5 Real DMs Per Day This Week',
-    desc: 'Every active sales team member sends 5 genuine outreach DMs per day for 7 days straight. Not blasts. Real conversations. Track them in the lead sheet and post your daily count in the group. The team member with the most documented conversations wins.',
-    prize: '1-on-1 Strategy Session with Jordan + King\'s Media Feature',
-    deadline: '2026-06-30',
-    postedBy: 'Jordan Ali',
-    postedAt: 'Jun 23, 2026',
-    status: 'active',
-    completedBy: []
-  },
-  {
-    id: 'ch-morning-routine',
+    id: 'ch-banner-community',
     type: 'community',
-    category: 'Accountability',
-    title: 'Morning Routine Challenge',
-    desc: 'Post your morning routine in the group for 7 days straight. Wake time, training, mindset work — show up every day. Tag @kingmakersocial on at least one post this week.',
-    prize: 'VIP Membership Upgrade for 1 Month + Spotlight Across All KMS Platforms',
-    deadline: '2026-06-30',
+    category: 'Content',
+    title: 'Best Fight Clip of the Month',
+    desc: 'Post your best fight clip or sparring highlight this month and tag @kingmakersocial. Could be from competition, sparring, pad work — whatever shows you showing up and going hard. The community votes and the best clip wins.',
+    prize: 'Custom King Maker Society Banner',
+    deadline: '2026-07-31',
     postedBy: 'Jordan Ali',
     postedAt: 'Jun 23, 2026',
     status: 'active',
