@@ -1130,24 +1130,12 @@ Members get access. Link in bio to join King Maker Society.
     <!-- ==================== TEAM BOARD ==================== -->
     <div class="dash-panel" id="panel-teamboard">
 
-      <!-- TEAM CHAT -->
-      <div class="divider-label" style="margin-top:0">&#128172; Team Chat</div>
-      <div class="goals-card" style="padding:0;overflow:hidden;margin-bottom:1.75rem;">
-        <div id="chat-messages" style="height:320px;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;">
-          <div style="text-align:center;color:var(--muted);font-size:0.78rem;padding:2rem 0;">Messages are saved on this device. Share in group chat to reach everyone.</div>
-        </div>
-        <div style="border-top:1px solid var(--hairline);padding:0.9rem 1.25rem;display:flex;gap:0.75rem;align-items:flex-end;background:rgba(0,0,0,0.18);">
-          <textarea id="chat-input" placeholder="Type a message... (Enter to send)" style="flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.6rem 0.85rem;resize:none;height:38px;font-family:inherit;line-height:1.5;box-sizing:border-box;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg();}"></textarea>
-          <button onclick="sendChatMsg()" style="background:var(--gold);color:#0a0a08;border:none;border-radius:8px;padding:0.55rem 1rem;font-family:var(--font-label);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap;flex-shrink:0;">Send</button>
-        </div>
-      </div>
-
       <!-- COLLAB BUILDER -->
       <div class="divider-label">&#129309; Collab Builder</div>
       <div class="goals-card" style="margin-bottom:1.75rem;">
         <p style="font-size:0.83rem;color:var(--off-white);margin-bottom:1.1rem;line-height:1.6;">Set up a collab with a team member. Post your idea, who you want to work with, and what type of content you're building.</p>
         <div style="display:flex;flex-direction:column;gap:0.75rem;">
-          <select id="collab-with" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;width:100%;">
+          <select id="collab-with" style="background:#1a1a18;border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;width:100%;">
             <option value="">Who do you want to collab with?</option>
           </select>
           <input id="collab-type" placeholder="Type of collab (e.g. Reel, Podcast, Story series, Live...)" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;width:100%;box-sizing:border-box;">
@@ -1197,17 +1185,17 @@ Members get access. Link in bio to join King Maker Society.
         <p style="font-size:0.83rem;color:var(--off-white);margin-bottom:1.1rem;line-height:1.6;">Set a new challenge for the team or the community. Challenges keep the energy high and give everyone a target to push toward.</p>
         <div style="display:flex;flex-direction:column;gap:0.75rem;">
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-            <select id="ch-type" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
-              <option value="team">Team Challenge</option>
-              <option value="community">Community Challenge</option>
+            <select id="ch-type" style="background:#1a1a18;border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
+              <option value="team" style="background:#1a1a18;color:#fff;">Team Challenge</option>
+              <option value="community" style="background:#1a1a18;color:#fff;">Community Challenge</option>
             </select>
-            <select id="ch-category" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
-              <option value="Sales">&#128176; Sales</option>
-              <option value="Content">&#127909; Content</option>
-              <option value="Training">&#129354; Training</option>
-              <option value="Accountability">&#128081; Accountability</option>
-              <option value="Growth">&#128200; Growth</option>
-              <option value="Mindset">&#129504; Mindset</option>
+            <select id="ch-category" style="background:#1a1a18;border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
+              <option value="Sales" style="background:#1a1a18;color:#fff;">&#128176; Sales</option>
+              <option value="Content" style="background:#1a1a18;color:#fff;">&#127909; Content</option>
+              <option value="Training" style="background:#1a1a18;color:#fff;">&#129354; Training</option>
+              <option value="Accountability" style="background:#1a1a18;color:#fff;">&#128081; Accountability</option>
+              <option value="Growth" style="background:#1a1a18;color:#fff;">&#128200; Growth</option>
+              <option value="Mindset" style="background:#1a1a18;color:#fff;">&#129504; Mindset</option>
             </select>
           </div>
           <input id="ch-title" placeholder="Challenge title (e.g. Close 5 Memberships This Week)" style="background:rgba(255,255,255,0.05);border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;width:100%;box-sizing:border-box;">
@@ -2248,8 +2236,8 @@ const DEFAULT_CHALLENGES = [
     type: 'team',
     category: 'Sales',
     title: 'July–August Membership Challenge',
-    desc: 'Close the most memberships between July 1 and August 31. The team member with the highest sales count wins custom King Maker Society fight gear. Every DM, every follow-up, every close counts.',
-    prize: 'Custom King Maker Society Fight Gear',
+    desc: 'Close the most memberships between July 1 and August 31. The team member with the highest sales count wins custom King Maker Society fight gear, a cash bonus, and the King Maker of the Month title. Every DM, every follow-up, every close counts.',
+    prize: 'Custom KMS Fight Gear + Cash Bonus + King Maker of the Month Title',
     deadline: '2026-08-31',
     postedBy: 'Jordan Ali',
     postedAt: 'Jul 1, 2026',
@@ -2262,7 +2250,7 @@ const DEFAULT_CHALLENGES = [
     category: 'Content',
     title: 'Post Your Competition Clip',
     desc: 'If you have a fight coming up or just competed — post a clip on Instagram and tag @kingmakersocial. We will repost the best ones. Show the brotherhood what you are made of.',
-    prize: 'Repost + Feature on @kingmakersocial',
+    prize: 'Featured across @kingmakersocial, @kingsmediamma, and YouTube Shorts',
     deadline: '2026-07-31',
     postedBy: 'Jordan Ali',
     postedAt: 'Jun 23, 2026',
@@ -2274,8 +2262,8 @@ const DEFAULT_CHALLENGES = [
     type: 'team',
     category: 'Sales',
     title: '5 Real DMs Per Day This Week',
-    desc: 'Every active sales team member sends 5 genuine outreach DMs per day for 7 days straight. Not blasts. Real conversations. Track them in the lead sheet and post your daily count in the team chat.',
-    prize: 'Accountability recognition + bragging rights',
+    desc: 'Every active sales team member sends 5 genuine outreach DMs per day for 7 days straight. Not blasts. Real conversations. Track them in the lead sheet and post your daily count in the group. The team member with the most documented conversations wins.',
+    prize: '1-on-1 Strategy Session with Jordan + King\'s Media Feature',
     deadline: '2026-06-30',
     postedBy: 'Jordan Ali',
     postedAt: 'Jun 23, 2026',
@@ -2288,7 +2276,7 @@ const DEFAULT_CHALLENGES = [
     category: 'Accountability',
     title: 'Morning Routine Challenge',
     desc: 'Post your morning routine in the group for 7 days straight. Wake time, training, mindset work — show up every day. Tag @kingmakersocial on at least one post this week.',
-    prize: 'Member spotlight post on @kingmakersocial',
+    prize: 'VIP Membership Upgrade for 1 Month + Spotlight Across All KMS Platforms',
     deadline: '2026-06-30',
     postedBy: 'Jordan Ali',
     postedAt: 'Jun 23, 2026',
@@ -2438,14 +2426,17 @@ function initTeamBoard() {
       const opt = document.createElement('option');
       opt.value = m.name;
       opt.textContent = m.name + ' · ' + (m.role ? m.role.split('·')[0].trim() : '');
+      opt.style.background = '#1a1a18';
+      opt.style.color = '#fff';
       sel.appendChild(opt);
     });
     const any = document.createElement('option');
     any.value = 'Anyone';
     any.textContent = 'Open to anyone on the team';
+    any.style.background = '#1a1a18';
+    any.style.color = '#fff';
     sel.appendChild(any);
   }
-  renderChat();
   renderCollabs();
   renderIdeas();
   renderConcerns();
@@ -2466,36 +2457,6 @@ function tbTime() {
 }
 
 // --- CHAT ---
-function sendChatMsg() {
-  const inp = document.getElementById('chat-input');
-  const txt = inp.value.trim();
-  if (!txt) return;
-  const msgs = tbGet('chat');
-  msgs.push({author: tbAuthor(), text: txt, time: tbTime()});
-  if (msgs.length > 100) msgs.splice(0, msgs.length - 100);
-  tbSet('chat', msgs);
-  inp.value = '';
-  renderChat();
-}
-function renderChat() {
-  const el = document.getElementById('chat-messages');
-  if (!el) return;
-  const msgs = tbGet('chat');
-  if (!msgs.length) {
-    el.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:0.78rem;padding:2rem 0;">Messages are saved on this device. Share in group chat to reach everyone.</div>';
-    return;
-  }
-  const me = tbAuthor();
-  el.innerHTML = msgs.map(m => {
-    const isMe = m.author === me;
-    return `<div style="display:flex;flex-direction:column;align-items:${isMe?'flex-end':'flex-start'};gap:0.2rem;">
-      <span style="font-size:0.68rem;color:var(--muted);">${isMe?'You':m.author} · ${m.time}</span>
-      <div style="max-width:75%;background:${isMe?'rgba(201,168,76,0.18)':'rgba(255,255,255,0.06)'};border:1px solid ${isMe?'rgba(201,168,76,0.3)':'var(--hairline)'};border-radius:${isMe?'12px 12px 2px 12px':'12px 12px 12px 2px'};padding:0.6rem 0.9rem;font-size:0.84rem;color:var(--white);line-height:1.55;word-break:break-word;">${m.text}</div>
-    </div>`;
-  }).join('');
-  el.scrollTop = el.scrollHeight;
-}
-
 // --- COLLABS ---
 function submitCollab() {
   const withWho = document.getElementById('collab-with').value;
