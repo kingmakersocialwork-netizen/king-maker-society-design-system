@@ -435,12 +435,12 @@
       <!-- Stats -->
       <div class="stats-row anim-stagger">
         <div class="stat-tile">
-          <div class="stat-value">$30</div>
-          <div class="stat-label">Basic / Month</div>
+          <div class="stat-value" id="days-in-business">—</div>
+          <div class="stat-label">Days In Business</div>
         </div>
         <div class="stat-tile">
-          <div class="stat-value">$100</div>
-          <div class="stat-label">VIP / Month</div>
+          <div class="stat-value">8</div>
+          <div class="stat-label">Team Members</div>
         </div>
         <div class="stat-tile">
           <div class="stat-value">2x</div>
@@ -1703,6 +1703,13 @@ document.addEventListener('keydown', e => {
 //  DASHBOARD LOADER
 // ============================================================
 function loadDashboard(m) {
+  // Days in business counter (founded March 16, 2026)
+  const founded = new Date('2026-03-16T00:00:00');
+  const today = new Date();
+  const days = Math.floor((today - founded) / (1000 * 60 * 60 * 24));
+  const el = document.getElementById('days-in-business');
+  if (el) el.textContent = days;
+
   document.getElementById('dash-welcome-name').textContent = m.name.split(' ')[0];
   const avatarHTML = `<img class="dash-hero-avatar" src="${m.photo}" alt="${m.name}"
     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
