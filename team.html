@@ -10,8 +10,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="landing.css">h
+<link rel="stylesheet" href="landing.css">
 <style>
+/* ============ UCLA GOLD OVERRIDE ============ */
+:root {
+  --gold:        #FFB81C;
+  --gold-light:  #FFC94D;
+  --gold-deep:   #B07800;
+  --border-strong: rgba(255,184,28,0.55);
+  --border:      rgba(255,184,28,0.22);
+  --hairline:    rgba(255,184,28,0.14);
+}
+
 /* ============ BASE ============ */
 .screen { display: none; min-height: 100vh; }
 .screen.active { display: flex; flex-direction: column; }
@@ -25,7 +35,7 @@
 .select-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 2.8rem); letter-spacing: 0.06em; color: var(--off-white); margin-bottom: 0.5rem; }
 .select-sub { font-size: 0.84rem; color: var(--muted); margin-bottom: 2.5rem; }
 .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-.member-tile { background: linear-gradient(160deg, rgba(22,19,11,0.95) 0%, rgba(14,12,7,0.98) 100%); border: 1px solid rgba(255,184,28,0.12); border-radius: 14px; padding: 1.35rem 0.75rem 1.1rem; cursor: pointer; transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; position: relative; overflow: hidden; }
+.member-tile { background: linear-gradient(160deg, rgba(22,19,11,0.95) 0%, rgba(14,12,7,0.98) 100%); border: 1px solid rgba(255,184,28,0.35); border-radius: 14px; padding: 1.35rem 0.75rem 1.1rem; cursor: pointer; transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; position: relative; overflow: hidden; }
 .member-tile::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,184,28,0.3), transparent); opacity: 0; transition: opacity 0.2s; }
 .member-tile:hover::before { opacity: 1; }
 .member-tile:hover { border-color: rgba(255,184,28,0.5); box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(255,184,28,0.12); transform: translateY(-3px); }
@@ -88,7 +98,7 @@
 .dash-panel.active { display: block; }
 
 /* Cards & Goals */
-.goals-card { background: linear-gradient(160deg, rgba(20,17,10,0.9) 0%, rgba(14,12,7,0.95) 100%); border: 1px solid rgba(255,184,28,0.12); border-radius: 14px; padding: 1.6rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+.goals-card { background: linear-gradient(160deg, rgba(20,17,10,0.9) 0%, rgba(14,12,7,0.95) 100%); border: 1px solid rgba(255,184,28,0.40); border-radius: 14px; padding: 1.6rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
 .goals-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,184,28,0.25), transparent); }
 .goals-card h3 { font-family: var(--font-label); font-size: 0.73rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
 .goals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
@@ -127,7 +137,7 @@
 .divider-label { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--hairline); padding-bottom: 0.5rem; margin: 2rem 0 1.25rem; }
 .divider-label:first-child { margin-top: 0; }
 .quick-links { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 1.5rem; }
-.quick-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 9px 16px; background: rgba(255,184,28,0.07); border: 1px solid var(--border-strong); border-radius: 8px; color: var(--gold); font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
+.quick-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 9px 16px; background: rgba(255,184,28,0.10); border: 1px solid rgba(255,184,28,0.50); border-radius: 8px; color: var(--gold); font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
 .quick-link:hover { background: rgba(255,184,28,0.15); }
 .quick-link.placeholder { opacity: 0.45; cursor: default; pointer-events: none; }
 
@@ -458,10 +468,10 @@
       <div class="goals-card">
         <h3>&#128293; Current Priorities · Q3 2026</h3>
         <div class="team-goal-item"><span class="tg-num">1</span><span class="tg-text"><strong>Hit 200 active members by end of Q3.</strong> Every DM, every follow-up, every session matters. This is the number we are all working toward.</span></div>
-        <div class="team-goal-item"><span class="tg-num">2</span><span class="tg-text"><strong>Joining Consistent Group calls</strong> Tuesdays and Saturdays at 2PM CST. Team members need to be present, engaged, and helping run the energy.</span></div>
-        <div class="team-goal-item"><span class="tg-num">3</span><span class="tg-text"><strong>Have a smooth introduction of our new mentor program.</strong> Pro fighters will be mentoring community members. Pricing is from $100 a month - $300 a month.</span></div>
+        <div class="team-goal-item"><span class="tg-num">2</span><span class="tg-text"><strong>Joining Consistent Group Calls.</strong> Tuesdays and Saturdays at 2PM CST. Team members need to be present, engaged, and helping run the energy.</span></div>
+        <div class="team-goal-item"><span class="tg-num">3</span><span class="tg-text"><strong>Have a smooth introduction of our new mentor program.</strong> Pro fighters will be mentoring community members. Pricing is from $100 a month – $300 a month.</span></div>
         <div class="team-goal-item"><span class="tg-num">4</span><span class="tg-text"><strong>Lock in 2 brand deals or sponsors</strong> this quarter. Use member results and content reach as the pitch.</span></div>
-        <div class="team-goal-item"><span class="tg-num">5</span><span class="tg-text"><strong>collab with king maker society 1 x a week</span></div>
+        <div class="team-goal-item"><span class="tg-num">5</span><span class="tg-text"><strong>Collab with King Maker Society 1x a week.</strong></span></div>
       </div>
 
       <!-- All Links -->
@@ -681,25 +691,8 @@
         <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdhn589KPqWyl9IPJQs12PNKIl5Y21iq7bo9zFVPtT-pCflqw/viewform" target="_blank">&#128203; Aaron's Form</a>
         <a class="quick-link" href="https://forms.gle/zEWAzagQFFWMQyou9" target="_blank">&#128203; Georgios' Form</a>
       </div>
-      <div class="divider-label">Payment Links</div>
-      <div class="quick-links">
-        <a class="quick-link" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank">&#128176; Jordan · $30</a>
-        <a class="quick-link" href="https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08" target="_blank">&#128081; Jordan · $100 VIP</a>
-        <a class="quick-link" href="https://buy.stripe.com/14A28sgfKd7B5Bi6j757W0b" target="_blank">&#11088; Jordan · $300 Elite</a>
-        <a class="quick-link" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank">&#128176; Ryan · $30</a>
-        <a class="quick-link" href="https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08" target="_blank">&#128081; Ryan · $100 VIP</a>
-        <a class="quick-link" href="https://buy.stripe.com/fZuaEYd3y0kP3tafTH57W0c" target="_blank">&#11088; Ryan · $300 Elite</a>
-        <a class="quick-link" href="https://buy.stripe.com/bJe14oe7C3x1fbSfTH57W0g" target="_blank">&#128176; Willie · $30</a>
-        <a class="quick-link" href="https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05" target="_blank">&#128176; Aaron · $30</a>
-        <a class="quick-link" href="https://buy.stripe.com/8x24gA9Rm3x1d3K6j757W09" target="_blank">&#128081; Aaron · $100 VIP</a>
-        <a class="quick-link" href="https://buy.stripe.com/7sYeVe3sY1oTe7OdLz57W0f" target="_blank">&#11088; Aaron · $300 Elite</a>
-        <a class="quick-link" href="https://buy.stripe.com/00wfZigfK7Nh8Nu36V57W0h" target="_blank">&#128176; Ty · $30</a>
-        <a class="quick-link" href="https://buy.stripe.com/28E7sM7Je6Jde7O6j757W0j" target="_blank">&#128081; Ty · $100 VIP</a>
-        <a class="quick-link" href="https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04" target="_blank">&#128176; Georgios · $30</a>
-        <a class="quick-link" href="https://buy.stripe.com/6oUfZi1kQ6Jd9RydLz57W0a" target="_blank">&#128081; Georgios · $100 VIP</a>
-        <a class="quick-link" href="https://buy.stripe.com/28EaEY3sY6Jdd3K9vj57W0e" target="_blank">&#11088; Georgios · $300 Elite</a>
-        <a class="quick-link" href="https://buy.stripe.com/fZu14obZu9Vp3ta5f357W0i" target="_blank">&#128176; Mohammed · $30</a>
-      </div>
+      <div class="divider-label">My Payment Links</div>
+      <div id="resources-payment-links" class="quick-links"></div>
       <div class="divider-label">Operations</div>
       <div class="quick-links">
         <a class="quick-link" href="https://calendly.com/jordanaliwork/30min" target="_blank">&#128197; Book A Call</a>
@@ -1941,6 +1934,16 @@ function loadDashboard(m) {
         }).join('')}
       </div>
     </div>`;
+
+  // Populate member-specific payment links in Resources tab
+  const rpl = document.getElementById('resources-payment-links');
+  if (rpl) {
+    let linksHTML = '';
+    if (m.paymentLink)      linksHTML += `<a class="quick-link" href="${m.paymentLink}" target="_blank">&#128176; My Link · $30 General</a>`;
+    if (m.paymentLinkVip)   linksHTML += `<a class="quick-link" href="${m.paymentLinkVip}" target="_blank">&#128081; My Link · $100 VIP</a>`;
+    if (m.paymentLinkElite) linksHTML += `<a class="quick-link" href="${m.paymentLinkElite}" target="_blank">&#11088; My Link · $300 Elite</a>`;
+    rpl.innerHTML = linksHTML || '<span style="color:var(--muted);font-size:0.8rem;">No payment links on file yet.</span>';
+  }
 
   // Build leaderboard
   buildLeaderboard();
