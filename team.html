@@ -693,6 +693,8 @@
       </div>
       <div class="divider-label">My Payment Links</div>
       <div id="resources-payment-links" class="quick-links"></div>
+      <div class="divider-label">💰 My Compensation</div>
+      <div id="resources-comp" style="margin-bottom:1rem;"></div>
       <div class="divider-label">Operations</div>
       <div class="quick-links">
         <a class="quick-link" href="https://calendly.com/jordanaliwork/30min" target="_blank">&#128197; Book A Call</a>
@@ -1945,10 +1947,87 @@ function loadDashboard(m) {
     rpl.innerHTML = linksHTML || '<span style="color:var(--muted);font-size:0.8rem;">No payment links on file yet.</span>';
   }
 
+  // Populate compensation section
+  renderCompSection(m);
+
   // Build leaderboard
   buildLeaderboard();
 
   dashTab('overview', document.querySelector('.dash-tab'));
+}
+
+function renderCompSection(m) {
+  const el = document.getElementById('resources-comp');
+  if (!el) return;
+
+  const ROW = (label, amount, sub) =>
+    `<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,184,28,0.06);border:1px solid rgba(255,184,28,0.18);border-radius:10px;padding:0.7rem 1rem;margin-bottom:0.45rem;">
+      <span style="font-size:0.83rem;color:var(--off-white);">${label}</span>
+      <span style="font-size:0.9rem;color:var(--gold);font-weight:700;">${amount}<span style="font-size:0.72rem;font-weight:400;color:var(--muted);"> ${sub}</span></span>
+    </div>`;
+
+  const MENTOR_BADGE =
+    `<div style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,184,28,0.08);border:1px solid rgba(255,184,28,0.28);border-radius:10px;padding:0.75rem 1rem;margin-top:0.6rem;">
+      <span style="font-size:1.05rem;">&#127891;</span>
+      <div>
+        <div style="font-size:0.68rem;color:var(--gold);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.15rem;">Mentor Rate</div>
+        <div style="font-size:0.88rem;color:var(--off-white);font-weight:600;">$20 / hr <span style="font-size:0.76rem;color:var(--muted);font-weight:400;">· per session you run</span></div>
+      </div>
+    </div>`;
+
+  const LABEL = (text, dim) =>
+    `<div style="font-size:0.68rem;color:${dim ? 'var(--muted)' : 'var(--gold)'};font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:0.85rem 0 0.45rem;">${text}</div>`;
+
+  const NOTE = (text) =>
+    `<div style="font-size:0.75rem;color:var(--muted);margin-top:0.55rem;line-height:1.5;">${text}</div>`;
+
+  const isLeadership = ['jordan','ryan','willie'].includes(m.id);
+  const isRep        = ['aaron','ty','georgios','mohammed'].includes(m.id);
+  const isMentor     = ['jordan','ryan','willie','mohammed'].includes(m.id);
+
+  let html = '';
+
+  if (isLeadership) {
+    html += LABEL('Closer Rate · When You Close a Sale');
+    html += ROW('VIP · $100/mo',  '$50',  '/member/mo');
+    html += ROW('Elite · $300/mo','$190', '/member/mo');
+
+    html += LABEL('Leadership Bonus · Every Rep-Closed Sale', true);
+    html += `<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.7rem 1rem;margin-bottom:0.45rem;">
+      <span style="font-size:0.83rem;color:var(--off-white);">VIP · $100/mo</span>
+      <span style="font-size:0.9rem;color:var(--off-white);font-weight:700;">$5<span style="font-size:0.72rem;font-weight:400;color:var(--muted);"> /member/mo</span></span>
+    </div>`;
+    html += `<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.7rem 1rem;margin-bottom:0.45rem;">
+      <span style="font-size:0.83rem;color:var(--off-white);">Elite · $300/mo</span>
+      <span style="font-size:0.9rem;color:var(--off-white);font-weight:700;">$15<span style="font-size:0.72rem;font-weight:400;color:var(--muted);"> /member/mo</span></span>
+    </div>`;
+  }
+
+  if (isRep) {
+    html += LABEL('Commission · Per Member You Close');
+    html += ROW('VIP · $100/mo',  '$35',     '/member/mo');
+    html += ROW('Elite · $300/mo','$144.90', '/member/mo');
+    html += NOTE('Recurring every month the member stays active.');
+  }
+
+  if (isMentor) {
+    html += MENTOR_BADGE;
+  }
+
+  // Payment schedule note
+  if (m.id === 'willie') {
+    html += NOTE('Paid on the 1st &amp; 15th of each month · Zelle or Wire Transfer');
+  } else if (m.id === 'ryan') {
+    html += NOTE('Commissions paid weekly.');
+  } else if (m.id === 'jordan') {
+    html += NOTE('Founder distributions processed internally after operations costs.');
+  }
+
+  if (!isLeadership && !isRep) {
+    html = `<div style="font-size:0.83rem;color:var(--muted);line-height:1.65;">Your role is <strong style="color:var(--off-white);">${m.role}</strong>. Compensation details are set by Jordan — reach out directly for your arrangement.</div>`;
+  }
+
+  el.innerHTML = html;
 }
 
 function buildLeaderboard() {
