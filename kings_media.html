@@ -11,6 +11,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="landing.css">
+<style>
+.price-card {
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.22), 0 0 80px rgba(201,168,76,0.08), 0 4px 40px rgba(0,0,0,0.5) !important;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.6), 0 0 55px rgba(201,168,76,0.38), 0 0 100px rgba(201,168,76,0.14), 0 8px 50px rgba(0,0,0,0.55) !important;
+}
+</style>
 </head>
 <body>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>

@@ -42,11 +42,64 @@
 
 /* ── PRICING CARD GOLD GLOW ─────────────────────────────── */
 .price-card {
-  box-shadow: 0 0 0 1px rgba(201,168,76,0.22), 0 0 28px rgba(201,168,76,0.14), 0 4px 40px rgba(0,0,0,0.5) !important;
-  transition: box-shadow 0.3s;
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.22), 0 0 80px rgba(201,168,76,0.08), 0 4px 40px rgba(0,0,0,0.5) !important;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
 .price-card:hover {
-  box-shadow: 0 0 0 1px rgba(201,168,76,0.45), 0 0 42px rgba(201,168,76,0.28), 0 4px 40px rgba(0,0,0,0.55) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.6), 0 0 55px rgba(201,168,76,0.38), 0 0 100px rgba(201,168,76,0.14), 0 8px 50px rgba(0,0,0,0.55) !important;
+}
+
+/* ── PILLAR CARDS: CLASSY HOVER EFFECT ──────────────────── */
+.card.pillar {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.32s cubic-bezier(.23,1,.32,1), box-shadow 0.32s ease;
+}
+/* Gold sweep bar across top */
+.card.pillar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -110%; width: 110%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.85) 50%, transparent);
+  transition: left 0.55s cubic-bezier(.23,1,.32,1);
+  pointer-events: none;
+  z-index: 2;
+}
+.card.pillar:hover::before { left: 110%; }
+/* Ambient inner radial glow */
+.card.pillar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% -10%, rgba(201,168,76,0.1) 0%, transparent 68%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.card.pillar:hover::after { opacity: 1; }
+/* Lift + subtle shadow */
+.card.pillar:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.55), 0 0 32px rgba(201,168,76,0.13);
+}
+/* Icon: scale + warm glow */
+.pillar-icon {
+  display: inline-block;
+  transition: transform 0.32s cubic-bezier(.23,1,.32,1), filter 0.32s ease;
+}
+.card.pillar:hover .pillar-icon {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 10px rgba(201,168,76,0.6));
+}
+/* Watermark: reveal gold tint on hover */
+.pillar-watermark {
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+.card.pillar:hover .pillar-watermark {
+  opacity: 0.18;
+  color: var(--gold);
 }
 
 /* ── TWO-STEP REFERRAL MODAL ────────────────────────────── */
@@ -223,27 +276,18 @@
         <span class="badge badge-gold">Explore &rarr;</span>
       </a>
 
-      <!-- 24/7 Chat -->
-      <a class="card pillar reveal" href="brotherhood.html#chat" style="text-decoration:none; cursor:pointer;">
-        <span class="pillar-watermark">04</span>
-        <span class="pillar-icon">&#128172;</span>
-        <h3>24/7 Brotherhood Chat</h3>
-        <p>Tap in any time. Share wins, get feedback, stay disciplined, and hold each other accountable. The group never sleeps.</p>
-        <span class="badge badge-outline">Explore &rarr;</span>
-      </a>
-
       <!-- 2 Master Classes -->
-      <a class="card pillar reveal" href="brotherhood.html#calls" style="text-decoration:none; cursor:pointer;">
-        <span class="pillar-watermark">05</span>
+      <a class="card pillar reveal" href="#classes" data-scroll style="text-decoration:none; cursor:pointer;">
+        <span class="pillar-watermark">04</span>
         <span class="pillar-icon">&#128222;</span>
         <h3>2 Master Classes / Week</h3>
         <p>Two live calls every week built for martial artists covering mindset, personal branding, fight IQ, discipline, and real-world success habits.</p>
-        <span class="badge badge-gold">Explore &rarr;</span>
+        <span class="badge badge-gold">View Schedule &rarr;</span>
       </a>
 
       <!-- Challenge & Rank -->
       <a class="card pillar reveal" href="scoreboard.html" target="_blank" rel="noopener" style="text-decoration:none; cursor:pointer;">
-        <span class="pillar-watermark">06</span>
+        <span class="pillar-watermark">05</span>
         <span class="pillar-icon">&#127942;</span>
         <h3>Challenge &amp; Rank System</h3>
         <p>Monthly challenges with a community leaderboard. Earn your place. Prove your grit. Get recognized by your brothers.</p>
