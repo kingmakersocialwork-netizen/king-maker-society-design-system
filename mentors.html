@@ -12,6 +12,163 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="landing.css">
+<style>
+/* ── MENTORS PAGE: VIBRANT GOLD OVERRIDE ─────────────────── */
+:root {
+  --gold:           #FFB81C;
+  --gold-light:     #FFD15C;
+  --gold-deep:      #B07800;
+  --border-strong:  rgba(255,184,28,0.60);
+  --border:         rgba(255,184,28,0.28);
+  --hairline:       rgba(255,184,28,0.12);
+  --glow-gold:      0 0 40px rgba(255,184,28,0.30);
+  --glow-gold-soft: 0 0 24px rgba(255,184,28,0.16);
+}
+
+/* ── REFLECTIVE SHIMMER BUTTON ──────────────────────────── */
+.btn-reflect {
+  position: relative;
+  overflow: hidden;
+}
+.btn-reflect::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255,255,255,0.42) 45%,
+    rgba(255,255,255,0.18) 55%,
+    transparent 75%
+  );
+  transform: skewX(-18deg);
+  animation: btn-sheen 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btn-sheen {
+  0%   { left: -80%; }
+  55%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+/* ── GOLD MEMBERSHIP CARD ───────────────────────────────── */
+.elite-card {
+  background: linear-gradient(160deg, rgba(18,14,4,0.98) 0%, rgba(10,10,10,1) 100%);
+  border: 1px solid rgba(255,184,28,0.40);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  max-width: 720px;
+  margin: 2rem auto 0;
+  box-shadow: 0 0 48px rgba(255,184,28,0.10);
+}
+.elite-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255,184,28,0.20);
+}
+.elite-price {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.elite-price span {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.elite-badge {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0a0a08;
+  background: var(--gold);
+  padding: 0.3rem 0.85rem;
+  border-radius: 50px;
+}
+.elite-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 540px) { .elite-features { grid-template-columns: 1fr; } }
+.elite-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background: rgba(255,184,28,0.04);
+  border: 1px solid rgba(255,184,28,0.14);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+}
+.elite-feature-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+.elite-feature-text strong {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--off-white);
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+.elite-feature-text span {
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── FAQ SECTION ─────────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid rgba(255,184,28,0.14);
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 1.35rem 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--off-white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.faq-question:hover { color: var(--gold); }
+.faq-chevron {
+  font-size: 0.85rem;
+  color: var(--gold);
+  transition: transform 0.28s ease;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-answer {
+  display: none;
+  padding: 0 0 1.35rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 680px;
+}
+.faq-item.open .faq-answer { display: block; }
+</style>
 </head>
 <body>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
@@ -75,12 +232,12 @@
     <h1>Learn From <span class="gold">Kings</span></h1>
     <p class="hero-sub-copy hero-sub">No gimmicks. No hype. Just fighters who've been where you're trying to go sharing what they know inside the brotherhood.</p>
     <div class="hero-cta">
-      <a class="btn btn-red btn-lg" href="#mentors" data-scroll>Meet The Mentors</a>
+      <a class="btn btn-red btn-lg btn-reflect" href="#mentors" data-scroll>Meet The Mentors</a>
       <a class="btn btn-outline btn-lg" href="#apply" data-scroll>Apply To Join</a>
     </div>
     <div class="page-meta">
       <div class="pm"><span class="pm-num">1-on-1</span><span class="pm-label">Direct Access</span></div>
-      <div class="pm"><span class="pm-num">Live</span><span class="pm-label">Group Zoom Calls</span></div>
+      <div class="pm"><span class="pm-num">5</span><span class="pm-label">Martial Artist Mentors</span></div>
       <div class="pm"><span class="pm-num">Real</span><span class="pm-label">Fight Experience</span></div>
       <div class="pm"><span class="pm-num">Weekly</span><span class="pm-label">Check-Ins</span></div>
     </div>
@@ -96,12 +253,13 @@
       <p class="lead">Most people never get access to someone who's actually done it. Inside King Maker Society, that changes.</p>
     </div>
     <div class="grid-3">
-      <article class="card pillar reveal">
+      <a class="card pillar reveal" href="#mentors" data-scroll style="display:block;text-decoration:none;cursor:pointer;">
         <span class="pillar-watermark">01</span>
         <span class="pillar-icon">&#127942;</span>
         <h3>One-On-One Calls With Pro Fighters / Mentors</h3>
-        <p>Get direct access to pro fighters and mentors. Ask your questions, get real feedback on your goals, and build a relationship with someone who's actually been in the fire.</p>
-      </article>
+        <p>Get direct access to pro fighters and mentors that have achieved great accomplishments in their fighting careers. Ask your questions, get real feedback on your goals, and build a relationship with someone who's achieved the goals you're working to achieve.</p>
+        <span style="display:inline-block;margin-top:0.75rem;font-family:var(--font-label);font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);">Meet The Mentors &#8594;</span>
+      </a>
       <article class="card pillar reveal">
         <span class="pillar-watermark">02</span>
         <span class="pillar-icon">&#128081;</span>
@@ -163,7 +321,7 @@
       <article class="card team-card reveal">
         <div class="team-photo"><img src="assets/team-mohammed.jpg" alt="Mohammed Ali" loading="lazy" style="object-position: 50% 20%;" onerror="this.style.display='none'"></div>
         <span class="team-name">Mohammed Ali</span>
-        <span class="team-role">Head Of Short-Form Content · Mentor</span>
+        <span class="team-role">Head Of Short-Form Content</span>
         <p class="team-bio">Fighter and content strategist who understands both sides of the game — the ring and the camera. Mohammed mentors members on building their personal brand through short-form content, getting attention as a martial artist, and turning their fight life into content that grows.</p>
         <span class="team-tags">Short-Form Content · Personal Brand · Fight Life</span>
         <a class="team-handle" href="https://www.instagram.com/Mohammed_MMA1" target="_blank" rel="noopener">@Mohammed_MMA1</a>
@@ -219,19 +377,82 @@
   <div class="container trial-inner reveal">
     <span class="eyebrow center">Get In</span>
     <h2>Become A King Maker <span class="gold">Member</span></h2>
-    <p class="lead" style="text-align:center;">Mentorship is included with every King Maker Society membership. Join, introduce yourself, and your brothers including your mentors will be ready for you.</p>
-    <ul class="trial-bullets">
-      <li>Access to all mentors inside the community chat</li>
-      <li>Live group Zoom calls every week</li>
-      <li>Direct feedback on your goals and progress</li>
-      <li>Brotherhood of 150+ martial artists growing alongside you</li>
-    </ul>
-    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-      <a class="btn btn-red btn-lg" href="#" data-modal="referral-modal">Join · $30/mo</a>
-      <a class="btn btn-outline btn-lg" href="#" data-modal="referral-modal">VIP Access · $100/mo</a>
-      <a class="btn btn-gold btn-lg" href="#" data-modal="referral-modal">Elite (with Mentor Calls) · $300/mo</a>
+    <p class="lead" style="text-align:center;">One membership. Full access to every mentor, every call, every resource, and the entire brotherhood. This is the one.</p>
+
+    <!-- Elite Membership Card -->
+    <div class="elite-card reveal">
+      <div class="elite-card-header">
+        <div>
+          <div style="font-family:var(--font-label);font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">Elite Membership</div>
+          <div class="elite-price">$300<span>/month</span></div>
+        </div>
+        <span class="elite-badge">Full Access</span>
+      </div>
+
+      <div class="elite-features">
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#127942;</span>
+          <div class="elite-feature-text">
+            <strong>Monthly 1-on-1 Mentor Call</strong>
+            <span>Direct private session with a KMS mentor built around your specific goals.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128081;</span>
+          <div class="elite-feature-text">
+            <strong>Priority Mentor Access</strong>
+            <span>Direct line to your mentor between sessions. Real feedback when you need it.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128101;</span>
+          <div class="elite-feature-text">
+            <strong>Full Brotherhood Community</strong>
+            <span>24/7 access to the King Maker Society community chat with 150+ martial artists.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128187;</span>
+          <div class="elite-feature-text">
+            <strong>Live Weekly Group Zoom Calls</strong>
+            <span>Group discussions on mindset, fight IQ, content, branding, and more — every week.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#127909;</span>
+          <div class="elite-feature-text">
+            <strong>Personal Brand & Content Support</strong>
+            <span>Strategy, feedback, and accountability on building your martial arts brand.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128200;</span>
+          <div class="elite-feature-text">
+            <strong>Sponsor Visibility & Opportunities</strong>
+            <span>Get in front of brands and opportunities through the King Maker network.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#129354;</span>
+          <div class="elite-feature-text">
+            <strong>Fight IQ Coaching</strong>
+            <span>Tactical fight discussions led by mentors who've competed at the highest level.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128172;</span>
+          <div class="elite-feature-text">
+            <strong>Accountability System</strong>
+            <span>Weekly check-ins, goal tracking, and a brotherhood that holds you to a standard.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <a class="btn btn-gold btn-lg btn-reflect" href="#" data-modal="referral-modal" style="display:inline-block;">Join Elite · $300/mo</a>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:0.9rem;">Cancel anytime. No contracts. Just commitment.</p>
+      </div>
     </div>
-    <span class="trial-fine">Cancel anytime. No contracts. Just commitment.</span>
   </div>
 </section>
 
@@ -258,6 +479,84 @@
     <div class="hero-cta reveal" style="justify-content: center; margin-top: 2.5rem;">
       <a class="btn btn-gold btn-lg" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call To Apply</a>
       <a class="btn btn-outline btn-lg" href="mailto:KingMakerSocialWork@gmail.com">Email Us Directly</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Got Questions</span>
+      <h2 class="headline">Questions &amp; <span class="gold">Answers</span></h2>
+      <p class="lead">Everything you need to know about the KMS mentorship program before you join.</p>
+    </div>
+    <div style="max-width:760px;margin:0 auto;" class="reveal">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I get access to the mentors?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">All mentors are active inside the King Maker Society community chat from day one. When you join, introduce yourself and your mentors will be there to welcome you. One-on-one private calls are included with the Elite membership.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What does a one-on-one call with a mentor actually look like?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">It's a focused private session built entirely around your goals. You bring the questions — your fight career, your content, your mindset, your personal brand — and your mentor brings real experience. No scripts. No fluff. Just a real conversation with someone who's been where you're trying to go.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How many mentors are in the program right now?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">Currently 5 active mentors — Willie Sims, Ryan Bailey, Manu Da Great, Mohammed Ali, and Jordan Ali. Each one brings a different area of expertise, from pro boxing and MMA to content strategy, personal branding, and fight IQ. The roster grows as the brotherhood grows.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I choose which mentor I work with?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">Yes. After joining you'll connect with whichever mentor fits your goals best. There's no forced assignment — you build the relationship naturally based on what you're working on and who resonates with you.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What makes KMS mentors different from a regular coach?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">These aren't coaches who read books about fighting. They've competed, sacrificed, and built real careers in combat sports. The guidance you get here comes from people who've actually been in the fire — not from theory. That's the difference.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is the $300/month membership worth it?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">That depends on how serious you are. A single session with a private fight coach or personal branding consultant can run $150–$300+ on its own. With the Elite membership you get a monthly 1-on-1 mentor call, priority access to your mentor between sessions, weekly group Zoom calls, the full community, content support, and a brotherhood that holds you accountable every week. For a martial artist who's serious about growing — the value is there.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I cancel anytime?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">Yes. No contracts, no commitments beyond the current billing cycle. You stay because the membership is delivering value — not because you're locked in.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          I'm not a pro fighter. Is this still for me?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">Absolutely. King Maker Society is for martial artists at every level — amateur, hobbyist, aspiring pro, or someone who just wants to grow their discipline and personal brand. The mentors meet you where you are. The goal is progress, not prestige.</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -335,5 +634,13 @@
 </div>
 
 <script src="landing.js" defer></script>
+<script>
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>
