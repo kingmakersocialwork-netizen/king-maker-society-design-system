@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="King Maker Society Scoreboard — Brotherhood and King's Media daily challenge leaderboards and calendars.">
+<meta name="theme-color" content="#0A0A08">
+<title>Scoreboard · King Maker Society</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="landing.css">
+<style>
+/* ── SCOREBOARD PAGE STYLES ──────────────────────────────── */
+
+/* Tab switcher */
+.sb-tabs {
+  display: flex;
+  gap: 0;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 4px;
+  max-width: 520px;
+  margin: 2.5rem auto 0;
+}
+.sb-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.7rem 1rem;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.22s, color 0.22s;
+}
+.sb-tab.active {
+  background: var(--gold);
+  color: #0a0a08;
+}
+.sb-panel { display: none; }
+.sb-panel.active { display: block; }
+
+/* Points table */
+.pts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.pts-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255,184,28,0.04);
+  border: 1px solid rgba(255,184,28,0.16);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+.pts-icon { font-size: 1.1rem; flex-shrink: 0; }
+.pts-label { font-size: 0.8rem; color: var(--off-white); flex: 1; line-height: 1.4; }
+.pts-val { font-size: 0.9rem; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+
+/* Prize card */
+.prize-card {
+  background: linear-gradient(160deg, rgba(18,14,4,0.97) 0%, rgba(10,10,10,1) 100%);
+  border: 2px solid rgba(201,168,76,0.45);
+  border-radius: 18px;
+  padding: 2rem 2.25rem;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+.prize-crown { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.prize-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--off-white);
+  margin-bottom: 0.5rem;
+}
+.prize-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
+.prize-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+.prize-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 50px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.8rem;
+  color: var(--off-white);
+  font-weight: 600;
+}
+.prize-item span { font-size: 0.95rem; }
+
+/* Calendar grid */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 700px) { .cal-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 480px) { .cal-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.cal-day-header {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  padding: 0.4rem 0;
+}
+.cal-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 0.6rem 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+.cal-card:hover {
+  border-color: rgba(201,168,76,0.45);
+  background: rgba(201,168,76,0.06);
+}
+.cal-card.today {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+.cal-card.past {
+  opacity: 0.55;
+}
+.cal-date {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.cal-card.today .cal-date { color: var(--gold); }
+.cal-badge {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  margin-bottom: 0.35rem;
+}
+.cal-challenge-title {
+  font-size: 0.7rem;
+  color: var(--off-white);
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 0.25rem;
+}
+.cal-pts {
+  font-size: 0.62rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* Expanded challenge detail modal */
+.ch-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.ch-modal-overlay.open { display: flex; }
+.ch-modal {
+  background: linear-gradient(160deg, rgba(20,16,6,0.99) 0%, rgba(10,10,10,1) 100%);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 18px;
+  padding: 2rem 2.25rem;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+}
+.ch-modal-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none; border: none;
+  color: var(--muted); font-size: 1.25rem; cursor: pointer;
+}
+.ch-modal-close:hover { color: var(--off-white); }
+.ch-modal-date {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.ch-modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--off-white);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+.ch-modal-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.ch-modal-pts {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* Category badge colors */
+.cat-training   { background: rgba(192,52,26,0.18); color: #E04020; }
+.cat-mindset    { background: rgba(100,80,200,0.18); color: #9B8FF0; }
+.cat-discipline { background: rgba(201,168,76,0.18); color: var(--gold); }
+.cat-content    { background: rgba(20,160,120,0.18); color: #30C99A; }
+.cat-brotherhood{ background: rgba(50,130,220,0.18); color: #60AAEE; }
+.cat-recovery   { background: rgba(180,100,200,0.18); color: #CC80DD; }
+.cat-goals      { background: rgba(240,180,40,0.18); color: #F0C030; }
+.cat-post       { background: rgba(20,160,120,0.18); color: #30C99A; }
+.cat-reel       { background: rgba(200,60,180,0.18); color: #DD60CC; }
+.cat-engagement { background: rgba(50,130,220,0.18); color: #60AAEE; }
+.cat-collab     { background: rgba(100,80,200,0.18); color: #9B8FF0; }
+.cat-final      { background: rgba(201,168,76,0.28); color: var(--gold); }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/logo.png" alt="King Maker Society" loading="lazy">
+      <span>King Maker Society</span>
+    </a>
+    <div class="nav-links">
+      <a href="brotherhood.html">Brotherhood</a>
+      <a href="kings_media.html">King's Media</a>
+      <a href="mentors.html">Mentors</a>
+      <a href="team.html">Team</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-outline btn-sm" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="btn btn-red btn-sm" href="#" data-modal="referral-modal">Join Now</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero hero-sub" id="top" style="min-height: 52vh;">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow eyebrow">June 25 – July 30 · King Maker Society</div>
+    <h1>The <span class="gold">Scoreboard</span></h1>
+    <p class="hero-sub-copy hero-sub">Two challenges. Two leaderboards. One prize. Show up every day, stack your points, and lead the board when the custom King Maker Society fight gear drops — it's yours.</p>
+    <div class="page-meta">
+      <div class="pm"><span class="pm-num">35</span><span class="pm-label">Challenge Days</span></div>
+      <div class="pm"><span class="pm-num">2</span><span class="pm-label">Leaderboards</span></div>
+      <div class="pm"><span class="pm-num">50+</span><span class="pm-label">Pts Per Day</span></div>
+      <div class="pm"><span class="pm-num">Jul 30</span><span class="pm-label">Final Day</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAIN CONTENT ============ -->
+<section class="section" id="challenges">
+  <div class="container">
+
+    <!-- Tab switcher -->
+    <div class="sb-tabs" id="sb-tabs">
+      <button class="sb-tab active" onclick="switchTab('brotherhood')">&#9876;&#65039; Brotherhood</button>
+      <button class="sb-tab" onclick="switchTab('media')">&#127909; King's Media</button>
+    </div>
+
+    <!-- ══ BROTHERHOOD PANEL ══════════════════════════════════ -->
+    <div class="sb-panel active" id="panel-brotherhood">
+
+      <!-- Prize -->
+      <div style="margin-top:3rem;">
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">What You're Playing For</span>
+          <h2 class="headline">Brotherhood <span class="gold">Prize</span></h2>
+        </div>
+        <div class="prize-card reveal">
+          <div class="prize-crown">&#129351;</div>
+          <div class="prize-title">#1 on the Brotherhood Leaderboard Wins</div>
+          <div class="prize-sub">The member with the most points at the end of the challenge period — when the custom King Maker Society fight gear drops — takes home the prize. No ties. Top of the board wins it all.</div>
+          <div class="prize-items">
+            <div class="prize-item"><span>&#129354;</span> Custom KMS Fight Gear</div>
+            <div class="prize-item"><span>&#128081;</span> King Maker of the Month Title</div>
+            <div class="prize-item"><span>&#127891;</span> Permanent Feature on All KMS Brand Pages</div>
+            <div class="prize-item"><span>&#128172;</span> Permanent Shoutout in Brotherhood Chat</div>
+            <div class="prize-item"><span>&#127760;</span> Shoutout Across All @kingmakersocial Pages</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Points System -->
+      <div style="margin-bottom:3rem;">
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">How To Earn</span>
+          <h2 class="headline">Points <span class="gold">System</span></h2>
+        </div>
+        <div class="pts-grid reveal">
+          <div class="pts-row"><span class="pts-icon">&#9989;</span><span class="pts-label">Complete the daily challenge</span><span class="pts-val">50 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128172;</span><span class="pts-label">Post your check-in in the brotherhood chat</span><span class="pts-val">25 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128247;</span><span class="pts-label">Tag @kingmakersocial in a post</span><span class="pts-val">30 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128187;</span><span class="pts-label">Attend a live group Zoom call</span><span class="pts-val">75 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128293;</span><span class="pts-label">Complete a 7-day streak</span><span class="pts-val">+100 bonus</span></div>
+          <div class="pts-row"><span class="pts-icon">&#9889;</span><span class="pts-label">Complete a 14-day streak</span><span class="pts-val">+200 bonus</span></div>
+          <div class="pts-row"><span class="pts-icon">&#127942;</span><span class="pts-label">Complete all 35 days</span><span class="pts-val">+500 bonus</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128081;</span><span class="pts-label">Hype up 3+ brothers' posts in one day</span><span class="pts-val">20 pts</span></div>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div style="margin-bottom:3rem;">
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">Current Standings</span>
+          <h2 class="headline">Brotherhood <span class="gold">Leaderboard</span></h2>
+        </div>
+        <div class="card rank-board reveal">
+          <div class="rank-row top">
+            <span class="rank-medal">&#129351;</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #1 Open</span><span class="rank-disc">Challenge starts June 25 — be first on the board</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row top">
+            <span class="rank-medal">&#129352;</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #2 Open</span><span class="rank-disc">50 pts per daily challenge · post your check-in</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row top">
+            <span class="rank-medal">&#129353;</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #3 Open</span><span class="rank-disc">7-day streak = 100 bonus pts · stay consistent</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">4</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #4 Open</span><span class="rank-disc">Log your Zoom call attendance for 75 pts</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">5</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #5 Open</span><span class="rank-disc">Complete all 35 days for a 500-pt bonus</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:1rem;">Leaderboard updated weekly based on check-in logs in the brotherhood chat.</p>
+      </div>
+
+      <!-- Calendar -->
+      <div>
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">June 25 – July 30</span>
+          <h2 class="headline">Daily Challenge <span class="gold">Calendar</span></h2>
+          <p class="lead">One challenge every day. Click any card to see the full details.</p>
+        </div>
+        <div class="cal-grid reveal" id="brotherhood-calendar"></div>
+      </div>
+
+    </div><!-- end brotherhood panel -->
+
+    <!-- ══ KING'S MEDIA PANEL ═════════════════════════════════ -->
+    <div class="sb-panel" id="panel-media">
+
+      <!-- Prize -->
+      <div style="margin-top:3rem;">
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">What You're Playing For</span>
+          <h2 class="headline">King's Media <span class="gold">Prize</span></h2>
+        </div>
+        <div class="prize-card reveal">
+          <div class="prize-crown">&#129351;</div>
+          <div class="prize-title">#1 on the King's Media Leaderboard Wins</div>
+          <div class="prize-sub">The content creator with the most points at the end of the challenge period — when the custom King Maker Society fight gear drops — takes home the prize. Post every day. Engage. Stack points. The board doesn't lie.</div>
+          <div class="prize-items">
+            <div class="prize-item"><span>&#129354;</span> Custom KMS Fight Gear</div>
+            <div class="prize-item"><span>&#127909;</span> Permanent King's Media Feature Page</div>
+            <div class="prize-item"><span>&#127760;</span> Permanent Shoutout on All @kingsmediamma Pages</div>
+            <div class="prize-item"><span>&#128081;</span> King's Media Creator of the Month Title</div>
+            <div class="prize-item"><span>&#128172;</span> Permanent Shoutout Across All KMS Brand Pages</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Points System -->
+      <div style="margin-bottom:3rem;">
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">How To Earn</span>
+          <h2 class="headline">Points <span class="gold">System</span></h2>
+        </div>
+        <div class="pts-grid reveal">
+          <div class="pts-row"><span class="pts-icon">&#9989;</span><span class="pts-label">Complete the daily content challenge</span><span class="pts-val">50 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#127991;</span><span class="pts-label">Tag @kingsmediamma or @kingmakersocial in post</span><span class="pts-val">30 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128154;</span><span class="pts-label">Post gets 50+ likes</span><span class="pts-val">+25 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128154;</span><span class="pts-label">Post gets 100+ likes</span><span class="pts-val">+50 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128101;</span><span class="pts-label">Collab with a fellow KMS creator</span><span class="pts-val">75 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128172;</span><span class="pts-label">Engage with 10+ other creators in one day</span><span class="pts-val">40 pts</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128293;</span><span class="pts-label">Complete a 7-day posting streak</span><span class="pts-val">+100 bonus</span></div>
+          <div class="pts-row"><span class="pts-icon">&#9889;</span><span class="pts-label">Complete a 14-day posting streak</span><span class="pts-val">+200 bonus</span></div>
+          <div class="pts-row"><span class="pts-icon">&#127942;</span><span class="pts-label">Post all 35 challenge days</span><span class="pts-val">+500 bonus</span></div>
+          <div class="pts-row"><span class="pts-icon">&#128247;</span><span class="pts-label">Share a challenge recap in the group chat</span><span class="pts-val">20 pts</span></div>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div style="margin-bottom:3rem;">
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">Current Standings</span>
+          <h2 class="headline">King's Media <span class="gold">Leaderboard</span></h2>
+        </div>
+        <div class="card rank-board reveal">
+          <div class="rank-row top">
+            <span class="rank-medal">&#129351;</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #1 Open</span><span class="rank-disc">Challenge starts June 25 — be first on the board</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row top">
+            <span class="rank-medal">&#129352;</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #2 Open</span><span class="rank-disc">50 pts per daily post · 30 pts per tag</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row top">
+            <span class="rank-medal">&#129353;</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #3 Open</span><span class="rank-disc">7-day streak = 100 bonus pts</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">4</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #4 Open</span><span class="rank-disc">Collaborate with a KMS creator for 75 pts</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">5</span>
+            <span class="rank-av">?</span>
+            <div class="rank-id"><span class="rank-name">Spot #5 Open</span><span class="rank-disc">Post all 35 days for a 500-pt completion bonus</span></div>
+            <div class="rank-pts"><span class="p">—</span><span class="l">Points</span></div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:1rem;">Leaderboard updated weekly. Log your posts and tags in the King's Media group chat.</p>
+      </div>
+
+      <!-- Calendar -->
+      <div>
+        <div class="section-head center reveal" style="margin-bottom:1.5rem;">
+          <span class="eyebrow center">June 25 – July 30</span>
+          <h2 class="headline">Daily Challenge <span class="gold">Calendar</span></h2>
+          <p class="lead">One content challenge every day. Click any card to see the full brief.</p>
+        </div>
+        <div class="cal-grid reveal" id="media-calendar"></div>
+      </div>
+
+    </div><!-- end media panel -->
+
+  </div>
+</section>
+
+<!-- ============ JOIN CTA ============ -->
+<section class="section trial" id="join">
+  <div class="trial-watermark" aria-hidden="true">Win</div>
+  <div class="container trial-inner reveal">
+    <span class="eyebrow center">Get In</span>
+    <h2>Join The Challenge</h2>
+    <p class="lead" style="text-align:center;">You have to be a King Maker Society member to compete. Join, get into the community, and start stacking points on day one.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;">
+      <a class="btn btn-gold btn-lg" href="#" data-modal="referral-modal">Join Now &amp; Compete</a>
+      <a class="btn btn-outline btn-lg" href="brotherhood.html">Learn About The Brotherhood</a>
+    </div>
+    <span class="trial-fine">The custom fight gear goes to whoever leads the board when it drops. No exceptions.</span>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="section footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="assets/logo.png" alt="King Maker Society" loading="lazy"><span>King Maker Society</span></div>
+        <p>The self-improvement brotherhood for martial artists who refuse to settle.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html">King Maker Society</a>
+        <a href="brotherhood.html">Brotherhood</a>
+        <a href="kings_media.html">King's Media</a>
+        <a href="mentors.html">Mentors</a>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/kingmakersocial/" target="_blank" rel="noopener">@kingmakersocial</a>
+          <a href="https://www.instagram.com/kingsmediamma/" target="_blank" rel="noopener">@kingsmediamma</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p>&copy; 2026 King Maker Society LLC · All Rights Reserved</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Challenge Detail Modal -->
+<div class="ch-modal-overlay" id="ch-modal" onclick="closeModal(event)">
+  <div class="ch-modal">
+    <button class="ch-modal-close" onclick="document.getElementById('ch-modal').classList.remove('open')">&times;</button>
+    <div class="ch-modal-date" id="modal-date"></div>
+    <div class="ch-modal-title" id="modal-title"></div>
+    <div class="ch-modal-desc" id="modal-desc"></div>
+    <div class="ch-modal-pts" id="modal-pts">&#9733; 50 Points</div>
+  </div>
+</div>
+
+<!-- Referral Modal (minimal) -->
+<div class="modal-overlay" id="referral-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <h3>Join King Maker Society</h3>
+      <p>Select who referred you and get started.</p>
+    </div>
+    <div class="ref-list">
+      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
+        <span class="ref-avatar">JA</span><span class="ref-info"><span class="ref-name">Jordan Ali</span><span class="ref-role">CEO &amp; Founder</span></span><span class="ref-arrow">&rarr;</span>
+      </a>
+    </div>
+    <a class="ref-skip" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">I wasn't referred → Continue</a>
+  </div>
+</div>
+
+<script src="landing.js" defer></script>
+<script>
+// ── CHALLENGE DATA ──────────────────────────────────────────────
+
+const DAYS = [];
+const start = new Date('2026-06-25');
+for (let i = 0; i < 35; i++) {
+  const d = new Date(start);
+  d.setDate(start.getDate() + i);
+  DAYS.push(d);
+}
+
+const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmt(d) {
+  return DAY_NAMES[d.getDay()] + ' ' + MONTHS[d.getMonth()] + ' ' + d.getDate();
+}
+
+// ── BROTHERHOOD CHALLENGES ──────────────────────────────────────
+const BROTHERHOOD_CHALLENGES = [
+  // Jun 25 – Jul 30 (35 days)
+  { cat:'Training',      title:'Full Training Session',         desc:'Complete a full training session of at least 45 minutes. Post your check-in in the brotherhood chat with what you worked on. Photo, clip, or text — just show up.',    pts:50 },
+  { cat:'Mindset',       title:'Gratitude As A Fighter',        desc:'Write down 3 things you\'re genuinely grateful for as a martial artist. Not generic stuff — things specific to your journey. Post it in the chat.',                   pts:50 },
+  { cat:'Discipline',    title:'Eat Clean All Day',             desc:'No junk food, no fast food, no excuses. Eat clean for the full day and log what you ate. Drop it in the brotherhood chat at the end of the night.',                     pts:50 },
+  { cat:'Recovery',      title:'Full Stretch Session',          desc:'Complete a full stretching or mobility session of at least 20 minutes. Don\'t skip this. Recovery is part of training. Log it in the chat.',                           pts:50 },
+  { cat:'Goals',         title:'Weekly Goal Post',              desc:'Write your top 3 goals for the week ahead. Be specific. Be honest. Post them in the brotherhood chat so the brothers can hold you accountable.',                         pts:50 },
+  { cat:'Content',       title:'Post Your Martial Arts Journey',desc:'Post one piece of content that shows your martial arts journey — training clip, progress update, a lesson you learned. Tag @kingmakersocial.',                          pts:50 },
+  { cat:'Brotherhood',   title:'Hype Up 3 Brothers',            desc:'Go into the chat and genuinely hype up 3 brothers who are showing up. Comment on their posts, send an encouraging message, or leave a real reaction.',                   pts:50 },
+  { cat:'Training',      title:'Conditioning Workout',          desc:'Do a 30-minute conditioning workout outside your normal training — sprints, rounds on the bag, jump rope, hill runs. Anything that pushes your cardio.',               pts:50 },
+  { cat:'Mindset',       title:'Sharpen Your Fight IQ',         desc:'Watch or read something that sharpens your fight IQ — a breakdown video, a documentary, a chapter in a book. Drop what you watched or read in the chat.',             pts:50 },
+  { cat:'Discipline',    title:'7am Morning Routine',           desc:'Wake up by 7am and complete your full morning routine before you open your phone. Report back in the chat once it\'s done.',                                            pts:50 },
+  { cat:'Recovery',      title:'Cold Shower + Breathwork',      desc:'Take a cold shower and follow it with 10 minutes of breathwork or meditation. Log it. This is part of the warrior lifestyle.',                                         pts:50 },
+  { cat:'Goals',         title:'Honest Weekly Review',          desc:'Review last week\'s goals. Did you hit them? Be honest — no sugarcoating. Post your real answer in the chat. Growth only comes from honesty.',                          pts:50 },
+  { cat:'Content',       title:'Training Clip of the Week',     desc:'Post your best training clip from this week. Doesn\'t have to be perfect. Show the real work. Tag @kingmakersocial and post in the chat.',                             pts:50 },
+  { cat:'Brotherhood',   title:'Direct Encouragement',          desc:'Reach out to one brother in DMs — someone who\'s been grinding — and give them genuine, direct encouragement. Not a group comment. One-on-one.',                       pts:50 },
+  { cat:'Training',      title:'Hardest Session of the Week',   desc:'Make today your hardest training session of the week. Push past where you usually stop. Log it in the chat and describe what you pushed through.',                     pts:50 },
+  { cat:'Mindset',       title:'Identify Your #1 Weakness',     desc:'Honestly identify your #1 weakness as a martial artist right now. Write a short plan to address it. Post it in the chat. Awareness is the first step.',               pts:50 },
+  { cat:'Discipline',    title:'No Phone First 30 Minutes',     desc:'No screen time for the first 30 minutes after you wake up. Use that time to move, breathe, and think. Report in the chat once your morning window is done.',          pts:50 },
+  { cat:'Recovery',      title:'Full Rest Day + Journaling',    desc:'Full rest day — no training. But spend 10 minutes journaling: where you are, where you\'re going, and what needs to change. Share your reflection in the chat.',       pts:50 },
+  { cat:'Goals',         title:'2-Week Big Goal',               desc:'Set one clear, big goal for the next 2 weeks. Not vague — specific and measurable. Post it in the brotherhood chat and pin it somewhere you\'ll see it every day.',    pts:50 },
+  { cat:'Content',       title:'Progress or Before/After Post', desc:'Post a before/after or progress update — could be fitness, skills, discipline, mindset, or any area of your life. Show the contrast. Tag @kingmakersocial.',           pts:50 },
+  { cat:'Brotherhood',   title:'Welcome Someone New',           desc:'Introduce yourself or welcome a new member in the chat. Make them feel at home. A strong brotherhood starts with the way we treat the newest person in the room.',     pts:50 },
+  { cat:'Training',      title:'Train Twice Today',             desc:'Train in the morning and train again in the evening. Two sessions. Full effort on both. Log both in the chat with what you did each time.',                            pts:75 },
+  { cat:'Mindset',       title:'Martial Arts Mindset Content',  desc:'Listen to a podcast, watch a YouTube video, or read an article on the mindset side of martial arts. Drop what you consumed and your one key takeaway in the chat.',   pts:50 },
+  { cat:'Discipline',    title:'Complete Your Morning Routine', desc:'Execute your full morning routine without skipping a single step. No modifications. Log it in the chat. Consistency in the small things builds consistency in the ring.',pts:50 },
+  { cat:'Recovery',      title:'Healthy Meal + Log It',         desc:'Cook or prep a clean, healthy meal today. Log what you made and take a photo if you can. Food is recovery. Recovery is training.',                                     pts:50 },
+  { cat:'Goals',         title:'30-Day Vision Write-Out',       desc:'Write out your 30-day vision — where you want to be, what achieving it would look like, and how it would feel. Post it in the chat. Visualization matters.',           pts:50 },
+  { cat:'Content',       title:'Share A Martial Arts Lesson',   desc:'Post a genuine lesson or tip you\'ve learned from martial arts — something that changed how you train, think, or live. Make it real. Tag @kingmakersocial.',           pts:50 },
+  { cat:'Brotherhood',   title:'Attend the Group Zoom Call',    desc:'Show up to the live group Zoom call. Participate. Ask a question or share something. Being present in the room is what brotherhood is built on.',                      pts:75 },
+  { cat:'Training',      title:'Hit Your Personal Best',        desc:'Push for a personal best on any drill, lift, round, or skill today. Set the intention before training. Report the result in the chat.',                               pts:50 },
+  { cat:'Mindset',       title:'Share A Hard Training Story',   desc:'Reflect on a time you overcame something genuinely hard in training — and share that story in the brotherhood chat. Real stories inspire real people.',               pts:50 },
+  { cat:'Discipline',    title:'21-Day Habit Check',            desc:'Identify a habit you\'ve been building over this challenge. Confirm 21 consecutive days of it. Post your honest report in the chat.',                                  pts:75 },
+  { cat:'Recovery',      title:'30-Min Walk, No Phone',         desc:'Go for a 30-minute walk with no phone. Think. Let your mind breathe. When you come back, drop one thing that came to you in the chat.',                               pts:50 },
+  { cat:'Goals',         title:'Full Month Review',             desc:'Review the full challenge month. What shifted? What improved? What still needs work? Post your honest assessment in the brotherhood chat.',                            pts:75 },
+  { cat:'Content',       title:'Your Biggest Win This Month',   desc:'Post your biggest win from the past 30 days. Don\'t downplay it. You did the work. Share it publicly and tag @kingmakersocial.',                                     pts:50 },
+  { cat:'Brotherhood',   title:'Public Shoutout to a Brother',  desc:'Tag a brother who has been showing up consistently throughout this challenge and give them a public shoutout on your story or post. Name them specifically.',          pts:50 },
+  { cat:'Training',      title:'Final Challenge: Complete Session',desc:'This is the last day. Complete your most complete, most intentional training session of the entire challenge. Everything you\'ve built for 35 days — leave it all in the gym.',pts:100 },
+];
+
+// ── KING'S MEDIA CHALLENGES ─────────────────────────────────────
+const MEDIA_CHALLENGES = [
+  { cat:'Post',       title:'Introduce Yourself As A Creator',  desc:'Post your first official King\'s Media challenge post. Introduce yourself — who you are, what martial art you do, and why you\'re creating. Tag @kingsmediamma.',         pts:50 },
+  { cat:'Reel',       title:'15–30 Sec Training Highlight',     desc:'Create and post a 15–30 second Reel showcasing a highlight from your training — a technique, a round, a drill. Fast cuts. Good energy. Tag @kingsmediamma.',              pts:50 },
+  { cat:'Post',       title:'Tell Your Martial Arts Story',     desc:'Post with a caption of 5 or more sentences telling your martial arts story — when you started, why you started, and what keeps you coming back.',                          pts:50 },
+  { cat:'Post',       title:'Sunday Reset Stories',             desc:'Post 3 Instagram or TikTok stories showing your Sunday reset — your morning, your prep, your mindset going into the week. Behind the scenes energy.',                     pts:50 },
+  { cat:'Reel',       title:'Hook In The First 3 Seconds',      desc:'Post a video that opens with a powerful hook in the very first 3 seconds. Make someone stop scrolling before they can choose to keep going.',                             pts:50 },
+  { cat:'Engagement', title:'Reply To Every Comment For 24 Hrs',desc:'Spend today replying to every comment on your last post. Every single one. This builds your account more than any algorithm trick ever will.',                          pts:50 },
+  { cat:'Collab',     title:'Repost A Fellow KMS Creator',      desc:'Repost, share, or duet another King\'s Media creator today. Lift each other up. Collaboration builds both pages faster than going solo.',                                 pts:75 },
+  { cat:'Post',       title:'Tips or Technique Post',           desc:'Post a tips or technique video — teach your audience something they can actually use. Keep it clear, keep it real, and make it specific to your martial art.',            pts:50 },
+  { cat:'Post',       title:'Behind-The-Scenes Training Clip',  desc:'Post a behind-the-scenes clip of your training — the warm-up, the drilling, the grind nobody usually sees. This content builds the most trust.',                        pts:50 },
+  { cat:'Post',       title:'Why You Started Martial Arts',     desc:'Write a caption telling the real story of why you started martial arts. Not the pretty version — the real reason. This kind of content connects.',                       pts:50 },
+  { cat:'Post',       title:'Story Poll For Your Audience',     desc:'Post a poll on your stories asking your audience a question about their martial arts journey. Engagement signals matter. Get your people talking.',                        pts:50 },
+  { cat:'Reel',       title:'Training Montage Reel',            desc:'Post a training montage from this week. Multiple clips, good music, fast cuts. This is the type of content that gets saved and shared. Tag @kingsmediamma.',              pts:50 },
+  { cat:'Engagement', title:'Engage With 10 Martial Arts Creators',desc:'Go comment on 10 other martial arts creators\' posts today. Real comments — not emoji blasts. This builds your presence in the community faster than ads.',          pts:50 },
+  { cat:'Post',       title:'Text Overlay Teaching Video',      desc:'Post a video with on-screen text only — no voiceover. Teach something without speaking. This format works everywhere, especially on TikTok.',                            pts:50 },
+  { cat:'Post',       title:'Quote or Mindset Graphic',         desc:'Create and post a graphic or quote post representing your martial arts mindset. Use Canva, CapCut, or whatever you have. Make it clean. Make it yours.',                  pts:50 },
+  { cat:'Post',       title:'Before/After or Progress Update',  desc:'Post a before/after showing any kind of progress — your space, your gear, your physique, your skills, your mental state. Show the growth.',                              pts:50 },
+  { cat:'Post',       title:'Your Most Authentic Caption Yet',  desc:'Write the most honest, real caption you\'ve written yet. No performance. Tell your audience something true. Authenticity is the highest converting content.',            pts:50 },
+  { cat:'Post',       title:'Stories Q&A',                      desc:'Open a Q&A on your Instagram or TikTok stories and answer your audience\'s questions about your martial arts life. Let them into your world.',                            pts:50 },
+  { cat:'Reel',       title:'Day In The Life As A Martial Artist',desc:'Post a day-in-the-life Reel showing what your day actually looks like as a martial artist. Training, food, mindset — all of it.',                                    pts:50 },
+  { cat:'Collab',     title:'Collab With A KMS Member',         desc:'Tag, collab, or feature another King\'s Media member in a post today. Two-creator content almost always outperforms solo content on every platform.',                    pts:75 },
+  { cat:'Post',       title:'Technique Breakdown',              desc:'Post a slow-motion or step-by-step technique breakdown of anything in your martial art. Educate your audience. Breakdowns are some of the most saved content online.',    pts:50 },
+  { cat:'Engagement', title:'50 Comments This Week',            desc:'Hit 50 genuine comments left on other people\'s posts this week total. Track your number. Post your count in the King\'s Media group chat.',                             pts:50 },
+  { cat:'Reel',       title:'Controversial Opening Statement',  desc:'Post a Reel that opens with a question or bold statement that makes people want to watch. "The reason most fighters never go pro is..." Make them stay.',               pts:50 },
+  { cat:'Post',       title:'Pre-Training Ritual Clip',         desc:'Post a clip of your warm-up or pre-training ritual. This builds character and lets your audience into your process. People follow the process more than the highlight.',  pts:50 },
+  { cat:'Post',       title:'Lesson From A Loss Or Hard Session',desc:'Post a genuine lesson you learned from a loss, a setback, or your hardest training session. Be real about it. This kind of vulnerability builds loyal followers.',    pts:50 },
+  { cat:'Post',       title:'Countdown Content',                desc:'Post a countdown story or video to something you\'re working toward — a fight, a belt test, a goal. Build anticipation. Let your audience be part of the journey.',      pts:50 },
+  { cat:'Reel',       title:'Your Best Reel Of The Challenge',  desc:'Post your most creative, most polished reel of the entire 35-day challenge. Put real effort in. This is the one you want to be remembered for. Tag @kingsmediamma.',    pts:75 },
+  { cat:'Collab',     title:'Feature A Creator In Stories',     desc:'Feature another King\'s Media creator in your stories today. Share their content, shout them out, or go live together. The more you give, the more you get.',            pts:50 },
+  { cat:'Post',       title:'Mindset Tip For Martial Artists',  desc:'Post a tip or insight specifically about the mental game of martial arts. Fight psychology, handling pressure, controlling nerves — teach it from your experience.',    pts:50 },
+  { cat:'Engagement', title:'Clear Your DMs',                   desc:'Respond to every DM you\'ve received in the past 3 days. Every unanswered message is a missed connection. Take care of your audience.',                                  pts:50 },
+  { cat:'Post',       title:'Show Your Fight Gear + Setup',     desc:'Post your fight gear, training bag, or training setup. Let your audience see your environment. People are more curious about your gear than you think.',                 pts:50 },
+  { cat:'Post',       title:'Share Your Goals For The Year',    desc:'Tell your audience where you\'re going — your goals for the rest of the year in martial arts and content. Public goals create public accountability.',                   pts:50 },
+  { cat:'Reel',       title:'Common Mistake Martial Artists Make Online',desc:'Post a video about a mistake most martial artists make when trying to build their brand online. Teach from experience. This type of content gets shared.',   pts:50 },
+  { cat:'Reel',       title:'Your King\'s Media Journey Recap', desc:'Create a Reel showing your King\'s Media challenge journey from day 1 to now — clips from your posts, your growth, your best moments. Show the arc.',                  pts:75 },
+  { cat:'Post',       title:'Stories Marathon — 5+ Frames',     desc:'Post 5 or more stories in a row today telling a single cohesive story about your martial arts life. Series stories keep people tapping through to the end.',            pts:50 },
+  { cat:'Final',      title:'Final Challenge Recap Post',       desc:'Post your final King\'s Media challenge recap. What you created over 35 days. What you learned. What\'s next. Tag @kingsmediamma. End strong — this is your permanent record.',pts:100 },
+];
+
+// ── RENDER CALENDAR ─────────────────────────────────────────────
+
+const CAT_CLASS = {
+  Training:'cat-training', Mindset:'cat-mindset', Discipline:'cat-discipline',
+  Content:'cat-content', Brotherhood:'cat-brotherhood', Recovery:'cat-recovery',
+  Goals:'cat-goals', Post:'cat-post', Reel:'cat-reel', Engagement:'cat-engagement',
+  Collab:'cat-collab', Final:'cat-final'
+};
+
+function renderCalendar(containerId, challenges) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  let html = '';
+  DAYS.forEach((d, i) => {
+    const ch = challenges[i];
+    const isPast  = d < today;
+    const isToday = d.getTime() === today.getTime();
+    const cls = [
+      'cal-card',
+      isPast  ? 'past'  : '',
+      isToday ? 'today' : ''
+    ].filter(Boolean).join(' ');
+
+    const catClass = CAT_CLASS[ch.cat] || '';
+    html += `
+    <div class="${cls}" onclick="openModal('${encodeURIComponent(fmt(d))}','${encodeURIComponent(ch.title)}','${encodeURIComponent(ch.desc)}',${ch.pts})">
+      <div class="cal-date">${fmt(d)}</div>
+      <span class="cal-badge ${catClass}">${ch.cat}</span>
+      <div class="cal-challenge-title">${ch.title}</div>
+      <div class="cal-pts">+${ch.pts} pts</div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+// ── MODAL ───────────────────────────────────────────────────────
+
+function openModal(date, title, desc, pts) {
+  document.getElementById('modal-date').textContent  = decodeURIComponent(date);
+  document.getElementById('modal-title').textContent = decodeURIComponent(title);
+  document.getElementById('modal-desc').textContent  = decodeURIComponent(desc);
+  document.getElementById('modal-pts').textContent   = '★ ' + pts + ' Points';
+  document.getElementById('ch-modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('ch-modal')) {
+    document.getElementById('ch-modal').classList.remove('open');
+  }
+}
+
+// ── TABS ────────────────────────────────────────────────────────
+
+function switchTab(tab) {
+  document.querySelectorAll('.sb-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.sb-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.querySelectorAll('.sb-tab').forEach(b => {
+    if (b.getAttribute('onclick').includes(tab)) b.classList.add('active');
+  });
+}
+
+// ── INIT ────────────────────────────────────────────────────────
+renderCalendar('brotherhood-calendar', BROTHERHOOD_CHALLENGES);
+renderCalendar('media-calendar', MEDIA_CHALLENGES);
+</script>
+</body>
+</html>
