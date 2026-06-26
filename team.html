@@ -1203,9 +1203,13 @@ Members get access. Link in bio to join King Maker Society.
       <div class="divider-label" style="margin-top:0">&#128293; Active Team Challenges</div>
       <div id="team-challenges-list" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;"></div>
 
-      <!-- Active Community Challenges -->
-      <div class="divider-label">&#127758; Active Community Challenges</div>
-      <div id="community-challenges-list" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;"></div>
+      <!-- KMS Community Challenges -->
+      <div class="divider-label">&#128081; King Maker Society Community Challenge</div>
+      <div id="kms-challenges-list" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;"></div>
+
+      <!-- King's Media Challenges -->
+      <div class="divider-label">&#127909; King's Media Challenge</div>
+      <div id="media-challenges-list" style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;"></div>
 
       <!-- Post New Challenge (Jordan only or any member) -->
       <div class="divider-label">&#43; Post a Challenge</div>
@@ -1215,7 +1219,8 @@ Members get access. Link in bio to join King Maker Society.
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
             <select id="ch-type" style="background:#1a1a18;border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
               <option value="team" style="background:#1a1a18;color:#fff;">Team Challenge</option>
-              <option value="community" style="background:#1a1a18;color:#fff;">Community Challenge</option>
+              <option value="community-kms" style="background:#1a1a18;color:#fff;">KMS Community Challenge</option>
+              <option value="community-media" style="background:#1a1a18;color:#fff;">King's Media Challenge</option>
             </select>
             <select id="ch-category" style="background:#1a1a18;border:1px solid var(--border-strong);border-radius:8px;color:var(--white);font-size:0.84rem;padding:0.65rem 0.9rem;font-family:inherit;flex:1;min-width:160px;">
               <option value="Sales" style="background:#1a1a18;color:#fff;">&#128176; Sales</option>
@@ -2404,30 +2409,33 @@ const DEFAULT_CHALLENGES = [
     status: 'active',
     completedBy: []
   },
-  // ── COMMUNITY CHALLENGES ─────────────────────────────────────────
+  // ── KMS COMMUNITY CHALLENGES ──────────────────────────────────────
   {
-    id: 'ch-content-community',
+    id: 'ch-kms-discipline',
     type: 'community',
-    category: 'Content',
-    title: '30-Day Consistency Challenge',
-    desc: 'Post every single day for 30 days — training content, mindset content, fight clips, or anything showing your martial arts lifestyle. Tag @kingmakersocial on every post. The member with the most consistent posting streak over the 30 days wins.',
-    prize: 'Custom King Maker Society Medal',
-    deadline: '2026-07-23',
+    branch: 'kms',
+    category: 'Accountability',
+    title: '21-Day Discipline Challenge',
+    desc: 'For all King Maker Society members. 21 days straight — show up to your training, complete your morning routine, and post a daily check-in in the community chat. Could be a photo, a clip, a note, whatever proves you did the work. The member with the longest unbroken streak wins.',
+    prize: 'Custom King Maker Society Fight Gear',
+    deadline: '2026-07-16',
     postedBy: 'Jordan Ali',
-    postedAt: 'Jun 23, 2026',
+    postedAt: 'Jun 25, 2026',
     status: 'active',
     completedBy: []
   },
+  // ── KING'S MEDIA CHALLENGES ───────────────────────────────────────
   {
-    id: 'ch-banner-community',
+    id: 'ch-media-growth',
     type: 'community',
+    branch: 'media',
     category: 'Content',
-    title: 'Best Fight Clip of the Month',
-    desc: 'Post your best fight clip or sparring highlight this month and tag @kingmakersocial. Could be from competition, sparring, pad work — whatever shows you showing up and going hard. The community votes and the best clip wins.',
-    prize: 'Custom King Maker Society Banner',
-    deadline: '2026-07-31',
+    title: "King's Media 30-Day Growth Sprint",
+    desc: "For all King's Media contributors. Post a minimum of 3 times per week for 30 days — Reels, clips, highlights, or educational content. Track your follower count on Day 1 and Day 30. Drop your numbers in the group at the end. Most growth wins. Consistency is the entry fee.",
+    prize: "King's Media Feature + Dedicated Shoutout to Your Page",
+    deadline: '2026-07-25',
     postedBy: 'Jordan Ali',
-    postedAt: 'Jun 23, 2026',
+    postedAt: 'Jun 25, 2026',
     status: 'active',
     completedBy: []
   }
@@ -2435,28 +2443,37 @@ const DEFAULT_CHALLENGES = [
 
 const CATEGORY_ICONS = { Sales:'&#128176;', Content:'&#127909;', Training:'&#129354;', Accountability:'&#128081;', Growth:'&#128200;', Mindset:'&#129504;' };
 
+const CHALLENGES_VERSION = 'v2-kms-media';
+
 function initChallenges() {
-  // Seed defaults if storage is empty
+  // Reset if version has changed
+  const storedVersion = sessionStorage.getItem('challenges_version');
   let stored = tbGet('challenges');
-  if (!stored.length) {
+  if (!stored.length || storedVersion !== CHALLENGES_VERSION) {
     tbSet('challenges', DEFAULT_CHALLENGES);
+    sessionStorage.setItem('challenges_version', CHALLENGES_VERSION);
     stored = DEFAULT_CHALLENGES;
   }
   renderChallengesSections(stored);
 }
 
 function renderChallengesSections(all) {
-  const active_team = all.filter(c => c.type === 'team' && c.status === 'active');
-  const active_comm = all.filter(c => c.type === 'community' && c.status === 'active');
+  const active_team  = all.filter(c => c.type === 'team' && c.status === 'active');
+  const active_kms   = all.filter(c => c.type === 'community' && c.branch === 'kms'   && c.status === 'active');
+  const active_media = all.filter(c => c.type === 'community' && c.branch === 'media' && c.status === 'active');
+  // fallback: legacy community challenges with no branch
+  const active_comm_legacy = all.filter(c => c.type === 'community' && !c.branch && c.status === 'active');
   const done = all.filter(c => c.status === 'completed');
 
-  const teamEl = document.getElementById('team-challenges-list');
-  const commEl = document.getElementById('community-challenges-list');
-  const doneEl = document.getElementById('completed-challenges-list');
+  const teamEl  = document.getElementById('team-challenges-list');
+  const kmsEl   = document.getElementById('kms-challenges-list');
+  const mediaEl = document.getElementById('media-challenges-list');
+  const doneEl  = document.getElementById('completed-challenges-list');
 
-  if (teamEl) teamEl.innerHTML = active_team.length ? active_team.map(c => buildChallengeCard(c)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No active team challenges. Post one below.</p>';
-  if (commEl) commEl.innerHTML = active_comm.length ? active_comm.map(c => buildChallengeCard(c)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No active community challenges. Post one below.</p>';
-  if (doneEl) doneEl.innerHTML = done.length ? done.map(c => buildChallengeCard(c, true)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No completed challenges yet.</p>';
+  if (teamEl)  teamEl.innerHTML  = active_team.length  ? active_team.map(c => buildChallengeCard(c)).join('')  : '<p style="font-size:0.82rem;color:var(--muted);">No active team challenges. Post one below.</p>';
+  if (kmsEl)   kmsEl.innerHTML   = active_kms.length   ? active_kms.map(c => buildChallengeCard(c)).join('')   : (active_comm_legacy.length ? active_comm_legacy.map(c => buildChallengeCard(c)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No active KMS challenges right now.</p>');
+  if (mediaEl) mediaEl.innerHTML = active_media.length ? active_media.map(c => buildChallengeCard(c)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No active King\'s Media challenges right now.</p>';
+  if (doneEl)  doneEl.innerHTML  = done.length ? done.map(c => buildChallengeCard(c, true)).join('') : '<p style="font-size:0.82rem;color:var(--muted);">No completed challenges yet.</p>';
 }
 
 function buildChallengeCard(c, isDone) {
@@ -2491,9 +2508,13 @@ function postChallenge() {
   const title = document.getElementById('ch-title').value.trim();
   const desc = document.getElementById('ch-desc').value.trim();
   if (!title || !desc) { alert('Please add a title and description.'); return; }
+  const rawType = document.getElementById('ch-type').value;
+  const typeVal   = rawType === 'team' ? 'team' : 'community';
+  const branchVal = rawType === 'community-kms' ? 'kms' : rawType === 'community-media' ? 'media' : undefined;
   const ch = {
     id: 'ch-' + Date.now(),
-    type: document.getElementById('ch-type').value,
+    type: typeVal,
+    ...(branchVal ? { branch: branchVal } : {}),
     category: document.getElementById('ch-category').value,
     title,
     desc,
