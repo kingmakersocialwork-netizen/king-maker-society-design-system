@@ -12,6 +12,32 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="landing.css">
 <style>
+/* ── SCOREBOARD: BRIGHT GOLD + SHIMMER BUTTONS ──────────── */
+:root { --gold-bright: #D4AF37; }
+
+.btn-gold-bright {
+  background: var(--gold-bright);
+  color: #0a0a08;
+  border: 1px solid var(--gold-bright);
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(212,175,55,0.35), 0 0 36px rgba(212,175,55,0.15);
+}
+.btn-gold-bright:hover {
+  background: #e0c040;
+  box-shadow: 0 0 28px rgba(212,175,55,0.55), 0 0 56px rgba(212,175,55,0.25);
+}
+
+/* Reflective shimmer */
+.btn-reflect { position: relative; overflow: hidden; }
+.btn-reflect::after {
+  content: ''; position: absolute; top: -60%; left: -80%; width: 55%; height: 220%;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.42) 45%, rgba(255,255,255,0.18) 55%, transparent 75%);
+  transform: skewX(-18deg);
+  animation: btn-sheen 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btn-sheen { 0% { left: -80%; } 55% { left: 130%; } 100% { left: 130%; } }
+
 /* ── SCOREBOARD PAGE STYLES ──────────────────────────────── */
 
 /* Tab switcher */
@@ -270,6 +296,7 @@
       <a href="brotherhood.html">Brotherhood</a>
       <a href="kings_media.html">King's Media</a>
       <a href="mentors.html">Mentors</a>
+      <a href="scoreboard.html" class="active">Scoreboard</a>
       <a href="team.html">Team</a>
     </div>
     <div class="nav-actions">
@@ -509,8 +536,8 @@
     <h2>Join The Challenge</h2>
     <p class="lead" style="text-align:center;">You have to be a King Maker Society member to compete. Join, get into the community, and start stacking points on day one.</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;">
-      <a class="btn btn-gold btn-lg" href="#" data-modal="referral-modal">Join Now &amp; Compete</a>
-      <a class="btn btn-outline btn-lg" href="brotherhood.html">Learn About The Brotherhood</a>
+      <a class="btn btn-gold-bright btn-lg btn-reflect" href="#" data-modal="referral-modal">Join Now &amp; Compete</a>
+      <a class="btn btn-outline btn-lg btn-reflect" href="brotherhood.html">Learn About The Brotherhood</a>
     </div>
     <span class="trial-fine">The custom fight gear goes to whoever leads the board when it drops. No exceptions.</span>
   </div>
