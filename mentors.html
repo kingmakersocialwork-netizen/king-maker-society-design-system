@@ -156,6 +156,23 @@
   max-width: 680px;
 }
 .faq-item.open .faq-answer { display: block; }
+
+/* ── TWO-STEP REFERRAL MODAL ────────────────────────────── */
+#ref-step-2 { display: none; }
+.ref-back { background:none; border:none; color:var(--muted); cursor:pointer; font-size:0.78rem; font-weight:600; padding:0 0 0.75rem; display:flex; align-items:center; gap:0.4rem; }
+.ref-back:hover { color:var(--off-white); }
+.ref-selected-tag { display:inline-flex; align-items:center; gap:0.4rem; background:rgba(242,200,75,0.1); border:1px solid rgba(242,200,75,0.25); border-radius:50px; padding:0.25rem 0.75rem 0.25rem 0.5rem; font-size:0.72rem; font-weight:700; color:var(--gold); margin-bottom:0.25rem; }
+.ref-tier-list { display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem; }
+.ref-tier-card { display:flex; align-items:center; gap:1rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:0.9rem 1.1rem; text-decoration:none; color:var(--off-white); transition:border-color 0.2s, background 0.2s; position:relative; overflow:hidden; }
+.ref-tier-card:hover { border-color:rgba(242,200,75,0.45); background:rgba(242,200,75,0.06); }
+.ref-tier-card.tier-featured { border-color:rgba(242,200,75,0.4); background:rgba(242,200,75,0.06); }
+.tier-price { font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:var(--gold); flex-shrink:0; line-height:1; }
+.tier-price span { font-size:0.75rem; font-weight:600; color:var(--muted); }
+.tier-info { flex:1; }
+.tier-name { display:block; font-size:0.88rem; font-weight:700; margin-bottom:0.2rem; }
+.tier-desc { display:block; font-size:0.72rem; color:var(--muted); line-height:1.4; }
+.tier-badge-pop { position:absolute; top:0.5rem; right:0.75rem; font-family:var(--font-label); font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:var(--gold); color:#0a0a08; border-radius:4px; padding:0.15rem 0.45rem; }
+.tier-arrow { color:var(--gold); font-size:1.1rem; flex-shrink:0; }
 </style>
 </head>
 <body>
@@ -589,40 +606,84 @@
   </div>
 </footer>
 
-<!-- ============ REFERRAL MODAL ============ -->
+<!-- ============ REFERRAL MODAL (UNIFIED 2-STEP) ============ -->
 <div class="modal-overlay" id="referral-modal" role="dialog" aria-modal="true" aria-labelledby="ref-title">
   <div class="modal">
     <button class="modal-close" aria-label="Close">&times;</button>
-    <div class="modal-head">
-      <h3 id="ref-title">Who Referred You?</h3>
-      <p>Give credit to the person who brought you in. Select their name and you'll go straight to the membership page.</p>
+    <div id="ref-step-1">
+      <div class="modal-head">
+        <h3 id="ref-title">Who Referred You?</h3>
+        <p>Give credit to the person who brought you in, then choose your membership tier.</p>
+      </div>
+      <div class="ref-list">
+        <button class="ref-card" onclick="selectReferrer('Jordan Ali','jordan')"><span class="ref-avatar">JA</span><span class="ref-info"><span class="ref-name">Jordan Ali</span><span class="ref-role">CEO &amp; Founder</span></span><span class="ref-arrow">&rarr;</span></button>
+        <button class="ref-card" onclick="selectReferrer('Ryan Bailey','ryan')"><span class="ref-avatar">RB</span><span class="ref-info"><span class="ref-name">Ryan Bailey</span><span class="ref-role">Co-Founder</span></span><span class="ref-arrow">&rarr;</span></button>
+        <button class="ref-card" onclick="selectReferrer('Willie Sims','willie')"><span class="ref-avatar">WS</span><span class="ref-info"><span class="ref-name">Willie Sims</span><span class="ref-role">Head Of Mentors</span></span><span class="ref-arrow">&rarr;</span></button>
+        <button class="ref-card" onclick="selectReferrer('Aaron Arostegui','aaron')"><span class="ref-avatar">AA</span><span class="ref-info"><span class="ref-name">Aaron Arostegui</span><span class="ref-role">Head Of Long-Form Content</span></span><span class="ref-arrow">&rarr;</span></button>
+        <button class="ref-card" onclick="selectReferrer('Ty','ty')"><span class="ref-avatar">TY</span><span class="ref-info"><span class="ref-name">Ty</span><span class="ref-role">Marketing</span></span><span class="ref-arrow">&rarr;</span></button>
+        <button class="ref-card" onclick="selectReferrer('Georgios','georgios')"><span class="ref-avatar">GM</span><span class="ref-info"><span class="ref-name">Georgios</span><span class="ref-role">Global Outreach</span></span><span class="ref-arrow">&rarr;</span></button>
+        <button class="ref-card full" onclick="selectReferrer('Mohammed Ali','mohammed')"><span class="ref-avatar">MA</span><span class="ref-info"><span class="ref-name">Mohammed Ali</span><span class="ref-role">King's Media Host · Mentor</span></span><span class="ref-arrow">&rarr;</span></button>
+      </div>
+      <button class="ref-skip" onclick="selectReferrer('No referral','none')" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;padding:0.75rem 0 0;font-size:0.78rem;color:var(--muted);font-weight:600;">I wasn't referred by anyone &rarr; Continue</button>
     </div>
-    <div class="ref-list">
-      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
-        <span class="ref-avatar">JA</span><span class="ref-info"><span class="ref-name">Jordan Ali</span><span class="ref-role">CEO &amp; Founder</span></span><span class="ref-arrow">&rarr;</span>
-      </a>
-      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
-        <span class="ref-avatar">RB</span><span class="ref-info"><span class="ref-name">Ryan Bailey</span><span class="ref-role">Co-Founder</span></span><span class="ref-arrow">&rarr;</span>
-      </a>
-      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
-        <span class="ref-avatar">WS</span><span class="ref-info"><span class="ref-name">Willie Sims</span><span class="ref-role">Head Of Mentors</span></span><span class="ref-arrow">&rarr;</span>
-      </a>
-      <a class="ref-card" href="https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05" target="_blank" rel="noopener">
-        <span class="ref-avatar">AA</span><span class="ref-info"><span class="ref-name">Aaron Arostegui</span><span class="ref-role">Head Of Long-Form Content</span></span><span class="ref-arrow">&rarr;</span>
-      </a>
-      <a class="ref-card" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">
-        <span class="ref-avatar">TY</span><span class="ref-info"><span class="ref-name">Ty</span><span class="ref-role">Marketing</span></span><span class="ref-arrow">&rarr;</span>
-      </a>
-      <a class="ref-card full" href="https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04" target="_blank" rel="noopener">
-        <span class="ref-avatar">GM</span><span class="ref-info"><span class="ref-name">Georgios</span><span class="ref-role">Global Outreach</span></span><span class="ref-arrow">&rarr;</span>
-      </a>
+    <div id="ref-step-2">
+      <button class="ref-back" onclick="document.getElementById('ref-step-1').style.display='';document.getElementById('ref-step-2').style.display='none';">&larr; Back</button>
+      <div class="modal-head" style="padding-top:0;">
+        <div class="ref-selected-tag">&#9989; Referred by: <span id="ref-selected-name"></span></div>
+        <h3 style="margin-top:0.5rem;">Choose Your Membership</h3>
+        <p>Pick the tier that matches your commitment.</p>
+      </div>
+      <div class="ref-tier-list">
+        <a class="ref-tier-card" id="tier-basic" href="#" target="_blank" rel="noopener">
+          <div style="text-align:center;flex-shrink:0;width:60px;"><div class="tier-price">$30<span>/mo</span></div></div>
+          <div class="tier-info"><span class="tier-name">Basic</span><span class="tier-desc">24/7 Chat · 2 Master Classes / Week · Community Access</span></div>
+          <span class="tier-arrow">&rarr;</span>
+        </a>
+        <a class="ref-tier-card tier-featured" id="tier-vip" href="#" target="_blank" rel="noopener">
+          <span class="tier-badge-pop">Most Popular</span>
+          <div style="text-align:center;flex-shrink:0;width:60px;"><div class="tier-price">$100<span>/mo</span></div></div>
+          <div class="tier-info"><span class="tier-name">VIP Access</span><span class="tier-desc">Everything in Basic · 1:1 Audits · Game Plan · Mentor Calls</span></div>
+          <span class="tier-arrow">&rarr;</span>
+        </a>
+        <a class="ref-tier-card" id="tier-elite" href="#" target="_blank" rel="noopener">
+          <div style="text-align:center;flex-shrink:0;width:60px;"><div class="tier-price">$300<span>/mo</span></div></div>
+          <div class="tier-info"><span class="tier-name">Elite</span><span class="tier-desc">Everything in VIP · Weekly 1-hr Mentor Call · Daily Access to Jordan</span></div>
+          <span class="tier-arrow">&rarr;</span>
+        </a>
+      </div>
     </div>
-    <a class="ref-skip" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank" rel="noopener">I wasn't referred by anyone &rarr; Continue</a>
   </div>
 </div>
 
 <script src="landing.js" defer></script>
 <script>
+/* REFERRAL MODAL: 2-STEP FLOW */
+const STRIPE_LINKS = {
+  jordan:   { basic:'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02', vip:'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08', elite:'https://buy.stripe.com/14A28sgfKd7B5Bi6j757W0b' },
+  ryan:     { basic:'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02', vip:'https://buy.stripe.com/cNi28s7Je4B5gfWfTH57W0p', elite:'https://buy.stripe.com/fZuaEYd3y0kP3tafTH57W0c' },
+  willie:   { basic:'https://buy.stripe.com/bJe14oe7C3x1fbSfTH57W0g', vip:'https://buy.stripe.com/bJe8wQ6FaebF8Nu0YN57W0l', elite:'https://buy.stripe.com/4gMcN69Rm8RlbZG8rf57W0m' },
+  aaron:    { basic:'https://buy.stripe.com/bJe14o7JeaZt4xe0YN57W05', vip:'https://buy.stripe.com/8x24gA9Rm3x1d3K6j757W09', elite:'https://buy.stripe.com/7sYeVe3sY1oTe7OdLz57W0f' },
+  ty:       { basic:'https://buy.stripe.com/00wfZigfK7Nh8Nu36V57W0h', vip:'https://buy.stripe.com/28E7sM7Je6Jde7O6j757W0j', elite:'https://buy.stripe.com/5kQ7sM9Rm8Rl0gY22R57W0k' },
+  georgios: { basic:'https://buy.stripe.com/5kQ3cw4x23x1aVCcHv57W04', vip:'https://buy.stripe.com/6oUfZi1kQ6Jd9RydLz57W0a', elite:'https://buy.stripe.com/28EaEY3sY6Jdd3K9vj57W0e' },
+  mohammed: { basic:'https://buy.stripe.com/fZu14obZu9Vp3ta5f357W0i', vip:'https://buy.stripe.com/8x25kE0gM3x1bZGazn57W0n', elite:'https://buy.stripe.com/9B614oe7Cc3x7Jqazn57W0o' },
+  none:     { basic:'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02', vip:'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08', elite:'https://buy.stripe.com/14A28sgfKd7B5Bi6j757W0b' },
+};
+function selectReferrer(name, key) {
+  var links = STRIPE_LINKS[key] || STRIPE_LINKS.none;
+  document.getElementById('ref-selected-name').textContent = name;
+  document.getElementById('tier-basic').href  = links.basic;
+  document.getElementById('tier-vip').href    = links.vip;
+  document.getElementById('tier-elite').href  = links.elite;
+  document.getElementById('ref-step-1').style.display = 'none';
+  document.getElementById('ref-step-2').style.display = 'block';
+}
+document.querySelector('#referral-modal .modal-close') && document.querySelector('#referral-modal .modal-close').addEventListener('click', function() {
+  setTimeout(function() {
+    document.getElementById('ref-step-1').style.display = '';
+    document.getElementById('ref-step-2').style.display = 'none';
+  }, 300);
+});
+
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
   const isOpen = item.classList.contains('open');
