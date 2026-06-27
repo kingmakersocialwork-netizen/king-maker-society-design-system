@@ -198,7 +198,8 @@
 
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll('.faq-item').forEach((item) => {
-    item.querySelector('.faq-q').addEventListener('click', () => item.classList.toggle('open'));
+    const q = item.querySelector('.faq-q') || item.querySelector('.faq-question');
+    if (q) q.addEventListener('click', () => item.classList.toggle('open'));
   });
 
   /* ---------- MODALS (referral, privacy, terms) ---------- */
