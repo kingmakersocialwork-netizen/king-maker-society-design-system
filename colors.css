@@ -5,8 +5,8 @@
    ============================================================ */
 :root {
   /* ---- Brand: Gold ---- */
-  --gold:        #C9A84C; /* primary brand — headlines, CTAs, borders, accents */
-  --gold-light:  #E8C46A; /* hover states, shimmer highlights */
+  --gold:        #F2C84B; /* primary brand — headlines, CTAs, borders, accents */
+  --gold-light:  #FFD966; /* hover states, shimmer highlights */
   --gold-deep:   #8A5F10; /* shadows, depth on gold elements */
 
   /* ---- Surfaces (always dark) ---- */
@@ -24,8 +24,8 @@
   --muted:       #9A9487; /* subtext, labels, secondary copy */
 
   /* ---- Lines ---- */
-  --border:      rgba(201, 168, 76, 0.18); /* card & section borders */
-  --border-strong: rgba(201, 168, 76, 0.36);
+  --border:      rgba(242, 200, 75, 0.18); /* card & section borders */
+  --border-strong: rgba(242, 200, 75, 0.36);
   --hairline:    rgba(240, 236, 224, 0.08);
 
   /* ============================================================
@@ -51,6 +51,6 @@
   --border-accent:  var(--border-strong);
 
   /* glows */
-  --glow-gold:      0 0 40px rgba(201, 168, 76, 0.22);
-  --glow-gold-soft: 0 0 24px rgba(201, 168, 76, 0.12);
+  --glow-gold:      0 0 40px rgba(242, 200, 75, 0.22);
+  --glow-gold-soft: 0 0 24px rgba(242, 200, 75, 0.12);
 }

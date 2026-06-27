@@ -42,12 +42,12 @@
 
 /* ── PRICING CARD GOLD GLOW ─────────────────────────────── */
 .price-card {
-  box-shadow: 0 0 0 1px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.22), 0 0 80px rgba(201,168,76,0.08), 0 4px 40px rgba(0,0,0,0.5) !important;
+  box-shadow: 0 0 0 1px rgba(242,200,75,0.35), 0 0 40px rgba(242,200,75,0.22), 0 0 80px rgba(242,200,75,0.08), 0 4px 40px rgba(0,0,0,0.5) !important;
   transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
 .price-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 0 1px rgba(201,168,76,0.6), 0 0 55px rgba(201,168,76,0.38), 0 0 100px rgba(201,168,76,0.14), 0 8px 50px rgba(0,0,0,0.55) !important;
+  box-shadow: 0 0 0 1px rgba(242,200,75,0.6), 0 0 55px rgba(242,200,75,0.38), 0 0 100px rgba(242,200,75,0.14), 0 8px 50px rgba(0,0,0,0.55) !important;
 }
 
 /* ── PILLAR CARDS: CLASSY HOVER EFFECT ──────────────────── */
@@ -61,7 +61,7 @@
   content: '';
   position: absolute;
   top: 0; left: -110%; width: 110%; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.85) 50%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(242,200,75,0.85) 50%, transparent);
   transition: left 0.55s cubic-bezier(.23,1,.32,1);
   pointer-events: none;
   z-index: 2;
@@ -72,7 +72,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% -10%, rgba(201,168,76,0.1) 0%, transparent 68%);
+  background: radial-gradient(ellipse at 50% -10%, rgba(242,200,75,0.1) 0%, transparent 68%);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
@@ -82,7 +82,7 @@
 /* Lift + subtle shadow */
 .card.pillar:hover {
   transform: translateY(-5px);
-  box-shadow: 0 14px 44px rgba(0,0,0,0.55), 0 0 32px rgba(201,168,76,0.13);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.55), 0 0 32px rgba(242,200,75,0.13);
 }
 /* Icon: scale + warm glow */
 .pillar-icon {
@@ -91,7 +91,7 @@
 }
 .card.pillar:hover .pillar-icon {
   transform: scale(1.15);
-  filter: drop-shadow(0 0 10px rgba(201,168,76,0.6));
+  filter: drop-shadow(0 0 10px rgba(242,200,75,0.6));
 }
 /* Watermark: reveal gold tint on hover */
 .pillar-watermark {
@@ -111,7 +111,7 @@
 .ref-back:hover { color: var(--off-white); }
 .ref-selected-tag {
   display: inline-flex; align-items: center; gap: 0.4rem;
-  background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25);
+  background: rgba(242,200,75,0.1); border: 1px solid rgba(242,200,75,0.25);
   border-radius: 50px; padding: 0.25rem 0.75rem 0.25rem 0.5rem;
   font-size: 0.72rem; font-weight: 700; color: var(--gold); margin-bottom: 0.25rem;
 }
@@ -124,8 +124,8 @@
   transition: border-color 0.2s, background 0.2s;
   position: relative; overflow: hidden;
 }
-.ref-tier-card:hover { border-color: rgba(201,168,76,0.45); background: rgba(201,168,76,0.06); }
-.ref-tier-card.tier-featured { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.06); }
+.ref-tier-card:hover { border-color: rgba(242,200,75,0.45); background: rgba(242,200,75,0.06); }
+.ref-tier-card.tier-featured { border-color: rgba(242,200,75,0.4); background: rgba(242,200,75,0.06); }
 .tier-price { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; color: var(--gold); flex-shrink: 0; line-height: 1; }
 .tier-price span { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
 .tier-info { flex: 1; }
