@@ -15,6 +15,38 @@
     @supports (-webkit-touch-callout: none) {
       select { background-color: #1a1a1a !important; border: 1px solid #333 !important; }
     }
+
+    /* === NAV TABS FIX: prevent compression on mobile, keep horizontal scroll ===
+       All 7 tabs total ~935px; on 375px they collapse to illegible size.
+       flex-shrink:0 keeps them full-size so the nav scrolls naturally. */
+    nav.kms-scroll {
+      -webkit-overflow-scrolling: touch !important;
+      overflow-x: auto !important;
+    }
+    nav.kms-scroll > * {
+      flex-shrink: 0 !important;
+      min-width: max-content !important;
+      white-space: nowrap !important;
+    }
+    @media (max-width: 768px) {
+      nav.kms-scroll > * {
+        padding: 0 10px !important;
+        font-size: 11px !important;
+      }
+    }
+
+    /* === BRIGHTNESS FIX: lift dark background + amplify gold glow ===
+       Original body is #0A0A0A (near-black). Gold overlays are rgba(212,175,55,0.22)
+       barely visible on phones. Brighter base + stronger gradients fix this. */
+    body {
+      background: #1c1c1c !important;
+    }
+    div.kms-scroll {
+      background:
+        radial-gradient(70% 55% at 50% 25%, rgba(212, 175, 55, 0.32) 0%, transparent 65%),
+        radial-gradient(40% 30% at 85% 8%, rgba(212, 175, 55, 0.16) 0%, transparent 70%),
+        #1c1c1c !important;
+    }
   </style>
   <noscript>
     <style>#__bundler_loading { display: none; }</style>
