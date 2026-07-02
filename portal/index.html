@@ -83,25 +83,118 @@
   <div id="__bundler_loading">Unpacking...</div>
 
   <script>
-/* === PER-USER PROFILE FIX ===
-   kms_profile and kms_onboarded are stored without a user namespace,
-   so switching logins on the same device inherits the previous member's answers.
-   This intercepts localStorage.setItem and clears profile data whenever
-   kms_authMember changes, forcing the new member through their own questionnaire. */
+/* === KMS FLOW: WELCOME TRANSITION + PER-USER PROFILE FIX ===
+   Flow: 1. Sign-in  →  2. Welcome screen (animated)  →  3. Questionnaire  →  4. Home
+   - Shows a full-screen gold welcome overlay after sign-in, before the app transitions.
+   - Also clears per-user profile data when a different member logs in, so each member
+     gets their own fresh questionnaire instead of seeing the previous person's answers. */
 (function() {
   try {
     var store = window.localStorage;
-    var _get = store.getItem.bind(store);
-    var _set = store.setItem.bind(store);
-    var _del = store.removeItem.bind(store);
+    var _get  = store.getItem.bind(store);
+    var _set  = store.setItem.bind(store);
+    var _del  = store.removeItem.bind(store);
+
+    /* Extract a first name from whatever value the app stores in kms_authMember.
+       Could be a plain string, an email, or a JSON object with name/username keys. */
+    function extractFirst(val) {
+      var name = val;
+      try {
+        var p = JSON.parse(val);
+        name = p.name || p.username || p.displayName || p.firstName || p.email || val;
+      } catch(e) {}
+      var first = String(name || 'King').split(/[\s@._]/)[0];
+      return first.charAt(0).toUpperCase() + first.slice(1);
+    }
+
+    /* Build and show the animated welcome overlay, then fade it out. */
+    function showWelcome(val) {
+      var first = extractFirst(val);
+
+      var overlay = document.createElement('div');
+      overlay.style.cssText = [
+        'position:fixed', 'inset:0', 'z-index:999999',
+        'display:flex', 'flex-direction:column',
+        'align-items:center', 'justify-content:center',
+        'background:#0a0a0a', 'opacity:0',
+        'transition:opacity 0.45s ease', 'pointer-events:none'
+      ].join(';');
+
+      overlay.innerHTML =
+        '<style>' +
+          '@keyframes _kpulse{0%,100%{filter:drop-shadow(0 0 8px rgba(212,175,55,.6))}' +
+            '50%{filter:drop-shadow(0 0 32px rgba(212,175,55,1))}}' +
+          '@keyframes _krise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}' +
+          '@keyframes _kline{from{transform:scaleX(0)}to{transform:scaleX(1)}}' +
+        '</style>' +
+
+        /* Crown icon */
+        '<svg style="animation:_kpulse 2.2s ease-in-out infinite" width="68" height="68" viewBox="0 0 100 100" fill="none">' +
+          '<defs><linearGradient id="_kwg" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0%" stop-color="#F5D97A"/>' +
+            '<stop offset="55%" stop-color="#D4AF37"/>' +
+            '<stop offset="100%" stop-color="#9A7B10"/>' +
+          '</linearGradient></defs>' +
+          '<path d="M32 66 L29 40 L41 51 L50 33 L59 51 L71 40 L68 66 Z" fill="url(#_kwg)" stroke="#7A5E0A" stroke-width="1.4" stroke-linejoin="round"/>' +
+          '<rect x="34" y="66" width="32" height="7" rx="1.5" fill="url(#_kwg)" stroke="#7A5E0A" stroke-width="1.4"/>' +
+          '<circle cx="50" cy="42" r="2.4" fill="#C0341A"/>' +
+          '<circle cx="41" cy="59" r="1.8" fill="#FFF7DE"/>' +
+          '<circle cx="50" cy="57" r="2"   fill="#FFF7DE"/>' +
+          '<circle cx="59" cy="59" r="1.8" fill="#FFF7DE"/>' +
+        '</svg>' +
+
+        /* Brand label */
+        '<p style="color:#D4AF37;font-size:10px;letter-spacing:.28em;text-transform:uppercase;' +
+          'margin:22px 0 0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;' +
+          'animation:_krise .65s ease .15s both">KING MAKER SOCIETY</p>' +
+
+        /* Gold divider line */
+        '<div style="width:72px;height:1px;' +
+          'background:linear-gradient(90deg,transparent,#D4AF37,transparent);' +
+          'margin:14px 0 18px;transform-origin:center;transform:scaleX(0);' +
+          'animation:_kline .55s ease .4s both"></div>' +
+
+        /* Welcome name */
+        '<h2 style="color:#fff;font-size:28px;font-weight:700;margin:0 0 10px;text-align:center;' +
+          'padding:0 32px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
+          'animation:_krise .65s ease .55s both">Welcome, ' + first + '</h2>' +
+
+        /* Tagline */
+        '<p style="color:#555;font-size:13px;letter-spacing:.06em;margin:0;' +
+          'font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
+          'animation:_krise .65s ease .85s both">Brotherhood. Growth. Legacy.</p>';
+
+      document.body.appendChild(overlay);
+
+      /* Fade in on next paint */
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() { overlay.style.opacity = '1'; });
+      });
+
+      /* Hold 2.6 s then fade out */
+      setTimeout(function() {
+        overlay.style.opacity = '0';
+        setTimeout(function() {
+          if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        }, 500);
+      }, 2600);
+    }
+
+    /* Override localStorage.setItem to intercept member login events. */
     Object.defineProperty(store, 'setItem', {
       value: function(key, value) {
         if (key === 'kms_authMember') {
           var prev = _get('kms_authMember');
+
+          /* Different member logging in — wipe their profile so questionnaire re-runs */
           if (prev && prev !== value) {
-            // Different user logging in — wipe old profile so questionnaire re-runs fresh
             _del('kms_profile');
             _set('kms_onboarded', '0');
+          }
+
+          /* Show welcome on any new login (first-time or member switch) */
+          if (!prev || prev !== value) {
+            setTimeout(function() { showWelcome(value); }, 80);
           }
         }
         _set(key, value);
@@ -109,6 +202,7 @@
       writable: true,
       configurable: true
     });
+
   } catch(e) {}
 })();
 
