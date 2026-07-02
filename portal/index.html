@@ -83,116 +83,211 @@
   <div id="__bundler_loading">Unpacking...</div>
 
   <script>
-/* === KMS FLOW: WELCOME TRANSITION + PER-USER PROFILE FIX ===
-   Flow: 1. Sign-in  →  2. Welcome screen (animated)  →  3. Questionnaire  →  4. Home
-   - Shows a full-screen gold welcome overlay after sign-in, before the app transitions.
-   - Also clears per-user profile data when a different member logs in, so each member
-     gets their own fresh questionnaire instead of seeing the previous person's answers. */
+/* === KMS FLOW: SIGN-IN → WELCOME → QUESTIONNAIRE → HOME ===
+   Completely independent of the React app. Fires on every new login.
+   1. Detects login by intercepting localStorage.setItem('kms_authMember')
+   2. Shows animated gold welcome screen (2.6s)
+   3. Shows 4-question accountability check-in (one question per screen)
+   4. Dismisses — React home page is already rendered underneath
+   Per-user fix: different member logging in clears the previous member's profile. */
 (function() {
   try {
     var store = window.localStorage;
     var _get  = store.getItem.bind(store);
     var _set  = store.setItem.bind(store);
     var _del  = store.removeItem.bind(store);
+    var FF    = '-apple-system,BlinkMacSystemFont,sans-serif';
 
-    /* Extract a first name from whatever value the app stores in kms_authMember.
-       Could be a plain string, an email, or a JSON object with name/username keys. */
     function extractFirst(val) {
       var name = val;
-      try {
-        var p = JSON.parse(val);
-        name = p.name || p.username || p.displayName || p.firstName || p.email || val;
-      } catch(e) {}
+      try { var p = JSON.parse(val); name = p.name || p.username || p.displayName || p.firstName || p.email || val; } catch(e) {}
       var first = String(name || 'King').split(/[\s@._]/)[0];
       return first.charAt(0).toUpperCase() + first.slice(1);
     }
 
-    /* Build and show the animated welcome overlay, then fade it out. */
+    function fadeIn(el) {
+      requestAnimationFrame(function() { requestAnimationFrame(function() { el.style.opacity = '1'; }); });
+    }
+
+    function fadeOut(el, ms, cb) {
+      el.style.opacity = '0';
+      setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); if (cb) cb(); }, ms || 450);
+    }
+
+    /* ── QUESTIONNAIRE ── */
+    var QUESTIONS = [
+      { label: 'What is your primary martial art?',
+        opts: ['MMA', 'Boxing', 'Brazilian Jiu-Jitsu', 'Muay Thai', 'Wrestling', 'Kickboxing', 'Judo', 'Other'] },
+      { label: 'What is your main focus right now?',
+        opts: ['Building discipline', 'Growing my content', 'Getting sponsor visibility', 'Building my personal brand', 'Finding accountability', 'Just training hard'] },
+      { label: 'What is your biggest obstacle?',
+        opts: ['Staying consistent', 'Managing my time', 'Not enough content ideas', 'No accountability', 'Mindset blocks', 'Lack of confidence'] },
+      { label: 'How long have you been training?',
+        opts: ['Less than 1 year', '1-3 years', '3-5 years', '5-10 years', '10+ years'] }
+    ];
+
+    function showQuestionnaire(memberVal) {
+      var answers = {};
+      var step    = 0;
+      var total   = QUESTIONS.length;
+
+      /* Inject animation keyframe into <head> once so it survives DOM swaps */
+      if (!document.getElementById('__kms_qa_anim')) {
+        var sa = document.createElement('style');
+        sa.id  = '__kms_qa_anim';
+        sa.textContent = '@keyframes __krise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}';
+        (document.head || document.documentElement).appendChild(sa);
+      }
+
+      var wrap = document.createElement('div');
+      wrap.id  = '__kms_q';
+      wrap.style.cssText = [
+        'position:fixed','inset:0','z-index:999998',
+        'background:#0d0d0d',
+        'display:flex','flex-direction:column',
+        'align-items:center','justify-content:center',
+        'padding:28px 20px','box-sizing:border-box',
+        'font-family:' + FF,
+        'opacity:0','transition:opacity .4s ease'
+      ].join(';');
+
+      function renderStep() {
+        var q   = QUESTIONS[step];
+        var pct = Math.round((step + 1) / total * 100);
+
+        var optsHtml = q.opts.map(function(o, i) {
+          return '<button data-i="' + i + '" style="' +
+            'display:block;width:100%;background:#111;border:1px solid #252525;' +
+            'border-left:3px solid transparent;color:#aaa;padding:14px 16px;' +
+            'border-radius:8px;text-align:left;font-size:15px;cursor:pointer;' +
+            'font-family:' + FF + ';' +
+            'transition:border-color .12s,color .12s,background .12s;' +
+            'margin-bottom:9px">' + o + '</button>';
+        }).join('');
+
+        wrap.innerHTML =
+          /* Progress bar */
+          '<div style="position:absolute;top:0;left:0;right:0;height:3px;background:#181818">' +
+            '<div style="height:100%;background:linear-gradient(90deg,#9A7B10,#D4AF37,#F5D97A);' +
+              'width:' + pct + '%;transition:width .35s ease"></div>' +
+          '</div>' +
+          /* Step label */
+          '<p style="color:#444;font-size:10px;letter-spacing:.22em;text-transform:uppercase;' +
+            'margin:0 0 22px;animation:__krise .4s ease both">' +
+            'CHECK-IN \xb7 ' + (step + 1) + ' / ' + total +
+          '</p>' +
+          /* Question */
+          '<h2 style="color:#fff;font-size:20px;font-weight:700;text-align:center;' +
+            'max-width:440px;line-height:1.45;margin:0 0 26px;' +
+            'animation:__krise .4s ease .07s both">' +
+            q.label +
+          '</h2>' +
+          /* Options */
+          '<div id="__kms_opts" style="width:100%;max-width:400px;animation:__krise .4s ease .14s both">' +
+            optsHtml +
+          '</div>' +
+          /* Skip */
+          '<button id="__kms_skip" style="background:none;border:none;color:#333;font-size:11px;' +
+            'letter-spacing:.06em;cursor:pointer;margin-top:18px;font-family:' + FF + ';' +
+            'animation:__krise .4s ease .22s both">skip check-in</button>';
+
+        /* Bind option hover + click */
+        Array.prototype.forEach.call(wrap.querySelectorAll('#__kms_opts button'), function(btn) {
+          btn.addEventListener('mouseover', function() {
+            this.style.borderLeftColor = '#D4AF37';
+            this.style.color = '#fff';
+            this.style.background = '#161400';
+          });
+          btn.addEventListener('mouseout', function() {
+            this.style.borderLeftColor = 'transparent';
+            this.style.color = '#aaa';
+            this.style.background = '#111';
+          });
+          btn.addEventListener('click', function() {
+            var idx = parseInt(this.getAttribute('data-i'), 10);
+            answers['q' + (step + 1)] = q.opts[idx];
+            this.style.borderLeftColor = '#D4AF37';
+            this.style.color = '#D4AF37';
+            this.style.background = '#161400';
+            setTimeout(function() {
+              if (step < total - 1) { step++; renderStep(); }
+              else { finish(); }
+            }, 260);
+          });
+        });
+
+        var skipBtn = wrap.querySelector('#__kms_skip');
+        if (skipBtn) skipBtn.addEventListener('click', finish);
+      }
+
+      function finish() {
+        try { _set('__kms_checkin_' + Date.now(), JSON.stringify({ ts: Date.now(), member: memberVal, answers: answers })); } catch(e) {}
+        fadeOut(wrap, 400);
+      }
+
+      renderStep();
+      document.body.appendChild(wrap);
+      fadeIn(wrap);
+    }
+
+    /* ── WELCOME SCREEN ── */
     function showWelcome(val) {
       var first = extractFirst(val);
 
-      var overlay = document.createElement('div');
-      overlay.style.cssText = [
-        'position:fixed', 'inset:0', 'z-index:999999',
-        'display:flex', 'flex-direction:column',
-        'align-items:center', 'justify-content:center',
-        'background:#0a0a0a', 'opacity:0',
-        'transition:opacity 0.45s ease', 'pointer-events:none'
+      var w = document.createElement('div');
+      w.style.cssText = [
+        'position:fixed','inset:0','z-index:999999',
+        'display:flex','flex-direction:column',
+        'align-items:center','justify-content:center',
+        'background:#0a0a0a',
+        'opacity:0','transition:opacity 0.45s ease',
+        'pointer-events:none'
       ].join(';');
 
-      overlay.innerHTML =
+      w.innerHTML =
         '<style>' +
-          '@keyframes _kpulse{0%,100%{filter:drop-shadow(0 0 8px rgba(212,175,55,.6))}' +
-            '50%{filter:drop-shadow(0 0 32px rgba(212,175,55,1))}}' +
+          '@keyframes _kpulse{0%,100%{filter:drop-shadow(0 0 8px rgba(212,175,55,.6))}50%{filter:drop-shadow(0 0 32px rgba(212,175,55,1))}}' +
           '@keyframes _krise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}' +
           '@keyframes _kline{from{transform:scaleX(0)}to{transform:scaleX(1)}}' +
         '</style>' +
-
-        /* Crown icon */
         '<svg style="animation:_kpulse 2.2s ease-in-out infinite" width="68" height="68" viewBox="0 0 100 100" fill="none">' +
-          '<defs><linearGradient id="_kwg" x1="0" y1="0" x2="0" y2="1">' +
-            '<stop offset="0%" stop-color="#F5D97A"/>' +
-            '<stop offset="55%" stop-color="#D4AF37"/>' +
-            '<stop offset="100%" stop-color="#9A7B10"/>' +
+          '<defs><linearGradient id="_kwg2" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0%" stop-color="#F5D97A"/><stop offset="55%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A7B10"/>' +
           '</linearGradient></defs>' +
-          '<path d="M32 66 L29 40 L41 51 L50 33 L59 51 L71 40 L68 66 Z" fill="url(#_kwg)" stroke="#7A5E0A" stroke-width="1.4" stroke-linejoin="round"/>' +
-          '<rect x="34" y="66" width="32" height="7" rx="1.5" fill="url(#_kwg)" stroke="#7A5E0A" stroke-width="1.4"/>' +
+          '<path d="M32 66 L29 40 L41 51 L50 33 L59 51 L71 40 L68 66 Z" fill="url(#_kwg2)" stroke="#7A5E0A" stroke-width="1.4" stroke-linejoin="round"/>' +
+          '<rect x="34" y="66" width="32" height="7" rx="1.5" fill="url(#_kwg2)" stroke="#7A5E0A" stroke-width="1.4"/>' +
           '<circle cx="50" cy="42" r="2.4" fill="#C0341A"/>' +
-          '<circle cx="41" cy="59" r="1.8" fill="#FFF7DE"/>' +
-          '<circle cx="50" cy="57" r="2"   fill="#FFF7DE"/>' +
-          '<circle cx="59" cy="59" r="1.8" fill="#FFF7DE"/>' +
+          '<circle cx="41" cy="59" r="1.8" fill="#FFF7DE"/><circle cx="50" cy="57" r="2" fill="#FFF7DE"/><circle cx="59" cy="59" r="1.8" fill="#FFF7DE"/>' +
         '</svg>' +
-
-        /* Brand label */
         '<p style="color:#D4AF37;font-size:10px;letter-spacing:.28em;text-transform:uppercase;' +
-          'margin:22px 0 0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;' +
-          'animation:_krise .65s ease .15s both">KING MAKER SOCIETY</p>' +
-
-        /* Gold divider line */
-        '<div style="width:72px;height:1px;' +
-          'background:linear-gradient(90deg,transparent,#D4AF37,transparent);' +
-          'margin:14px 0 18px;transform-origin:center;transform:scaleX(0);' +
-          'animation:_kline .55s ease .4s both"></div>' +
-
-        /* Welcome name */
+          'margin:22px 0 0;font-family:' + FF + ';font-weight:700;animation:_krise .65s ease .15s both">KING MAKER SOCIETY</p>' +
+        '<div style="width:72px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);' +
+          'margin:14px 0 18px;transform-origin:center;transform:scaleX(0);animation:_kline .55s ease .4s both"></div>' +
         '<h2 style="color:#fff;font-size:28px;font-weight:700;margin:0 0 10px;text-align:center;' +
-          'padding:0 32px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
-          'animation:_krise .65s ease .55s both">Welcome, ' + first + '</h2>' +
-
-        /* Tagline */
+          'padding:0 32px;font-family:' + FF + ';animation:_krise .65s ease .55s both">Welcome, ' + first + '</h2>' +
         '<p style="color:#555;font-size:13px;letter-spacing:.06em;margin:0;' +
-          'font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
-          'animation:_krise .65s ease .85s both">Brotherhood. Growth. Legacy.</p>';
+          'font-family:' + FF + ';animation:_krise .65s ease .85s both">Brotherhood. Growth. Legacy.</p>';
 
-      document.body.appendChild(overlay);
+      document.body.appendChild(w);
+      fadeIn(w);
 
-      /* Fade in on next paint */
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() { overlay.style.opacity = '1'; });
-      });
-
-      /* Hold 2.6 s then fade out */
+      /* After 2.6s: fade out welcome → fade in questionnaire */
       setTimeout(function() {
-        overlay.style.opacity = '0';
-        setTimeout(function() {
-          if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        }, 500);
+        fadeOut(w, 450, function() { showQuestionnaire(val); });
       }, 2600);
     }
 
-    /* Override localStorage.setItem to intercept member login events. */
+    /* ── localStorage intercept ── */
     Object.defineProperty(store, 'setItem', {
       value: function(key, value) {
         if (key === 'kms_authMember') {
           var prev = _get('kms_authMember');
-
-          /* Different member logging in — wipe their profile so questionnaire re-runs */
+          /* Different member — clear old profile data */
           if (prev && prev !== value) {
             _del('kms_profile');
             _set('kms_onboarded', '0');
           }
-
-          /* Show welcome on any new login (first-time or member switch) */
+          /* Any new login → run the full welcome + questionnaire flow */
           if (!prev || prev !== value) {
             setTimeout(function() { showWelcome(value); }, 80);
           }
