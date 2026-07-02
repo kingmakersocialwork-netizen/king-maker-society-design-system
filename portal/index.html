@@ -83,7 +83,35 @@
   <div id="__bundler_loading">Unpacking...</div>
 
   <script>
-    
+/* === PER-USER PROFILE FIX ===
+   kms_profile and kms_onboarded are stored without a user namespace,
+   so switching logins on the same device inherits the previous member's answers.
+   This intercepts localStorage.setItem and clears profile data whenever
+   kms_authMember changes, forcing the new member through their own questionnaire. */
+(function() {
+  try {
+    var store = window.localStorage;
+    var _get = store.getItem.bind(store);
+    var _set = store.setItem.bind(store);
+    var _del = store.removeItem.bind(store);
+    Object.defineProperty(store, 'setItem', {
+      value: function(key, value) {
+        if (key === 'kms_authMember') {
+          var prev = _get('kms_authMember');
+          if (prev && prev !== value) {
+            // Different user logging in — wipe old profile so questionnaire re-runs fresh
+            _del('kms_profile');
+            _set('kms_onboarded', '0');
+          }
+        }
+        _set(key, value);
+      },
+      writable: true,
+      configurable: true
+    });
+  } catch(e) {}
+})();
+
 document.addEventListener('DOMContentLoaded', async function() {
   const loading = document.getElementById('__bundler_loading');
   function setStatus(msg) { if (loading) loading.textContent = msg; }
