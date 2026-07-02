@@ -114,16 +114,18 @@
       setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); if (cb) cb(); }, ms || 450);
     }
 
-    /* ── QUESTIONNAIRE ── */
+    /* ── QUESTIONNAIRE — 5 profile-building questions ── */
     var QUESTIONS = [
-      { label: 'What is your primary martial art?',
-        opts: ['MMA', 'Boxing', 'Brazilian Jiu-Jitsu', 'Muay Thai', 'Wrestling', 'Kickboxing', 'Judo', 'Other'] },
-      { label: 'What is your main focus right now?',
-        opts: ['Building discipline', 'Growing my content', 'Getting sponsor visibility', 'Building my personal brand', 'Finding accountability', 'Just training hard'] },
-      { label: 'What is your biggest obstacle?',
-        opts: ['Staying consistent', 'Managing my time', 'Not enough content ideas', 'No accountability', 'Mindset blocks', 'Lack of confidence'] },
-      { label: 'How long have you been training?',
-        opts: ['Less than 1 year', '1-3 years', '3-5 years', '5-10 years', '10+ years'] }
+      { key: 'martialArt', label: 'What martial art do you train and post about?',
+        opts: ['MMA', 'Brazilian Jiu-Jitsu', 'Boxing', 'Muay Thai', 'Wrestling', 'Kickboxing', 'Judo', 'Other'] },
+      { key: 'platform', label: 'What platforms do you currently post on?',
+        opts: ['Instagram', 'TikTok', 'Both Instagram & TikTok', 'YouTube / Shorts', 'All platforms'] },
+      { key: 'goal', label: 'What is your main content creation goal?',
+        opts: ['Build my personal brand', 'Grow my following', 'Get sponsor attention', 'Inspire other fighters', 'Document my journey'] },
+      { key: 'frequency', label: 'How many times a week do you currently post?',
+        opts: ['0-1x (barely posting)', '2-3x (occasionally)', '4-5x (consistently)', 'Daily or more'] },
+      { key: 'obstacle', label: "What's your biggest content obstacle right now?",
+        opts: ["Don't know what to post", "Can't stay consistent", "Low engagement", "No time to create", "Camera shy", "Don't know how to edit"] }
     ];
 
     function showQuestionnaire(memberVal) {
@@ -221,7 +223,13 @@
       }
 
       function finish() {
-        try { _set('__kms_checkin_' + Date.now(), JSON.stringify({ ts: Date.now(), member: memberVal, answers: answers })); } catch(e) {}
+        /* Build named profile from question keys */
+        var profile = {};
+        QUESTIONS.forEach(function(q, i) { profile[q.key] = answers['q' + (i + 1)]; });
+        try {
+          _set('__kms_checkin_' + Date.now(), JSON.stringify({ ts: Date.now(), member: memberVal, answers: answers }));
+          _set('kms_profile', JSON.stringify({ ts: Date.now(), member: memberVal, profile: profile }));
+        } catch(e) {}
         fadeOut(wrap, 400);
       }
 
@@ -424,6 +432,275 @@
           /* Insert row immediately after the heading */
           var next = algoEl.nextSibling;
           algoEl.parentNode.insertBefore(logoRow, next);
+        }
+      }
+
+      /* 6 ── Caption Studio FAB + homepage personalization */
+      __kmsAddCaptionFAB();
+      __kmsPersonalize();
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       AI CAPTION STUDIO — Pattern Engine
+       Built from researched viral caption frameworks used by top
+       martial arts creators. Each framework uses a different
+       psychology trigger proven to drive engagement + shares.
+    ═══════════════════════════════════════════════════════════ */
+    var __KCP = {
+      r: function(a) { return a[Math.floor(Math.random() * a.length)]; },
+      curiosity: {
+        'MMA': ['Most MMA fighters never figure this out until it\'s too late.','The detail that separates good MMA fighters from great ones.','What the best coaches in MMA are actually teaching right now — and most fighters never hear it.'],
+        'Brazilian Jiu-Jitsu': ['Nobody told me this when I started BJJ. It would\'ve saved me years.','The BJJ detail most white belts spend 3 years missing.','What actually makes someone\'s BJJ dangerous. It\'s not what people think.'],
+        'Boxing': ['The boxing detail they don\'t teach in most gyms.','What separates boxers who plateau from boxers who keep growing.','Pros know this. Most amateurs never figure it out.'],
+        'Muay Thai': ['What Thai camps teach that most Western gyms skip.','The Muay Thai detail that changes everything once you get it.','Most Muay Thai fighters overlook this. The ones who don\'t are always the dangerous ones.'],
+        'Wrestling': ['The wrestling detail coaches rarely explain — but every elite wrestler does it.','What separates wrestlers who transition well from those who stall.','Nobody talks about this in wrestling. It makes all the difference.'],
+        'Kickboxing': ['The kickboxing timing concept most people ignore until they compete.','What the best kickboxers actually think about between combinations.','This one detail changed how I see everything in kickboxing.'],
+        'Judo': ['The Judo principle that applies to everything — most people never see it.','What separates Judo players who throw from those who just survive grips.','The detail in Judo nobody talks about but everyone notices.'],
+        '_': ['Most people who train never figure this out.','The detail that changes everything once you see it.','Nobody told me this when I started. Pay attention.']
+      },
+      pov: {
+        'MMA': ['POV: You\'re addicted to MMA and your whole life revolves around it now','POV: You walked into your first MMA gym with no idea what you were getting into','POV: Your training partners are the only people who truly understand you'],
+        'Brazilian Jiu-Jitsu': ['POV: You just got tapped by a white belt and it\'s the best thing that\'s happened to you','POV: 6am rolls and you\'re already thinking about BJJ before your eyes are open','POV: Someone asks why you have so many bruises and you just smile'],
+        'Boxing': ['POV: You walked into boxing to get in shape and now you can\'t imagine not competing','POV: Every song you hear in the gym is now permanently attached to a training memory','POV: You shadowbox when you think no one is watching — and don\'t even realize it'],
+        'Muay Thai': ['POV: You\'ve been doing Muay Thai for a year and nothing else feels real anymore','POV: You finally land a clean teep and your trainer just nods once — that\'s enough','POV: Your shins are rocks and you still remember when they weren\'t'],
+        'Wrestling': ['POV: You got taken down in practice and now you\'re obsessed with your takedown defense','POV: Wrestling season ended and nothing in life feels as structured anymore','POV: You\'re in the double-leg and your whole life is this moment'],
+        '_': ['POV: Training is the only place that makes everything else make sense','POV: You found martial arts and now you can\'t imagine who you were before','POV: Your teammates push you harder than anyone else in your life ever has']
+      },
+      identity: {
+        'MMA': ['Real MMA fighters know the difference between looking tough and being tough.','The mat doesn\'t care about your excuses. Neither does the scorecard.','Either you\'re building something or you\'re just training. Which one are you?'],
+        'Brazilian Jiu-Jitsu': ['BJJ reveals who you are when you\'re uncomfortable. Pay attention to that.','The mat is the most honest place in the world. You can\'t fake technique.','You can tell everything about someone by how they handle getting tapped.'],
+        'Boxing': ['Boxing doesn\'t build character. It reveals it.','Everyone wants to be a boxer until it\'s time to actually do boxing things.','The gym shows you exactly who you are when it\'s hard. Don\'t look away from that.'],
+        'Muay Thai': ['Muay Thai doesn\'t care how you look warming up. It only cares who you are under pressure.','Real Nak Muay don\'t talk about training. They just show up.','You know who someone is when they\'re exhausted and still have 2 rounds left.'],
+        '_': ['The mat doesn\'t lie. Neither does the work.','Everyone wants the result. Not everyone wants what it actually takes to get there.','Training reveals who you are when no one is watching.']
+      },
+      hotTake: {
+        'MMA': ['Unpopular opinion: Most MMA fighters are training too much and improving too little.','Hot take: If you can\'t explain your gameplan in one sentence, you don\'t have one.','Controversial: The biggest thing holding most MMA fighters back isn\'t skill. It\'s ego.'],
+        'Brazilian Jiu-Jitsu': ['Unpopular opinion: Points BJJ is making the sport worse, not better.','Hot take: Most BJJ gyms are teaching survival, not attack. That\'s why students plateau.','Controversial: YouTube BJJ is producing a generation of knowers, not doers.'],
+        'Boxing': ['Unpopular opinion: Most boxing gyms teach combinations, not timing. That\'s the problem.','Hot take: If you\'re not sparring regularly, you\'re not training boxing. You\'re exercising.','Controversial: The best boxing coach isn\'t the one who won the most. It\'s the one who explains why.'],
+        'Muay Thai': ['Unpopular opinion: Most Muay Thai fighters in the West are one-dimensional and don\'t know it.','Hot take: The clinch is the most ignored part of Muay Thai outside of Thailand — and it shows.','Controversial: Western Muay Thai gyms are selling fitness, not the art.'],
+        '_': ['Unpopular opinion: Most people who train don\'t actually want to get better. They want to feel like they\'re getting better.','Hot take: Consistency beats intensity every single time. But intensity is what people post.','Controversial: The biggest obstacle in martial arts isn\'t the opponent across from you.']
+      },
+      transform: {
+        'MMA': ['Year 1 of MMA vs. now. I\'m a completely different person — and I mean that literally.','6 months ago I didn\'t believe I could do this. The mat doesn\'t care what you believe.','This is what consistent MMA training does to someone over time.'],
+        'Brazilian Jiu-Jitsu': ['White belt me vs. now. BJJ changes how you see everything — not just the mat.','I started BJJ to learn self-defense. I stayed because it became the most honest mirror I\'ve ever had.','3 years ago I got submitted in 30 seconds. This is what happens when you don\'t quit.'],
+        'Boxing': ['First day in the gym vs. now. Boxing taught me more about myself than anything else.','The gym changes you. Not just physically — something shifts in how you carry yourself.','Year 1 in boxing vs. today. Discipline compounded. No secret.'],
+        'Muay Thai': ['Day 1 in Muay Thai vs. where I am now. The sport changes you from the inside out.','6 months of consistent Muay Thai training. The person in these clips is completely different.','I came for the kicks. I stayed for who it made me.'],
+        '_': ['Who I was before training vs. who I am now. The mat doesn\'t lie.','This is what happens when you show up consistently. No secret. Just reps.','The version of me that started training didn\'t expect this. But the mat knew.']
+      }
+    };
+
+    function __kmsGenCaptions(desc, platform, ma) {
+      var r = __KCP.r;
+      function h(lib) { return r(lib[ma] || lib['_']); }
+      var ctas = {
+        Instagram: ['Drop a 🔥 if this hit.','Save this.','Tag someone who needs to see this.','Follow for more real content.'],
+        TikTok: ['Follow for daily content.','Share this if it hit.','Comment if you can relate.','Duet this if you agree.'],
+        YouTube: ['Subscribe for more.','Comment your thoughts below.','Watch the full breakdown — link in bio.'],
+        _: ['Follow @kingmakersocial.','Save this.','Share it with your training partners.']
+      };
+      var cta = r(ctas[platform] || ctas['_']);
+      var slug = (ma || 'martialarts').toLowerCase().replace(/[^a-z]/g,'');
+      var tags = platform === 'TikTok'
+        ? '#fyp #' + slug + ' #mma #fighter #viral'
+        : '#' + slug + ' #martialarts #fighter #contentcreator #kingmakersociety';
+      var short = desc.split(/[.!?\n]/)[0].trim();
+      if (short.length > 90) short = short.slice(0, 87) + '...';
+      return [
+        { type: 'Curiosity Gap',      why: 'Opens an information loop — the brain physically can\'t scroll past an unanswered question',            text: h(__KCP.curiosity)  + '\n\n' + short + '.\n\nMost people overlook this. The ones who don\'t are always in a completely different league.\n\n' + cta + '\n\n' + tags },
+        { type: 'Relatability / POV', why: '"This is so me" energy — makes people tag their training partners and share instinctively',             text: h(__KCP.pov)        + '\n\n' + short + '.\n\nIf you train, you already know exactly what I mean.\n\n' + cta + '\n\n' + tags },
+        { type: 'Identity Challenge', why: 'Triggers emotional investment — they comment to prove it or to strongly agree',                          text: h(__KCP.identity)   + '\n\n' + short + '.\n\nThe people who get it, get it.\n\n' + cta + '\n\n' + tags },
+        { type: 'Hot Take',           why: 'Controversy drives comments — disagreement is just as powerful as agreement for the algorithm',          text: h(__KCP.hotTake)    + '\n\n' + short + '.\n\nAgree or disagree? Drop it in the comments.\n\n' + tags },
+        { type: 'Transformation Arc', why: 'Aspirational storytelling — makes viewers feel the progress they want for themselves',                   text: h(__KCP.transform)  + '\n\n' + short + '.\n\nShowing up changed everything.\n\n' + cta + '\n\n' + tags }
+      ];
+    }
+
+    function __kmsShowCaptionStudio() {
+      if (document.getElementById('__kms_studio')) return;
+      var profileStr = _get('kms_profile');
+      var prof = {};
+      try { prof = (JSON.parse(profileStr || '{}')).profile || {}; } catch(e) {}
+      var maOpts   = ['MMA','Brazilian Jiu-Jitsu','Boxing','Muay Thai','Wrestling','Kickboxing','Judo','Other'];
+      var platOpts = ['Instagram','TikTok','YouTube'];
+      var defMA    = prof.martialArt || 'MMA';
+      var defPlat  = /tiktok/i.test(prof.platform || '') ? 'TikTok' : /youtube/i.test(prof.platform || '') ? 'YouTube' : 'Instagram';
+      var maHtml   = maOpts.map(function(m)   { return '<option value="' + m + '"' + (m===defMA   ?' selected':'') + '>' + m + '</option>'; }).join('');
+      var platHtml = platOpts.map(function(p) { return '<option value="' + p + '"' + (p===defPlat ?' selected':'') + '>' + p + '</option>'; }).join('');
+      var studio = document.createElement('div');
+      studio.id = '__kms_studio';
+      studio.style.cssText = 'position:fixed;inset:0;z-index:999997;background:#0a0a0a;overflow-y:auto;font-family:-apple-system,BlinkMacSystemFont,sans-serif;opacity:0;transition:opacity .3s ease;';
+      studio.innerHTML =
+        '<div style="max-width:560px;margin:0 auto;padding:32px 20px 80px;">' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;">' +
+          '<div>' +
+            '<p style="color:#D4AF37;font-size:10px;letter-spacing:.22em;text-transform:uppercase;margin:0 0 4px;">KING\'S MEDIA</p>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin:0;letter-spacing:-.02em;">AI Caption Studio</h2>' +
+          '</div>' +
+          '<button id="__kms_sc" style="background:none;border:1px solid #1e1e1e;color:#555;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;line-height:36px;text-align:center;">&#10005;</button>' +
+        '</div>' +
+        '<label style="display:block;color:#666;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;">Describe your video</label>' +
+        '<textarea id="__kms_vd" rows="4" placeholder="e.g. I showed a drilling technique for improving hip escapes from bottom mount — covered 3 common mistakes and the fix..." style="width:100%;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;color:#ddd;padding:14px;font-size:14px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;resize:vertical;box-sizing:border-box;outline:none;line-height:1.6;margin-bottom:16px;transition:border-color .15s;"></textarea>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">' +
+          '<div>' +
+            '<label style="display:block;color:#666;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;">Martial Art</label>' +
+            '<select id="__kms_ms" style="width:100%;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;color:#ddd;padding:12px;font-size:13px;cursor:pointer;-webkit-appearance:none;appearance:none;">' + maHtml + '</select>' +
+          '</div>' +
+          '<div>' +
+            '<label style="display:block;color:#666;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;">Platform</label>' +
+            '<select id="__kms_ps" style="width:100%;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;color:#ddd;padding:12px;font-size:13px;cursor:pointer;-webkit-appearance:none;appearance:none;">' + platHtml + '</select>' +
+          '</div>' +
+        '</div>' +
+        '<button id="__kms_gb" style="width:100%;background:linear-gradient(135deg,#9A7B10,#D4AF37,#F5D97A);color:#000;border:none;padding:16px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.06em;margin-bottom:28px;">GENERATE CAPTIONS</button>' +
+        '<div id="__kms_res"></div>' +
+        '</div>';
+      document.body.appendChild(studio);
+      requestAnimationFrame(function() { requestAnimationFrame(function() { studio.style.opacity = '1'; }); });
+      studio.querySelector('#__kms_sc').addEventListener('click', function() {
+        studio.style.opacity = '0';
+        setTimeout(function() { if (studio.parentNode) studio.parentNode.removeChild(studio); }, 300);
+      });
+      studio.querySelector('#__kms_gb').addEventListener('click', function() {
+        var ta   = studio.querySelector('#__kms_vd');
+        var desc = (ta.value || '').trim();
+        if (!desc) { ta.style.borderColor='#D4AF37'; ta.focus(); return; }
+        ta.style.borderColor = '#1a1a1a';
+        var ma   = studio.querySelector('#__kms_ms').value;
+        var plat = studio.querySelector('#__kms_ps').value;
+        var caps = __kmsGenCaptions(desc, plat, ma);
+        var res  = studio.querySelector('#__kms_res');
+        var gold = ['#D4AF37','#9A7B10','#F5D97A','#B8941E','#C9A227'];
+        res.innerHTML =
+          '<p style="color:#333;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin:0 0 16px;font-weight:700;">5 CAPTIONS · DIFFERENT PSYCHOLOGY EACH</p>' +
+          caps.map(function(c, i) {
+            var col = gold[i];
+            var safe = c.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            return '<div style="background:#0d0d0d;border:1px solid #181818;border-left:3px solid ' + col + ';border-radius:8px;padding:16px;margin-bottom:12px;">' +
+              '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
+                '<span style="color:' + col + ';font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;">' + c.type + '</span>' +
+                '<button data-t="' + encodeURIComponent(c.text) + '" class="__kcb" style="background:#141414;border:none;color:#444;font-size:11px;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,sans-serif;transition:color .15s;">Copy</button>' +
+              '</div>' +
+              '<p style="color:#2e2e2e;font-size:10px;font-style:italic;margin:0 0 10px;line-height:1.5;">' + c.why + '</p>' +
+              '<pre style="color:#bbb;font-size:13px;line-height:1.75;white-space:pre-wrap;margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">' + safe + '</pre>' +
+            '</div>';
+          }).join('');
+        Array.prototype.forEach.call(res.querySelectorAll('.__kcb'), function(btn) {
+          btn.addEventListener('click', function() {
+            var self = this;
+            var txt  = decodeURIComponent(self.getAttribute('data-t'));
+            var fallback = function() {
+              var ta2 = document.createElement('textarea');
+              ta2.value = txt; ta2.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+              document.body.appendChild(ta2); ta2.select();
+              try { document.execCommand('copy'); } catch(e2) {}
+              document.body.removeChild(ta2);
+            };
+            (navigator.clipboard ? navigator.clipboard.writeText(txt).catch(fallback) : (fallback(), Promise.resolve()));
+            self.textContent = 'Copied ✓'; self.style.color = '#D4AF37';
+            setTimeout(function() { self.textContent = 'Copy'; self.style.color = '#444'; }, 2000);
+          });
+        });
+        res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    function __kmsAddCaptionFAB() {
+      if (document.getElementById('__kms_fab')) return;
+      var fab = document.createElement('button');
+      fab.id = '__kms_fab';
+      fab.textContent = '✍ Caption Studio';
+      fab.style.cssText = 'position:fixed;bottom:22px;right:18px;z-index:99990;background:linear-gradient(135deg,#9A7B10,#D4AF37);color:#000;border:none;padding:11px 18px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:.05em;cursor:pointer;box-shadow:0 4px 18px rgba(212,175,55,.35);font-family:-apple-system,BlinkMacSystemFont,sans-serif;white-space:nowrap;';
+      fab.addEventListener('click', function() { __kmsShowCaptionStudio(); });
+      document.body.appendChild(fab);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HOMEPAGE PERSONALIZATION ENGINE
+       Reads kms_profile and adapts hero badge, algorithm
+       briefing platform tips, and content calendar recommendation
+       to each member's specific questionnaire answers.
+    ═══════════════════════════════════════════════════════════ */
+    function __kmsPersonalize() {
+      var profileStr = _get('kms_profile');
+      if (!profileStr) return;
+      var prof;
+      try { prof = (JSON.parse(profileStr)).profile || {}; } catch(e) { return; }
+      var ma       = prof.martialArt || '';
+      var plat     = prof.platform   || '';
+      var freq     = prof.frequency  || '';
+
+      /* ── Hero badge: martial art + platform ── */
+      if (ma && !document.getElementById('__kms_hbadge')) {
+        var heroTarget = null;
+        var allH = document.querySelectorAll('h1,h2,h3,h4,[class*="hero"],[class*="Hero"],[class*="Home"]');
+        for (var ai = 0; ai < allH.length && !heroTarget; ai++) {
+          if (/your\s*path|your\s*next|welcome|king|warrior|next.?move/i.test(allH[ai].textContent || '')) heroTarget = allH[ai];
+        }
+        if (heroTarget) {
+          var badge = document.createElement('div');
+          badge.id = '__kms_hbadge';
+          badge.style.cssText = 'display:inline-flex;gap:8px;align-items:center;background:#0f0f0f;border:1px solid #222;border-left:3px solid #D4AF37;padding:7px 14px;border-radius:6px;margin:8px 0 4px;font-size:11px;color:#D4AF37;font-family:-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.09em;font-weight:600;';
+          badge.textContent = ma.toUpperCase() + '  ·  ' + (plat.split(' ')[0] || 'CREATOR').toUpperCase();
+          heroTarget.parentNode.insertBefore(badge, heroTarget.nextSibling);
+        }
+      }
+
+      /* ── Algorithm Briefing: personalized platform tip strip ── */
+      if (!document.getElementById('__kms_ptips')) {
+        var platTips = {
+          Instagram: [
+            'Hook must land in the first 0.5s — Reels scroll faster than TikTok.',
+            'Captions over 150 chars drive more saves. Write more, not less.',
+            '3-5 specific hashtags outperform 30 generic ones every single time.',
+            'Post at consistent times — the algorithm rewards predictable behavior.'
+          ],
+          TikTok: [
+            'Your hook must land in 2 seconds max. No exceptions.',
+            'Trending audio boosts FYP distribution even on educational content.',
+            'Post 1-2x per day during your growth phase — volume drives reach on TikTok.',
+            'Raw and real outperforms polished on TikTok. Don\'t over-edit.'
+          ],
+          YouTube: [
+            'Titles work like captions — write them with curiosity gaps, not descriptions.',
+            'Shorts drive subscribers. Long-form drives watch time. You need both.',
+            '8-15 min videos get better CPM — build toward that format intentionally.',
+            'Thumbnails + title must create one clear reason to click before reading anything else.'
+          ]
+        };
+        var tipKey = /tiktok/i.test(plat) ? 'TikTok' : /youtube/i.test(plat) ? 'YouTube' : 'Instagram';
+        var tips = platTips[tipKey];
+        if (tips) {
+          var tipWrap = document.createElement('div');
+          tipWrap.id = '__kms_ptips';
+          tipWrap.style.cssText = 'margin:14px 0;padding:14px;background:#0d0d0d;border:1px solid #181818;border-radius:8px;';
+          tipWrap.innerHTML =
+            '<p style="color:#2e2e2e;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin:0 0 10px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">PERSONALIZED · ' + tipKey.toUpperCase() + ' ALGORITHM</p>' +
+            tips.map(function(t) {
+              return '<p style="color:#777;font-size:12px;line-height:1.65;margin:0 0 7px;padding-left:10px;border-left:2px solid #9A7B10;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">' + t + '</p>';
+            }).join('');
+          var logos = document.getElementById('__kms_alogos');
+          if (logos && logos.parentNode) logos.parentNode.insertBefore(tipWrap, logos.nextSibling);
+        }
+      }
+
+      /* ── Content calendar: posting frequency recommendation ── */
+      if (freq && !document.getElementById('__kms_frec')) {
+        var recs = {
+          '0-1': { h: 'Your next level: 3x per week',   b: 'Batch 3 videos in one session — shoot them all on the same training day and schedule them out. Don\'t overthink it. Just document what you\'re already doing.' },
+          '2-3': { h: 'Your next level: Post daily',     b: 'You\'re consistent but not building momentum yet. The algorithm rewards daily activity. Pick one repeatable format and commit to it for 30 days straight. Watch what happens.' },
+          '4-5': { h: 'Your next level: Pillar content', b: 'You\'re posting enough. Now build systems. One long-form piece per week can be repurposed into 10+ short clips. Work smarter, not just more.' },
+          daily: { h: 'Your next level: Content strategy', b: 'You\'re already posting daily. Now optimize. Study your best-performing content and double down on that specific format. Build series. Give people a reason to follow you — not just watch you.' }
+        };
+        var rk = /0.?1|barely/i.test(freq) ? '0-1' : /2.?3|occas/i.test(freq) ? '2-3' : /4.?5|consist/i.test(freq) ? '4-5' : 'daily';
+        var rec = recs[rk];
+        if (rec) {
+          var recEl = document.createElement('div');
+          recEl.id = '__kms_frec';
+          recEl.style.cssText = 'background:#0d0d0d;border:1px solid #181818;border-left:3px solid #9A7B10;border-radius:8px;padding:16px;margin:14px 0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+          recEl.innerHTML =
+            '<p style="color:#9A7B10;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin:0 0 6px;font-weight:700;">YOUR NEXT LEVEL</p>' +
+            '<p style="color:#fff;font-size:15px;font-weight:600;margin:0 0 6px;">' + rec.h + '</p>' +
+            '<p style="color:#555;font-size:13px;line-height:1.65;margin:0;">' + rec.b + '</p>';
+          var calEls = document.querySelectorAll('[class*="calendar"],[class*="Calendar"],[class*="schedule"],[class*="Schedule"],[class*="content"],[class*="Content"]');
+          if (calEls.length > 0 && calEls[0].parentNode) calEls[0].parentNode.insertBefore(recEl, calEls[0]);
         }
       }
     }
