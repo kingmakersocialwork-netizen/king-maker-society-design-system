@@ -298,6 +298,136 @@
       configurable: true
     });
 
+    /* ── POST-RENDER DOM FIXES ────────────────────────────────────────────────
+       The bundler does document.documentElement.replaceWith(newDoc) which
+       wipes the original <head> including all our CSS. We re-apply everything
+       via JS after React has rendered, using a poll loop. */
+    var __kmsFixDone = false;
+    var __kmsPoll    = setInterval(function() {
+      /* Wait until React's nav element appears in the live DOM */
+      if (!document.querySelector('nav.kms-scroll') && !document.querySelector('[class*="tabs"],[class*="nav"],[class*="Tab"]')) return;
+      clearInterval(__kmsPoll);
+      if (__kmsFixDone) return;
+      __kmsFixDone = true;
+
+      /* 1 ── Re-inject nav + brightness CSS into the live (replaced) <head> */
+      var ns = document.createElement('style');
+      ns.id  = '__kms_head_css';
+      ns.textContent =
+        /* Nav tabs: prevent compression, allow horizontal scroll */
+        'nav.kms-scroll{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}' +
+        'nav.kms-scroll::-webkit-scrollbar{display:none!important}' +
+        'nav.kms-scroll>*{flex-shrink:0!important;min-width:max-content!important;white-space:nowrap!important}' +
+        '@media(max-width:768px){nav.kms-scroll>*{padding:0 12px!important;font-size:12px!important}}' +
+        /* Fallback: target any horizontal tab bar that may have a different class */
+        '[class*="tabs"],[class*="TabBar"],[class*="tab-bar"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;white-space:nowrap!important;flex-wrap:nowrap!important}' +
+        '[class*="tabs"]>*,[class*="TabBar"]>*,[class*="tab-bar"]>*{flex-shrink:0!important;min-width:max-content!important;white-space:nowrap!important}' +
+        /* Brightness / background */
+        'body{background:#1c1c1c!important}' +
+        'div.kms-scroll{background:radial-gradient(70% 55% at 50% 25%,rgba(212,175,55,.32) 0%,transparent 65%),radial-gradient(40% 30% at 85% 8%,rgba(212,175,55,.16) 0%,transparent 70%),#1c1c1c!important}';
+      (document.head || document.body).appendChild(ns);
+
+      /* 2 ── MutationObserver: re-apply tab fixes whenever React re-renders */
+      var __moBusy = false;
+      var __mo = new MutationObserver(function() {
+        if (__moBusy) return;
+        __moBusy = true;
+        setTimeout(function() { __kmsTabFix(); __moBusy = false; }, 100);
+      });
+      __mo.observe(document.body, { childList: true, subtree: true });
+      __kmsTabFix();
+    }, 350);
+
+    /* ── Instagram SVG logo ── */
+    var __kmsIG = '<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<radialGradient id="igKMS" cx="30%" cy="120%" r="140%">' +
+        '<stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/>' +
+        '<stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/>' +
+        '<stop offset="90%" stop-color="#285AEB"/>' +
+      '</radialGradient></defs>' +
+      '<rect width="60" height="60" rx="13" fill="url(#igKMS)"/>' +
+      '<rect x="8" y="8" width="44" height="44" rx="10" fill="none" stroke="white" stroke-width="3.5"/>' +
+      '<circle cx="30" cy="30" r="12" fill="none" stroke="white" stroke-width="3.5"/>' +
+      '<circle cx="43" cy="17" r="3.5" fill="white"/>' +
+    '</svg>';
+
+    /* ── TikTok SVG logo ── */
+    var __kmsTT = '<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect width="60" height="60" rx="10" fill="#000"/>' +
+      '<path d="M36 9c0 7 5 10 11 11v7c-4 0-7-2-10-4v16c0 8-6 13-13 13S11 46 11 39s6-13 13-13v7c-3 0-6 3-6 6s3 6 6 6 6-3 6-6V9z" fill="#25F4EE" transform="translate(-1.5,-1.5)"/>' +
+      '<path d="M36 9c0 7 5 10 11 11v7c-4 0-7-2-10-4v16c0 8-6 13-13 13S11 46 11 39s6-13 13-13v7c-3 0-6 3-6 6s3 6 6 6 6-3 6-6V9z" fill="#FE2C55" transform="translate(1.5,1.5)"/>' +
+      '<path d="M36 9c0 7 5 10 11 11v7c-4 0-7-2-10-4v16c0 8-6 13-13 13S11 46 11 39s6-13 13-13v7c-3 0-6 3-6 6s3 6 6 6 6-3 6-6V9z" fill="white"/>' +
+    '</svg>';
+
+    function __kmsTabFix() {
+      /* 3 ── Fix "Replay Onboarding" button — wire to our questionnaire overlay */
+      Array.prototype.forEach.call(document.querySelectorAll('button,a,[role=button]'), function(el) {
+        if (!el.__kmsFixed && /replay[\s\-]*onboard/i.test((el.textContent || el.innerText || '').trim())) {
+          el.__kmsFixed = true;
+          el.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            showQuestionnaire(_get('kms_authMember') || '');
+          }, true);
+        }
+      });
+
+      /* 4 ── Remove "No Fluff" / "no fluff" text nodes */
+      if (document.body) {
+        var wk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var nd; var kill = [];
+        while ((nd = wk.nextNode())) {
+          if (/^no[\s ]+fluff[!.,]?$/i.test(nd.textContent.trim())) kill.push(nd);
+        }
+        kill.forEach(function(n) {
+          var p = n.parentNode;
+          if (p) {
+            p.removeChild(n);
+            if (p.textContent && !p.textContent.trim()) p.style.display = 'none';
+          }
+        });
+      }
+
+      /* 5 ── Inject Instagram + TikTok logos into Algorithm Briefing section */
+      if (!document.getElementById('__kms_alogos')) {
+        var headings = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,strong,span,div');
+        var algoEl = null;
+        for (var hi = 0; hi < headings.length; hi++) {
+          var ht = (headings[hi].textContent || '').trim();
+          if (/^algorithm[\s\-]*(briefing|brief|update)/i.test(ht) && ht.length < 50) {
+            algoEl = headings[hi];
+            break;
+          }
+        }
+        if (algoEl) {
+          var logoRow = document.createElement('div');
+          logoRow.id = '__kms_alogos';
+          logoRow.style.cssText = 'display:flex;gap:14px;align-items:center;margin:10px 0 16px;';
+
+          function __kmsLogo(svgStr, label) {
+            var wrap = document.createElement('div');
+            wrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px;';
+            var icon = document.createElement('div');
+            icon.style.cssText = 'width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0;';
+            icon.innerHTML = svgStr;
+            var lbl = document.createElement('span');
+            lbl.textContent = label;
+            lbl.style.cssText = 'color:#555;font-size:9px;letter-spacing:.09em;text-transform:uppercase;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+            wrap.appendChild(icon);
+            wrap.appendChild(lbl);
+            return wrap;
+          }
+
+          logoRow.appendChild(__kmsLogo(__kmsIG, 'Instagram'));
+          logoRow.appendChild(__kmsLogo(__kmsTT, 'TikTok'));
+
+          /* Insert row immediately after the heading */
+          var next = algoEl.nextSibling;
+          algoEl.parentNode.insertBefore(logoRow, next);
+        }
+      }
+    }
+
   } catch(e) {}
 })();
 
