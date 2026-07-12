@@ -427,7 +427,8 @@ img { display: block; max-width: 100%; }
   .footer-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 680px) {
-  .grid-3, .grid-2, .team-grid, .origin-features { grid-template-columns: 1fr; }
+  .grid-3, .grid-2, .origin-features { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
   .nav-actions { display: none; }
   .nav-toggle { display: flex; flex-shrink: 0; margin-left: auto; margin-right: 0; }
   .hero-inner { padding-left: var(--section-pad-x); }
