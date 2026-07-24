@@ -575,3 +575,31 @@ img { display: block; max-width: 100%; }
   .g-tile.wide { grid-column: auto; }
   .rank-pts .l { display: none; }
 }
+
+/* ============================================================ READABILITY OVERRIDES
+   Make all body/description copy white + bold sitewide. Intentional UI labels
+   (nav, footer links, small metadata) are excluded and stay as designed. */
+.lead,
+.hero-sub,
+.hero-sub-copy,
+.team-bio,
+.pillar p,
+.ep-desc,
+.series-body p,
+.faq-a p,
+.origin-text p,
+.feature-box p,
+.class-desc,
+.rank-disc,
+.podcast-meta p,
+.hof-sub,
+.hof-ach,
+.acc-q li,
+.modal-head p,
+.modal-body,
+.legal-item p,
+.story-disc,
+.story-quote {
+  color: var(--off-white) !important;
+  font-weight: 600 !important;
+}
