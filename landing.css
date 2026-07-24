@@ -574,6 +574,8 @@ img { display: block; max-width: 100%; }
   .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
   .g-tile.wide { grid-column: auto; }
   .rank-pts .l { display: none; }
+  /* Brotherhood culture grid: 2-col on mobile so cards aren't too narrow */
+  .culture-grid { grid-template-columns: 1fr 1fr !important; }
 }
 
 /* ============================================================ READABILITY OVERRIDES
