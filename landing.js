@@ -170,13 +170,13 @@
     setInterval(tick, 1000);
   }
 
-  /* ---------- MEMBER COUNTER 0 -> 150 (ease-out cubic) ---------- */
+  /* ---------- MEMBER COUNTER 0 -> 180 (ease-out cubic) ---------- */
   const counter = document.getElementById('member-count');
   if (counter) {
     let done = false;
     const animate = () => {
       if (done) return; done = true;
-      const target = 150, dur = 2200, start = performance.now();
+      const target = 180, dur = 2200, start = performance.now();
       const ease = (t) => 1 - Math.pow(1 - t, 3);
       function step(now) {
         const t = Math.min((now - start) / dur, 1);
