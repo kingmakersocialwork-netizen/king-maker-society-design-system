@@ -192,6 +192,7 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-display); font-weight: 400; font-size: clamp(3.2rem, 12vw, 11rem);
   line-height: 0.88; letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white);
   margin-bottom: 1.5rem; text-shadow: 0 0 60px rgba(0,0,0,0.6);
+  text-align: center;
 }
 .hero h1 .gold { color: var(--gold); text-shadow: 0 0 40px rgba(242,200,75,0.35); }
 .hero-sub { font-size: 1.1rem; font-weight: 300; line-height: 1.7; color: var(--muted); max-width: 500px; margin-bottom: 0; }
