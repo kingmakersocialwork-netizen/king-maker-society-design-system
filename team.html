@@ -509,7 +509,6 @@
       <div class="quick-links">
         <a class="quick-link" href="https://calendly.com/jordanaliwork/30min" target="_blank">&#128197; Book A Call</a>
         <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank">&#128203; Jordan's Lead Form</a>
-        <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ona4EnvUk0RNolowP5HUWizjaj88bOYk85dHDdobqilqUA/viewform" target="_blank">&#128203; Ryan's Lead Form</a>
         <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdhn589KPqWyl9IPJQs12PNKIl5Y21iq7bo9zFVPtT-pCflqw/viewform" target="_blank">&#128203; Aaron's Lead Form</a>
         <a class="quick-link" href="https://forms.gle/zEWAzagQFFWMQyou9" target="_blank">&#128203; Georgios' Lead Form</a>
         <a class="quick-link" href="https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02" target="_blank">&#128176; Membership Payment</a>
@@ -707,7 +706,6 @@
       <div class="divider-label">Lead Forms (1-Week Free Trial)</div>
       <div class="quick-links">
         <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeZzSXeJ9t-7pObOT8601ZwdA5uwiYd8TfANwxMasLiYo1Giw/viewform" target="_blank">&#128203; Jordan's Form</a>
-        <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ona4EnvUk0RNolowP5HUWizjaj88bOYk85dHDdobqilqUA/viewform" target="_blank">&#128203; Ryan's Form</a>
         <a class="quick-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdhn589KPqWyl9IPJQs12PNKIl5Y21iq7bo9zFVPtT-pCflqw/viewform" target="_blank">&#128203; Aaron's Form</a>
         <a class="quick-link" href="https://forms.gle/zEWAzagQFFWMQyou9" target="_blank">&#128203; Georgios' Form</a>
       </div>
@@ -1044,7 +1042,7 @@ Members get access. Link in bio to join King Maker Society.
             <div class="timeline-dot"></div>
             <div class="timeline-date">June 2026</div>
             <div class="timeline-title">8-Person Team Assembled</div>
-            <div class="timeline-desc">Jordan, Ryan, Willie, Aaron, Ty, Georgios, Manu, and Mohammed come together as the core King Maker Society team. Every role is filled. The operation has real structure behind it.</div>
+            <div class="timeline-desc">Jordan, Willie, Aaron, Ty, Georgios, Manu, and Mohammed come together as the core King Maker Society team. Every role is filled. The operation has real structure behind it.</div>
           </div>
 
           <div class="timeline-item">
@@ -1397,54 +1395,6 @@ const MEMBERS = [
         'Record intro video for the website homepage',
         'Finalize payment links for all 3 membership tiers',
         'Build out lead tracking spreadsheet for sales team'
-      ]
-    }
-  },
-  {
-    id: 'ryan',
-    name: 'Ryan Bailey',
-    role: 'Co-Founder · Pro Boxer',
-    pin: '5936',
-    photo: 'assets/team-ryan.jpg',
-    initials: 'RB',
-    leadForm: 'https://docs.google.com/forms/d/e/1FAIpQLSe3ona4EnvUk0RNolowP5HUWizjaj88bOYk85dHDdobqilqUA/viewform',
-    paymentLink: 'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02',
-    paymentLinkVip: 'https://buy.stripe.com/cNi28s7Je4B5gfWfTH57W0p',
-    paymentLinkElite: 'https://buy.stripe.com/fZuaEYd3y0kP3tafTH57W0c',
-    sales: 1,
-    weeklyGoals: [
-      'Show up for both live sessions this week',
-      'Engage in the brotherhood group chat daily',
-      'Post 2x fight or training content',
-      'DM 3 new fighter leads'
-    ],
-    monthlyGoals: [
-      'Build personal brand visibility alongside KMS',
-      'Help close 5 new members this month',
-      'Record 1 podcast or long-form content piece'
-    ],
-    plan: {
-      dailyFocus: [
-        'Post or engage on social media as a KMS representative',
-        'Keep at least 2 sales conversations active in DMs',
-        'Train and document your process — your story is a sales tool'
-      ],
-      kpis: [
-        { label: 'Sessions attended / week', target: '2' },
-        { label: 'New members referred / month', target: '5' },
-        { label: 'Content posts / week', target: '2' },
-        { label: 'DM conversations active', target: '2+' }
-      ],
-      responsibilities: [
-        'Represent KMS as a co-founder and active fighter',
-        'Assist with sales conversations and lead follow-ups',
-        'Share fight journey content to attract fighters to KMS',
-        'Engage with members in the group chat and sessions'
-      ],
-      actions: [
-        'Post behind-the-scenes boxing training content this week',
-        'Reach out to 3 pro or amateur fighters about KMS',
-        'Share a personal story about discipline or accountability'
       ]
     }
   },
@@ -2006,9 +1956,9 @@ function renderCompSection(m) {
   const NOTE = (text) =>
     `<div style="font-size:0.75rem;color:var(--muted);margin-top:0.55rem;line-height:1.5;">${text}</div>`;
 
-  const isLeadership = ['jordan','ryan','willie'].includes(m.id);
+  const isLeadership = ['jordan','willie'].includes(m.id);
   const isRep        = ['aaron','ty','georgios','mohammed'].includes(m.id);
-  const isMentor     = ['jordan','ryan','willie','mohammed'].includes(m.id);
+  const isMentor     = ['jordan','willie','mohammed'].includes(m.id);
 
   let html = '';
 
@@ -2042,8 +1992,6 @@ function renderCompSection(m) {
   // Payment schedule note
   if (m.id === 'willie') {
     html += NOTE('Paid on the 1st &amp; 15th of each month · Zelle or Wire Transfer');
-  } else if (m.id === 'ryan') {
-    html += NOTE('Commissions paid weekly.');
   } else if (m.id === 'jordan') {
     html += NOTE('Founder distributions processed internally after operations costs.');
   }
