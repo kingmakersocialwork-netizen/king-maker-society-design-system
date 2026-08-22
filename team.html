@@ -489,7 +489,7 @@
         <h3>&#128293; Current Priorities · Q3 2026</h3>
         <div class="team-goal-item"><span class="tg-num">1</span><span class="tg-text"><strong>Hit 200 active members by end of Q3.</strong> Every DM, every follow-up, every session matters. This is the number we are all working toward.</span></div>
         <div class="team-goal-item"><span class="tg-num">2</span><span class="tg-text"><strong>Joining Consistent Group Calls.</strong> Tuesdays and Saturdays at 2PM CST. Team members need to be present, engaged, and helping run the energy.</span></div>
-        <div class="team-goal-item"><span class="tg-num">3</span><span class="tg-text"><strong>Have a smooth introduction of our new mentor program.</strong> Pro fighters will be mentoring community members. Pricing is from $100 a month – $300 a month.</span></div>
+        <div class="team-goal-item"><span class="tg-num">3</span><span class="tg-text"><strong>Have a smooth introduction of our new mentor program.</strong> Pro fighters will be mentoring community members. Pricing is from $150 a month – $300 a month.</span></div>
         <div class="team-goal-item"><span class="tg-num">4</span><span class="tg-text"><strong>Lock in 2 brand deals or sponsors</strong> this quarter. Use member results and content reach as the pitch.</span></div>
         <div class="team-goal-item"><span class="tg-num">5</span><span class="tg-text"><strong>Collab with King Maker Society 1x a week.</strong></span></div>
       </div>
@@ -864,7 +864,7 @@ Asking because I want to give you an honest answer, not just sell you on it.</p>
           <h3>"I Can't Afford It"</h3>
           <p>Don't lower the price. Understand what they value.</p>
           <button class="script-toggle" onclick="tog(this)">View Script <span class="arr">&#9662;</span></button>
-          <div class="script-body"><p id="r7b">Respect that. $30 is real money depending on the situation.
+          <div class="script-body"><p id="r7b">Respect that. $75 is real money depending on the situation.
 
 What's the main thing you're trying to fix right now — accountability, content, mindset, or network?
 
@@ -944,7 +944,7 @@ King Maker Society is an online self-improvement brotherhood built for martial a
 
 Accountability. Brotherhood. Live sessions twice a week. Personal brand support. Real mentorship.
 
-$30/month. No contracts.
+$75/month. No contracts.
 
 Comment "KING" or DM me and I'll send you everything.
 
@@ -1928,8 +1928,8 @@ function loadDashboard(m) {
       <h3>&#128279; My Links</h3>
       <div style="display:flex;flex-wrap:wrap;gap:0.65rem;margin-top:0.5rem;">
         ${m.leadForm ? `<a class="quick-link" href="${m.leadForm}" target="_blank">&#128203; My Lead Form (1-Week Free Trial)</a>` : ''}
-        ${m.paymentLink ? `<a class="quick-link" href="${m.paymentLink}" target="_blank">&#128176; My Link · $30 General</a>` : ''}
-        ${m.paymentLinkVip ? `<a class="quick-link" href="${m.paymentLinkVip}" target="_blank">&#128081; My Link · $100 VIP</a>` : ''}
+        ${m.paymentLink ? `<a class="quick-link" href="${m.paymentLink}" target="_blank">&#128176; My Link · $75 General</a>` : ''}
+        ${m.paymentLinkVip ? `<a class="quick-link" href="${m.paymentLinkVip}" target="_blank">&#128081; My Link · $150 VIP</a>` : ''}
         ${m.paymentLinkElite ? `<a class="quick-link" href="${m.paymentLinkElite}" target="_blank">&#11088; My Link · $300 Elite</a>` : ''}
       </div>
     </div>` : '';
@@ -1966,8 +1966,8 @@ function loadDashboard(m) {
   const rpl = document.getElementById('resources-payment-links');
   if (rpl) {
     let linksHTML = '';
-    if (m.paymentLink)      linksHTML += `<a class="quick-link" href="${m.paymentLink}" target="_blank">&#128176; My Link · $30 General</a>`;
-    if (m.paymentLinkVip)   linksHTML += `<a class="quick-link" href="${m.paymentLinkVip}" target="_blank">&#128081; My Link · $100 VIP</a>`;
+    if (m.paymentLink)      linksHTML += `<a class="quick-link" href="${m.paymentLink}" target="_blank">&#128176; My Link · $75 General</a>`;
+    if (m.paymentLinkVip)   linksHTML += `<a class="quick-link" href="${m.paymentLinkVip}" target="_blank">&#128081; My Link · $150 VIP</a>`;
     if (m.paymentLinkElite) linksHTML += `<a class="quick-link" href="${m.paymentLinkElite}" target="_blank">&#11088; My Link · $300 Elite</a>`;
     rpl.innerHTML = linksHTML || '<span style="color:var(--muted);font-size:0.8rem;">No payment links on file yet.</span>';
   }
@@ -2014,12 +2014,12 @@ function renderCompSection(m) {
 
   if (isLeadership) {
     html += LABEL('Closer Rate · When You Close a Sale');
-    html += ROW('VIP · $100/mo',  '$50',  '/member/mo');
+    html += ROW('VIP · $150/mo',  '$50',  '/member/mo');
     html += ROW('Elite · $300/mo','$190', '/member/mo');
 
     html += LABEL('Leadership Bonus · Every Rep-Closed Sale', true);
     html += `<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.7rem 1rem;margin-bottom:0.45rem;">
-      <span style="font-size:0.83rem;color:var(--off-white);">VIP · $100/mo</span>
+      <span style="font-size:0.83rem;color:var(--off-white);">VIP · $150/mo</span>
       <span style="font-size:0.9rem;color:var(--off-white);font-weight:700;">$5<span style="font-size:0.72rem;font-weight:400;color:var(--muted);"> /member/mo</span></span>
     </div>`;
     html += `<div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.7rem 1rem;margin-bottom:0.45rem;">
@@ -2030,7 +2030,7 @@ function renderCompSection(m) {
 
   if (isRep) {
     html += LABEL('Commission · Per Member You Close');
-    html += ROW('VIP · $100/mo',  '$35',     '/member/mo');
+    html += ROW('VIP · $150/mo',  '$35',     '/member/mo');
     html += ROW('Elite · $300/mo','$144.90', '/member/mo');
     html += NOTE('Recurring every month the member stays active.');
   }
