@@ -35,22 +35,9 @@
 .tier-desc { display:block; font-size:0.72rem; color:var(--muted); line-height:1.4; }
 .tier-badge-pop { position:absolute; top:0.5rem; right:0.75rem; font-family:var(--font-label); font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:var(--gold); color:#0a0a08; border-radius:4px; padding:0.15rem 0.45rem; }
 .tier-arrow { color:var(--gold); font-size:1.1rem; flex-shrink:0; }
-.divider-label { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--hairline); padding-bottom: 0.5rem; margin: 2rem 0 1.25rem; }
-.divider-label:first-child { margin-top: 0; }
-.cal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
-.cal-event { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; display: flex; gap: 0.85rem; align-items: flex-start; transition: border-color 0.2s; }
-.cal-event:hover { border-color: var(--border-strong); }
-.cal-date { flex-shrink: 0; text-align: center; }
-.cal-day { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.04em; color: var(--gold); line-height: 1; }
-.cal-month { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-.cal-info { flex: 1; }
-.cal-title { font-size: 0.82rem; color: var(--off-white); font-weight: 600; margin-bottom: 0.2rem; }
-.cal-time { font-size: 0.75rem; color: var(--muted); }
-.cal-badge { display: inline-block; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; margin-top: 0.3rem; }
-.cal-badge.live { background: rgba(242,200,75,0.15); color: var(--gold); border: 1px solid rgba(242,200,75,0.3); }
-.cal-badge.special { background: rgba(192,52,26,0.15); color: #e06050; border: 1px solid rgba(192,52,26,0.3); }
+.classes-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
 @media (max-width: 640px) {
-  .cal-grid { grid-template-columns: 1fr 1fr; }
+  .classes-grid-2 { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -301,54 +288,19 @@
     <div class="section-head reveal">
       <span class="eyebrow">Live Master Classes</span>
       <h2 class="headline">Upcoming <span class="gold">Sessions</span></h2>
-      <p class="lead">Live Master Classes at 2PM CST, built around the topics that actually matter for martial artists trying to grow.</p>
+      <p class="lead">Two live calls every week, every Tuesday and Saturday at 3PM CST.</p>
     </div>
-    <div class="divider-label" style="margin-top:0;">September</div>
-    <div class="cal-grid">
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">5</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Going Viral as a Fighter</div><div class="cal-time">King's Media · Sep 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">8</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Brotherhood and Accountability for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">12</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Growth Strategies</div><div class="cal-time">King's Media · Sep 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">15</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Become a Better Fighter Outside of the Gym</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">19</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Team Project</div><div class="cal-time">King's Media · Sep 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">22</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Discipline &amp; Self Mastery for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">26</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Page Audits</div><div class="cal-time">King's Media · Sep 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">29</div><div class="cal-month">Sep</div></div><div class="cal-info"><div class="cal-title">Goal Setting and Direction for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-    </div>
-
-    <div class="divider-label">October</div>
-    <div class="cal-grid">
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">3</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Going Viral as a Fighter</div><div class="cal-time">King's Media · Oct 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">6</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Brotherhood and Accountability for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">10</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Growth Strategies</div><div class="cal-time">King's Media · Oct 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">13</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Become a Better Fighter Outside of the Gym</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">17</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Team Project</div><div class="cal-time">King's Media · Oct 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">20</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Discipline &amp; Self Mastery for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">24</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Page Audits</div><div class="cal-time">King's Media · Oct 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">27</div><div class="cal-month">Oct</div></div><div class="cal-info"><div class="cal-title">Goal Setting and Direction for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-    </div>
-
-    <div class="divider-label">November</div>
-    <div class="cal-grid">
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">3</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Brotherhood and Accountability for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">7</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Going Viral as a Fighter</div><div class="cal-time">King's Media · Nov 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">10</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Become a Better Fighter Outside of the Gym</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">14</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Growth Strategies</div><div class="cal-time">King's Media · Nov 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">17</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Discipline &amp; Self Mastery for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">21</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Team Project</div><div class="cal-time">King's Media · Nov 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">24</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Goal Setting and Direction for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">28</div><div class="cal-month">Nov</div></div><div class="cal-info"><div class="cal-title">Page Audits</div><div class="cal-time">King's Media · Nov 2026</div><span class="cal-badge special">Media</span></div></div>
-    </div>
-
-    <div class="divider-label">December</div>
-    <div class="cal-grid">
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">1</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Brotherhood and Accountability for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">5</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Going Viral as a Fighter</div><div class="cal-time">King's Media · Dec 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">8</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Become a Better Fighter Outside of the Gym</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">12</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Growth Strategies</div><div class="cal-time">King's Media · Dec 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">15</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Discipline &amp; Self Mastery for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">19</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Team Project</div><div class="cal-time">King's Media · Dec 2026</div><span class="cal-badge special">Media</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">22</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Goal Setting and Direction for Fighters</div><div class="cal-time">King Maker Society</div><span class="cal-badge live">KMS</span></div></div>
-      <div class="cal-event"><div class="cal-date"><div class="cal-day">26</div><div class="cal-month">Dec</div></div><div class="cal-info"><div class="cal-title">Page Audits</div><div class="cal-time">King's Media · Dec 2026</div><span class="cal-badge special">Media</span></div></div>
+    <div class="classes-grid-2">
+      <article class="card class-card reveal" style="padding:1.75rem; display:block;">
+        <span class="badge badge-gold" style="margin-bottom:1rem; display:inline-block;">Tuesdays &middot; 3PM CST</span>
+        <h3 class="class-title" style="font-size:1.3rem; margin-bottom:0.5rem;">King Maker Society</h3>
+        <p class="class-desc">Brotherhood, accountability, discipline, and goal-setting sessions built for martial artists growing outside the gym.</p>
+      </article>
+      <article class="card class-card reveal" style="padding:1.75rem; display:block;">
+        <span class="badge badge-outline" style="margin-bottom:1rem; display:inline-block;">Saturdays &middot; 3PM CST</span>
+        <h3 class="class-title" style="font-size:1.3rem; margin-bottom:0.5rem;">King's Media</h3>
+        <p class="class-desc">Growth strategy, going viral, team projects, and page audits for martial artists building their content and personal brand.</p>
+      </article>
     </div>
     <p class="class-note reveal">All calls included with every membership. <a data-modal="referral-modal">Join now to get access &rarr;</a></p>
   </div>
