@@ -247,8 +247,11 @@
   if (!reduceMotion) {
     const bgCanvas = document.getElementById('bg-canvas');
     if (bgCanvas) startWaveBackground(bgCanvas);
-    const heroCanvas = document.getElementById('hero-canvas');
-    if (heroCanvas) startWaveBackground(heroCanvas);
+    // hero-canvas intentionally left unrendered: the shared, fixed #bg-canvas
+    // wave already shows through the hero's transparent areas (behind the
+    // hero-glow/hero-rays/hero-vignette atmosphere). Rendering a second,
+    // independently-computed copy of the shader here caused visible seams
+    // where the two canvases' textures didn't line up.
   }
 
   /* ---------- COUNTDOWN to next Master Class (Tue & Fri, 2PM CST) ---------- */
