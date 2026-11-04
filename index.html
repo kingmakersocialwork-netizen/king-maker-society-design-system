@@ -11,6 +11,45 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="landing.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+/* ---- Crown hero: real-time 3D metallic crown behind the headline ----
+   Desktop/tablet only (min-width 768px) with a WebGL feature check in the
+   script below; on phones or without WebGL the canvas simply stays empty
+   and the existing hero-glow/hero-rays/hero-vignette gradient atmosphere
+   is the complete background, same as before this change. */
+#crown-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:5; pointer-events:none; display:none; }
+@media (min-width: 768px){
+  #crown-canvas.crown-active { display:block; }
+}
+.hero-sub h1{
+  background:linear-gradient(180deg, #fdfcf9 0%, var(--off-white) 18%, var(--gold) 46%, #fff7df 52%, var(--gold-deep) 72%, var(--off-white) 100%);
+  background-size:100% 260%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.5),
+    0 2px 0 rgba(130,95,30,0.55),
+    0 3px 0 rgba(90,60,10,0.5),
+    0 4px 1px rgba(60,35,5,0.45),
+    0 7px 10px rgba(0,0,0,0.55),
+    0 14px 26px rgba(0,0,0,0.5);
+}
+.hero-sub h1 .gold{
+  background:linear-gradient(180deg, #fff 0%, var(--off-white) 30%, #fff 50%, #9aa0a6 70%, #fff 100%);
+  background-size:100% 260%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:inherit;
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-sub h1, .hero-sub h1 .gold{ background-position:0% 40% !important; }
+}
+@media (min-width: 768px){
+  .hero-sub .hero-inner{
+    background:radial-gradient(ellipse 85% 100% at 50% 38%, rgba(10,10,8,0.5) 0%, rgba(10,10,8,0.36) 40%, rgba(10,10,8,0.12) 68%, rgba(10,10,8,0) 88%);
+    border-radius:28px;
+  }
+}
+</style>
 <style>
 .price-card {
   box-shadow: 0 0 0 1px rgba(242,200,75,0.35), 0 0 40px rgba(242,200,75,0.22), 0 0 80px rgba(242,200,75,0.08), 0 4px 40px rgba(0,0,0,0.5) !important;
@@ -90,6 +129,7 @@
 <!-- ============ HERO ============ -->
 <header class="hero hero-sub" id="top" data-screen-label="Brotherhood Hero">
   <canvas id="hero-canvas"></canvas>
+  <canvas id="crown-canvas" aria-hidden="true"></canvas>
   <div class="hero-rays">
     <div class="hero-ray" style="transform: rotate(-12deg); animation-delay: 0s;"></div>
     <div class="hero-ray" style="transform: rotate(0deg); animation-delay: 1.4s;"></div>
@@ -604,6 +644,271 @@ document.querySelector('#referral-modal .modal-close') && document.querySelector
     document.getElementById('ref-step-2').style.display = 'none';
   }, 300);
 });
+</script>
+
+<!-- ============ CROWN HERO: real-time 3D metallic crown ============
+     Desktop/tablet only (min-width 768px) with a WebGL check below.
+     No audio here by design — visuals + closed-form spring physics
+     only. Beat-locked cuts still fire on a 96bpm internal clock, the
+     same choreography as the tested preview, just silent. On phones
+     or without WebGL this script simply does nothing and the existing
+     hero-glow / hero-rays / hero-vignette gradient stays the whole
+     background, same as before this change. -->
+<script>
+(function(){
+  'use strict';
+  var canvas = document.getElementById('crown-canvas');
+  var hero = document.querySelector('.hero.hero-sub');
+  if (!canvas || !hero || !window.THREE) return;
+  if (!window.matchMedia('(min-width: 768px)').matches) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- closed-form spring (same analytic damped-oscillator solver
+     used in the tested preview — evaluated directly at elapsed time,
+     not stepped frame by frame) ---- */
+  function springSolve(k, c, m, x0, v0, t){
+    if (t < 0) t = 0;
+    var wn = Math.sqrt(k / m);
+    var zeta = c / (2 * Math.sqrt(k * m));
+    var x, v, decay;
+    if (zeta < 0.999){
+      var wd = wn * Math.sqrt(1 - zeta * zeta);
+      var A = x0, B = (zeta * wn * x0 + v0) / wd;
+      decay = Math.exp(-zeta * wn * t);
+      var cos = Math.cos(wd * t), sin = Math.sin(wd * t);
+      x = decay * (A * cos + B * sin);
+      v = decay * ((-zeta * wn) * (A * cos + B * sin) + (-A * wd * sin + B * wd * cos));
+    } else if (zeta < 1.001){
+      decay = Math.exp(-wn * t);
+      var C1 = x0, C2 = v0 + wn * x0;
+      x = (C1 + C2 * t) * decay;
+      v = (C2 - wn * (C1 + C2 * t)) * decay;
+    } else {
+      var s = Math.sqrt(zeta * zeta - 1);
+      var r1 = -wn * (zeta - s), r2 = -wn * (zeta + s);
+      var D1 = (v0 - r2 * x0) / (r1 - r2), D2 = x0 - D1;
+      x = D1 * Math.exp(r1 * t) + D2 * Math.exp(r2 * t);
+      v = D1 * r1 * Math.exp(r1 * t) + D2 * r2 * Math.exp(r2 * t);
+    }
+    return { x: x, v: v };
+  }
+  function Spring(k, c, m, value){
+    this.k = k; this.c = c; this.m = m || 1;
+    this.target = value || 0; this.value = value || 0; this.velocity = 0;
+    this.x0 = 0; this.v0 = 0; this.t0 = 0;
+  }
+  Spring.prototype.setTarget = function(target, now){
+    this.x0 = this.value - target; this.v0 = this.velocity; this.t0 = now; this.target = target;
+  };
+  Spring.prototype.impulse = function(velocityKick, now){
+    this.x0 = this.value - this.target; this.v0 = this.velocity + velocityKick; this.t0 = now;
+  };
+  Spring.prototype.update = function(now){
+    var r = springSolve(this.k, this.c, this.m, this.x0, this.v0, now - this.t0);
+    this.value = this.target + r.x; this.velocity = r.v;
+    return this.value;
+  };
+
+  /* ---- silent 96bpm beat clock (same tempo/choreography as the
+     tested preview; just no Web Audio scheduler behind it) ---- */
+  var BPM = 96, beatDur = 60 / BPM;
+  var clockStart = performance.now() / 1000;
+  var lastBeat = -1;
+
+  var renderer, scene, camera, crownGroup, keyLight, rimLight;
+  var mouseX = 0, mouseY = 0;
+
+  var rotSpring   = new Spring(42,  9,  1, 0);
+  var scaleSpring = new Spring(260, 14, 1, 1);
+  var glowSpring  = new Spring(220, 16, 1, 0.6);
+  var camSpring   = new Spring(190, 18, 1, 10.5);
+  var gradSpring  = new Spring(30,  10, 1, 0);
+  var parX = new Spring(60, 14, 1, 0);
+  var parY = new Spring(60, 14, 1, 0);
+
+  function onBeat(time, isDownbeat){
+    if (isDownbeat){
+      var nextAngle = rotSpring.target + (0.9 + Math.random() * 1.3) * (Math.random() < 0.5 ? -1 : 1);
+      rotSpring.setTarget(nextAngle, time);
+      camSpring.impulse(-2.2, time);
+      scaleSpring.impulse(3.0, time);
+      glowSpring.impulse(5.0, time);
+      gradSpring.setTarget(gradSpring.target + 0.6, time);
+    } else {
+      scaleSpring.impulse(1.2, time);
+      glowSpring.impulse(1.9, time);
+    }
+  }
+
+  function makeEnvTexture(){
+    var c = document.createElement('canvas');
+    c.width = 1024; c.height = 512;
+    var ctx = c.getContext('2d');
+    var g0 = ctx.createLinearGradient(0, 0, 0, 512);
+    g0.addColorStop(0, '#050507'); g0.addColorStop(0.5, '#0b0b10'); g0.addColorStop(1, '#050507');
+    ctx.fillStyle = g0; ctx.fillRect(0, 0, 1024, 512);
+    function band(angleDeg, stops, alpha){
+      ctx.save(); ctx.globalAlpha = alpha; ctx.translate(512, 256); ctx.rotate(angleDeg * Math.PI / 180);
+      var lg = ctx.createLinearGradient(-700, 0, 700, 0);
+      stops.forEach(function(s){ lg.addColorStop(s[0], s[1]); });
+      ctx.fillStyle = lg; ctx.fillRect(-900, -900, 1800, 1800); ctx.restore();
+    }
+    band(18, [[0,'rgba(0,0,0,0)'],[0.35,'rgba(130,110,200,0.35)'],[0.5,'rgba(240,210,150,0.55)'],[0.65,'rgba(120,220,190,0.3)'],[1,'rgba(0,0,0,0)']], 0.9);
+    band(-24, [[0,'rgba(0,0,0,0)'],[0.4,'rgba(217,169,74,0.5)'],[0.5,'rgba(231,230,228,0.6)'],[0.6,'rgba(90,140,220,0.3)'],[1,'rgba(0,0,0,0)']], 0.85);
+    band(70, [[0,'rgba(0,0,0,0)'],[0.5,'rgba(231,230,228,0.35)'],[1,'rgba(0,0,0,0)']], 0.6);
+    function spot(x,y,r,color){
+      var rg = ctx.createRadialGradient(x,y,0,x,y,r);
+      rg.addColorStop(0,color); rg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle = rg; ctx.fillRect(x-r,y-r,r*2,r*2);
+    }
+    spot(220,120,220,'rgba(255,250,235,0.9)');
+    spot(760,90,180,'rgba(255,235,190,0.7)');
+    spot(860,380,260,'rgba(180,200,255,0.5)');
+    spot(120,380,200,'rgba(255,255,255,0.4)');
+    var tex = new THREE.CanvasTexture(c);
+    tex.mapping = THREE.EquirectangularReflectionMapping;
+    tex.encoding = THREE.sRGBEncoding;
+    return tex;
+  }
+
+  function buildCrown(){
+    var group = new THREE.Group();
+    var goldMat = new THREE.MeshPhysicalMaterial({ color:0xe3c27a, metalness:1, roughness:0.22, clearcoat:1, clearcoatRoughness:0.12, envMapIntensity:2.4 });
+    var platMat = new THREE.MeshPhysicalMaterial({ color:0xe9e8e4, metalness:1, roughness:0.16, clearcoat:1, clearcoatRoughness:0.08, envMapIntensity:2.6 });
+    var R = 1.3;
+    var base = new THREE.Mesh(new THREE.TorusGeometry(R, 0.14, 48, 128), platMat);
+    base.rotation.x = Math.PI / 2;
+    group.add(base);
+    var spikeCount = 7;
+    for (var i = 0; i < spikeCount; i++){
+      var a = (i / spikeCount) * Math.PI * 2;
+      var mat = (i % 2 === 0) ? goldMat : platMat;
+      var h = (i % 3 === 0) ? 1.3 : 0.92;
+      var spike = new THREE.Mesh(new THREE.ConeGeometry(0.2, h, 24), mat);
+      spike.position.set(Math.cos(a) * R, h / 2 - 0.06, Math.sin(a) * R);
+      spike.lookAt(new THREE.Vector3(Math.cos(a) * (R * 1.9), h / 2 - 0.06, Math.sin(a) * (R * 1.9)));
+      spike.rotateX(Math.PI / 2);
+      group.add(spike);
+      var bead = new THREE.Mesh(new THREE.SphereGeometry(0.105, 32, 32), i % 2 === 0 ? platMat : goldMat);
+      bead.position.set(Math.cos(a) * R, h - 0.03, Math.sin(a) * R);
+      group.add(bead);
+    }
+    var centerBead = new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 32), goldMat);
+    centerBead.position.set(0, 1.38, 0);
+    group.add(centerBead);
+    return group;
+  }
+
+  function resize(){
+    var w = hero.clientWidth, h = hero.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+
+  function onPointerMove(e){
+    var rect = hero.getBoundingClientRect();
+    mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+  }
+
+  function clockNow(){ return performance.now() / 1000; }
+
+  function frame(){
+    requestAnimationFrame(frame);
+    var now = clockNow();
+
+    var beatIndex = Math.floor((now - clockStart) / beatDur);
+    if (beatIndex !== lastBeat){
+      lastBeat = beatIndex;
+      onBeat(now, beatIndex % 4 === 0);
+    }
+
+    parX.target = mouseX * 0.4;
+    parY.target = mouseY * 0.18;
+
+    var rot = rotSpring.update(now);
+    var BASE_SCALE = 0.62;
+    var scale = Math.max(0.6, scaleSpring.update(now)) * BASE_SCALE;
+    var glow = Math.max(0, glowSpring.update(now));
+    var camPunch = camSpring.update(now);
+    var px = parX.update(now);
+    var py = parY.update(now);
+
+    crownGroup.rotation.y = rot;
+    crownGroup.rotation.x = py * 0.3;
+    crownGroup.scale.setScalar(scale);
+
+    keyLight.intensity = 3.2 + glow * 0.3;
+    rimLight.intensity = 5.0 + glow * 0.55;
+
+    camera.position.x = px;
+    camera.position.y = 4.0 + py * 0.25;
+    camera.position.z = camPunch;
+    camera.lookAt(0, 3.75, 0);
+
+    renderer.render(scene, camera);
+  }
+
+  function init(){
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); }
+    catch (e) { return; }
+    if (!renderer.getContext()) return;
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.5;
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+    camera.position.set(0, 4.0, 10.5);
+    camera.lookAt(0, 3.75, 0);
+
+    var pmrem = new THREE.PMREMGenerator(renderer);
+    pmrem.compileEquirectangularShader();
+    var envTex = makeEnvTexture();
+    var envRT = pmrem.fromEquirectangular(envTex);
+    scene.environment = envRT.texture;
+    envTex.dispose(); pmrem.dispose();
+
+    scene.add(new THREE.AmbientLight(0x50505c, 1.0));
+    keyLight = new THREE.DirectionalLight(0xfff1d6, 3.2);
+    keyLight.position.set(4, 6, 5);
+    scene.add(keyLight);
+    rimLight = new THREE.PointLight(0x9fc0ff, 5.0, 24);
+    rimLight.position.set(-5, 5.5, -4);
+    scene.add(rimLight);
+    var rim2 = new THREE.PointLight(0xe7bb6a, 3.8, 24);
+    rim2.position.set(3, 1.5, 4);
+    scene.add(rim2);
+    var fill = new THREE.PointLight(0xffffff, 2.2, 20);
+    fill.position.set(0, 6.0, 6);
+    scene.add(fill);
+
+    crownGroup = buildCrown();
+    crownGroup.position.y = 4.1;
+    scene.add(crownGroup);
+
+    camSpring.value = 10.5; camSpring.target = 10.5;
+
+    resize();
+    window.addEventListener('resize', resize);
+    hero.addEventListener('pointermove', onPointerMove);
+
+    canvas.classList.add('crown-active');
+
+    if (reduceMotion){
+      renderer.render(scene, camera);
+    } else {
+      frame();
+    }
+  }
+
+  if (window.WebGLRenderingContext){ init(); }
+})();
 </script>
 </body>
 </html>
