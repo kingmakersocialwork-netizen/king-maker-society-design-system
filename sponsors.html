@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sponsors King Maker Society. Brands and businesses backing the first and best content creation team for fighters. Get in front of a growing fighter audience.">
+<meta name="theme-color" content="#0A0A08">
+<title>Sponsors King Maker Society</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="landing.css">
+<style>
+/* ── REFLECTIVE SHIMMER BUTTON ──────────────────────────── */
+.btn-reflect {
+  position: relative;
+  overflow: hidden;
+}
+.btn-reflect::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255,255,255,0.42) 45%,
+    rgba(255,255,255,0.18) 55%,
+    transparent 75%
+  );
+  transform: skewX(-18deg);
+  animation: btn-sheen 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btn-sheen {
+  0%   { left: -80%; }
+  55%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+/* ── GOLD MEMBERSHIP CARD ───────────────────────────────── */
+.elite-card {
+  background: linear-gradient(160deg, rgba(18,14,4,0.98) 0%, rgba(10,10,10,1) 100%);
+  border: 1px solid rgba(255,184,28,0.40);
+  border-radius: 18px;
+  padding: 2.5rem 2rem;
+  max-width: 720px;
+  margin: 2rem auto 0;
+  box-shadow: 0 0 48px rgba(255,184,28,0.10);
+}
+.elite-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255,184,28,0.20);
+}
+.elite-price {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.elite-price span {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.elite-badge {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0a0a08;
+  background: var(--gold);
+  padding: 0.3rem 0.85rem;
+  border-radius: 50px;
+}
+.elite-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 540px) { .elite-features { grid-template-columns: 1fr; } }
+.elite-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background: rgba(255,184,28,0.04);
+  border: 1px solid rgba(255,184,28,0.14);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+}
+.elite-feature-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+.elite-feature-text strong {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--off-white);
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+.elite-feature-text span {
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── FAQ SECTION ─────────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid rgba(255,184,28,0.14);
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 1.35rem 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--off-white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.faq-question:hover { color: var(--gold); }
+.faq-chevron {
+  font-size: 0.85rem;
+  color: var(--gold);
+  transition: transform 0.28s ease;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-answer {
+  display: none;
+  padding: 0 0 1.35rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 680px;
+}
+.faq-item.open .faq-answer { display: block; }
+
+/* ── TWO-STEP REFERRAL MODAL ────────────────────────────── */
+#ref-step-2 { display: none; }
+.ref-back { background:none; border:none; color:var(--muted); cursor:pointer; font-size:0.78rem; font-weight:600; padding:0 0 0.75rem; display:flex; align-items:center; gap:0.4rem; }
+.ref-back:hover { color:var(--off-white); }
+.ref-selected-tag { display:inline-flex; align-items:center; gap:0.4rem; background:rgba(242,200,75,0.1); border:1px solid rgba(242,200,75,0.25); border-radius:50px; padding:0.25rem 0.75rem 0.25rem 0.5rem; font-size:0.72rem; font-weight:700; color:var(--gold); margin-bottom:0.25rem; }
+.ref-tier-list { display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem; }
+.ref-tier-card { display:flex; align-items:center; gap:1rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:0.9rem 1.1rem; text-decoration:none; color:var(--off-white); transition:border-color 0.2s, background 0.2s; position:relative; overflow:hidden; }
+.ref-tier-card:hover { border-color:rgba(242,200,75,0.45); background:rgba(242,200,75,0.06); }
+.ref-tier-card.tier-featured { border-color:rgba(242,200,75,0.4); background:rgba(242,200,75,0.06); }
+.tier-price { font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:var(--gold); flex-shrink:0; line-height:1; }
+.tier-price span { font-size:0.75rem; font-weight:600; color:var(--muted); }
+.tier-info { flex:1; }
+.tier-name { display:block; font-size:0.88rem; font-weight:700; margin-bottom:0.2rem; }
+.tier-desc { display:block; font-size:0.72rem; color:var(--muted); line-height:1.4; }
+.tier-badge-pop { position:absolute; top:0.5rem; right:0.75rem; font-family:var(--font-label); font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:var(--gold); color:#0a0a08; border-radius:4px; padding:0.15rem 0.45rem; }
+.tier-arrow { color:var(--gold); font-size:1.1rem; flex-shrink:0; }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- ============ MOBILE NAV DRAWER ============ -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+  <nav class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-nav-links">
+      <a href="index.html">King Maker Society</a>
+      <a href="sponsors.html" class="active">Sponsors</a>
+      <a href="mentors.html">Mentors</a>
+      <a href="team.html">Team</a>
+      <a href="index.html#pricing">Membership</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="mobile-nav-actions">
+      <a class="btn btn-outline" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="btn btn-red" href="#" data-modal="referral-modal">Join Now</a>
+    </div>
+  </nav>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/logo.png" alt="King Maker Society" loading="lazy">
+      <span>King Maker Society</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">King Maker Society</a>
+      <a href="sponsors.html" class="active">Sponsors</a>
+      <a href="mentors.html">Mentors</a>
+      <a href="team.html">Team</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-outline btn-sm" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="nav-ig" href="https://www.instagram.com/kingmakermma/" target="_blank" rel="noopener" aria-label="Instagram @kingmakermma">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+        @kingmakermma
+      </a>
+      <a class="btn btn-red btn-sm" href="#" data-modal="referral-modal">Join Now</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero hero-sub" id="top">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-rays">
+    <div class="hero-ray" style="transform: rotate(-14deg); animation-delay: 0s;"></div>
+    <div class="hero-ray" style="transform: rotate(0deg); animation-delay: 1.2s;"></div>
+    <div class="hero-ray" style="transform: rotate(14deg); animation-delay: 0.6s;"></div>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-inner" style="text-align:center;">
+    <div class="hero-eyebrow eyebrow center">Backed By · King Maker Society</div>
+    <h1>Our <span class="gold">Sponsors</span></h1>
+    <p class="hero-sub-copy hero-sub">The brands and businesses standing behind the first and best content creation team for fighters.</p>
+    <div class="hero-cta">
+      <a class="btn btn-red btn-lg btn-reflect" href="#sponsors" data-scroll>See Our Sponsors</a>
+      <a class="btn btn-outline btn-lg" href="#become-sponsor" data-scroll>Become A Sponsor</a>
+    </div>
+    <div class="page-meta">
+      <div class="pm"><span class="pm-num">300+</span><span class="pm-label">Fighters Strong</span></div>
+      <div class="pm"><span class="pm-num">2x</span><span class="pm-label">Master Classes / Week</span></div>
+      <div class="pm"><span class="pm-num">Growing</span><span class="pm-label">Fighter Audience</span></div>
+      <div class="pm"><span class="pm-num">Real</span><span class="pm-label">Engagement</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ WHY SPONSOR ============ -->
+<section class="section" id="what">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Why Partner With Us</span>
+      <h2 class="headline">Get In Front Of A <span class="gold">Growing Audience</span></h2>
+      <p class="lead">King Maker Society is 300+ fighters strong and growing every week. Sponsors get real visibility with an audience that actually engages.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card pillar reveal">
+        <span class="pillar-watermark">01</span>
+        <span class="pillar-icon">&#127942;</span>
+        <h3>Direct Fighter Audience</h3>
+        <p>Your brand in front of martial artists and fighters who are actively building their careers, content, and personal brands &mdash; not a passive follower list.</p>
+      </article>
+      <article class="card pillar reveal">
+        <span class="pillar-watermark">02</span>
+        <span class="pillar-icon">&#128247;</span>
+        <h3>Content & Media Placement</h3>
+        <p>Get featured across King Maker Society's content &mdash; Reels, master class call-outs, member highlights, and more, produced by the content creation team itself.</p>
+      </article>
+      <article class="card pillar reveal">
+        <span class="pillar-watermark">03</span>
+        <span class="pillar-icon">&#128101;</span>
+        <h3>Brotherhood Credibility</h3>
+        <p>Align your brand with a real, active community &mdash; not a one-off ad buy. Sponsors become part of the story members see every week.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPONSOR SHOWCASE ============ -->
+<section class="section" id="sponsors">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Our Partners</span>
+      <h2 class="headline">Sponsors Of The <span class="gold">Brotherhood</span></h2>
+      <p class="lead">The brands backing King Maker Society and the fighters inside it.</p>
+    </div>
+
+    <!-- Sponsor roster coming soon -->
+    <div class="section-note reveal" style="text-align:center; margin-top: 1.5rem; padding: 3rem 2rem; border: 1px solid var(--border); border-radius: var(--radius-md); background: rgba(242,200,75,0.04);">
+      <span class="eyebrow center" style="margin-bottom: 1rem; display:block;">Coming Soon</span>
+      <p class="lead" style="text-align:center; margin: 0 auto;">Our sponsor roster is being built out right now. Check back soon to see the brands backing King Maker Society &mdash; or become one of the first below.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLY SECTION ============ -->
+<section class="section trial" id="apply">
+  <div class="trial-watermark" aria-hidden="true">Sponsors</div>
+  <div class="container trial-inner reveal">
+    <span class="eyebrow center">Get In</span>
+    <h2>Become A King Maker <span class="gold">Member</span></h2>
+    <p class="lead" style="text-align:center;">One membership. Full access to every mentor, every call, every resource, and the entire brotherhood. This is the one.</p>
+
+    <!-- Elite Membership Card -->
+    <div class="elite-card reveal">
+      <div class="elite-card-header">
+        <div>
+          <div style="font-family:var(--font-label);font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">Elite Membership</div>
+          <div class="elite-price">$300<span>/month</span></div>
+        </div>
+        <span class="elite-badge">Full Access</span>
+      </div>
+
+      <div class="elite-features">
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#127942;</span>
+          <div class="elite-feature-text">
+            <strong>Monthly 1-on-1 Mentor Call</strong>
+            <span>Direct private session with a KMS mentor built around your specific goals.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128081;</span>
+          <div class="elite-feature-text">
+            <strong>Priority Mentor Access</strong>
+            <span>Direct line to your mentor between sessions. Real feedback when you need it.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128101;</span>
+          <div class="elite-feature-text">
+            <strong>Full Brotherhood Community</strong>
+            <span>24/7 access to the King Maker Society community chat with 150+ martial artists.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128187;</span>
+          <div class="elite-feature-text">
+            <strong>Live Weekly Group Zoom Calls</strong>
+            <span>Group discussions on mindset, fight IQ, content, branding, and more — every week.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#127909;</span>
+          <div class="elite-feature-text">
+            <strong>Personal Brand & Content Support</strong>
+            <span>Strategy, feedback, and accountability on building your martial arts brand.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128200;</span>
+          <div class="elite-feature-text">
+            <strong>Sponsor Visibility & Opportunities</strong>
+            <span>Get in front of brands and opportunities through the King Maker network.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#129354;</span>
+          <div class="elite-feature-text">
+            <strong>Fight IQ Coaching</strong>
+            <span>Tactical fight discussions led by mentors who've competed at the highest level.</span>
+          </div>
+        </div>
+        <div class="elite-feature">
+          <span class="elite-feature-icon">&#128172;</span>
+          <div class="elite-feature-text">
+            <strong>Accountability System</strong>
+            <span>Weekly check-ins, goal tracking, and a brotherhood that holds you to a standard.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <a class="btn btn-gold btn-lg btn-reflect" href="#" data-modal="referral-modal" style="display:inline-block;">Join Elite · $300/mo</a>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:0.9rem;">Cancel anytime. No contracts. Just commitment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BECOME A SPONSOR ============ -->
+<section class="section" id="become-sponsor">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Partner With Us</span>
+      <h2 class="headline">Become A <span class="gold">Sponsor</span></h2>
+      <p class="lead">If your brand wants real visibility with a growing, engaged fighter audience, we want to hear from you.</p>
+    </div>
+    <div class="grid-2 reveal" style="max-width: 860px; margin: 0 auto;">
+      <div class="card pillar">
+        <span class="pillar-watermark">&#10003;</span>
+        <h3>Who We're Looking For</h3>
+        <p>Martial arts brands, gyms, supplement companies, apparel brands, and local businesses who want to be part of a real, growing fighter community.</p>
+      </div>
+      <div class="card pillar">
+        <span class="pillar-watermark">&#10003;</span>
+        <h3>What It Looks Like</h3>
+        <p>Content placements, shoutouts, and brand visibility across King Maker Society's channels and member base. Packages built around what fits your brand.</p>
+      </div>
+    </div>
+    <div class="hero-cta reveal" style="justify-content: center; margin-top: 2.5rem;">
+      <a class="btn btn-gold btn-lg" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call To Partner</a>
+      <a class="btn btn-outline btn-lg" href="mailto:KingMakerSocialWork@gmail.com">Email Us Directly</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">Got Questions</span>
+      <h2 class="headline">Questions &amp; <span class="gold">Answers</span></h2>
+      <p class="lead">Everything you need to know about sponsoring King Maker Society.</p>
+    </div>
+    <div style="max-width:760px;margin:0 auto;" class="reveal">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Who is the King Maker Society audience?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">300+ martial artists and fighters who are actively training, competing, and building their content and personal brand. This is an engaged, growing community, not a passive follower count.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What does a sponsorship actually include?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">Packages are built around your brand and your goals — content placements, shoutouts across King Maker Society's channels, and visibility with the member base. Book a call and we'll put together something that fits.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I become a sponsor?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">Book a call or email us directly using the links above. We'll talk through your brand, your goals, and what a partnership could look like.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="section footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="assets/logo.png" alt="King Maker Society" loading="lazy"><span>King Maker Society</span></div>
+        <p>The first and best content creation team for fighters who refuse to settle.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="index.html">King Maker Society</a>
+        <a href="sponsors.html">Sponsors</a>
+        <a href="mentors.html">Mentors</a>
+        <a href="index.html#pricing">Membership</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@KINGMAKERSOCIETY" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.instagram.com/kingmakermma/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@kingmaker.society" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://www.facebook.com/people/King-Maker-Society/61588634246307/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://kingmakersocialwork-netizen.github.io/KingMakerSociety/" target="_blank" rel="noopener">Newsletter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <p>&copy; 2026 King Maker Society LLC · All Rights Reserved</p>
+      <div class="links">
+        <a data-modal="privacy-modal">Privacy Policy</a>
+        <a data-modal="terms-modal">Terms of Service</a>
+        <a data-modal="accessibility-modal">Accessibility</a>
+      </div>
+    </div>
+    <div class="footer-welcome">Welcome All New Members</div>
+  </div>
+</footer>
+
+<!-- ============ REFERRAL MODAL (UNIFIED 2-STEP) ============ -->
+<div class="modal-overlay" id="referral-modal" role="dialog" aria-modal="true" aria-labelledby="ref-title">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div id="ref-step-1">
+      <div class="modal-head">
+        <h3 id="ref-title">Who Referred You?</h3>
+        <p>Give credit to the person who brought you in, then choose your membership tier.</p>
+      </div>
+      <div class="ref-list">
+        <button class="ref-card" onclick="selectReferrer('Jordan Ali','jordan')"><span class="ref-avatar">JA</span><span class="ref-info"><span class="ref-name">Jordan Ali</span><span class="ref-role">CEO &amp; Founder</span></span><span class="ref-arrow">&rarr;</span></button>
+        <button class="ref-card full" onclick="selectReferrer('Mohammed Ali','mohammed')"><span class="ref-avatar">MA</span><span class="ref-info"><span class="ref-name">Mohammed Ali</span><span class="ref-role">King's Media Host · Mentor</span></span><span class="ref-arrow">&rarr;</span></button>
+      </div>
+      <button class="ref-skip" onclick="selectReferrer('No referral','none')" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;padding:0.75rem 0 0;font-size:0.78rem;color:var(--muted);font-weight:600;">I wasn't referred by anyone &rarr; Continue</button>
+    </div>
+    <div id="ref-step-2">
+      <button class="ref-back" onclick="document.getElementById('ref-step-1').style.display='';document.getElementById('ref-step-2').style.display='none';">&larr; Back</button>
+      <div class="modal-head" style="padding-top:0;">
+        <div class="ref-selected-tag">&#9989; Referred by: <span id="ref-selected-name"></span></div>
+        <h3 style="margin-top:0.5rem;">Choose Your Membership</h3>
+        <p>Pick the tier that matches your commitment.</p>
+      </div>
+      <div class="ref-tier-list">
+        <a class="ref-tier-card" id="tier-basic" href="#" target="_blank" rel="noopener">
+          <div style="text-align:center;flex-shrink:0;width:60px;"><div class="tier-price">$75<span>/mo</span></div></div>
+          <div class="tier-info"><span class="tier-name">Basic</span><span class="tier-desc">24/7 Chat · 2 Master Classes / Week · Community Access</span></div>
+          <span class="tier-arrow">&rarr;</span>
+        </a>
+        <a class="ref-tier-card tier-featured" id="tier-vip" href="#" target="_blank" rel="noopener">
+          <span class="tier-badge-pop">Most Popular</span>
+          <div style="text-align:center;flex-shrink:0;width:60px;"><div class="tier-price">$150<span>/mo</span></div></div>
+          <div class="tier-info"><span class="tier-name">VIP Access</span><span class="tier-desc">Everything in Basic · 1:1 Audits · Game Plan · Mentor Calls</span></div>
+          <span class="tier-arrow">&rarr;</span>
+        </a>
+        <a class="ref-tier-card" id="tier-elite" href="#" target="_blank" rel="noopener">
+          <div style="text-align:center;flex-shrink:0;width:60px;"><div class="tier-price">$300<span>/mo</span></div></div>
+          <div class="tier-info"><span class="tier-name">Elite</span><span class="tier-desc">Everything in VIP · Weekly 1-hr Mentor Call · Daily Access to Jordan</span></div>
+          <span class="tier-arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRIVACY MODAL ============ -->
+<div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true">
+  <div class="modal modal-narrow">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <h3>Privacy Policy</h3>
+      <p class="legal-updated">Last updated September 4, 2026</p>
+      <div class="legal">
+        <div class="legal-item"><h4>1. Information We Collect</h4><p>When you join King Maker Society LLC ("King Maker Society," "we," "us") or use this website, we may collect your name, email address, phone number, Instagram handle, and payment details processed through Stripe. We also collect basic usage data such as pages visited and general location (city/region) through standard analytics.</p></div>
+        <div class="legal-item"><h4>2. How We Use Your Information</h4><p>We use this information to provide membership access, process payments, communicate with you about the community, personalize content and outreach, and improve our website and services. We do not sell your personal information to third parties.</p></div>
+        <div class="legal-item"><h4>3. Payment Processing</h4><p>All payments are processed securely through Stripe. We do not store your full card number, CVV, or banking credentials on our servers.</p></div>
+        <div class="legal-item"><h4>4. Cookies &amp; Tracking</h4><p>This site may use cookies and similar technologies to remember your preferences, keep you signed in, and understand how visitors use the site. You can disable cookies in your browser settings, though some features may not work as intended.</p></div>
+        <div class="legal-item"><h4>5. Third-Party Services</h4><p>We use trusted third-party tools such as Stripe (payments), Instagram/Meta, YouTube, and TikTok (social media), and Zoom (group calls) to operate King Maker Society. These providers have their own privacy policies governing the data they process.</p></div>
+        <div class="legal-item"><h4>6. Data Sharing</h4><p>We do not sell your data. We may share limited information with service providers who help us run the community (payment processing, scheduling, communication tools), and only as needed to provide our services.</p></div>
+        <div class="legal-item"><h4>7. Data Retention</h4><p>We retain your information for as long as your membership is active and for a reasonable period afterward to comply with legal and accounting obligations.</p></div>
+        <div class="legal-item"><h4>8. Your Rights</h4><p>You may request access to, correction of, or deletion of your personal information at any time by emailing us. You may cancel your membership and stop future billing through your billing portal at any time.</p></div>
+        <div class="legal-item"><h4>9. Children's Privacy</h4><p>King Maker Society is intended for individuals 18 years of age or older. We do not knowingly collect information from anyone under 18.</p></div>
+        <div class="legal-item"><h4>10. Security</h4><p>We take reasonable measures to protect your information, but no method of transmission or storage is 100% secure.</p></div>
+        <div class="legal-item"><h4>11. Changes To This Policy</h4><p>We may update this Privacy Policy from time to time. Continued use of the site or membership after changes means you accept the updated policy.</p></div>
+        <div class="legal-item"><h4>12. Contact</h4><p>Questions about this Privacy Policy? Email <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TERMS MODAL ============ -->
+<div class="modal-overlay" id="terms-modal" role="dialog" aria-modal="true">
+  <div class="modal modal-narrow">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <h3>Terms Of Service</h3>
+      <p class="legal-updated">Last updated June 11, 2026</p>
+      <div class="legal">
+        <div class="legal-item"><h4>1. Agreement</h4><p>By joining King Maker Society LLC ("King Maker Society," "we," or "us") or using this website, you agree to these Terms of Service.</p></div>
+        <div class="legal-item"><h4>2. Eligibility</h4><p>You must be at least 18 years old to purchase a membership.</p></div>
+        <div class="legal-item"><h4>3. Membership &amp; Billing</h4><p>Memberships are billed monthly in advance through Stripe and renew automatically until cancelled.</p></div>
+        <div class="legal-item"><h4>4. Cancellation &amp; Refunds</h4><p>Cancel anytime. No refunds for partial months or unused access.</p></div>
+        <div class="legal-item"><h4>5. No Guarantees</h4><p>We do not guarantee results, income, athletic outcomes, or sponsorships.</p></div>
+        <div class="legal-item"><h4>6. Code Of Conduct</h4><p>Members must treat others with respect. Harassment or harmful conduct may result in removal without refund.</p></div>
+        <div class="legal-item"><h4>7. Contact</h4><p>Questions? Email <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ACCESSIBILITY / ADA MODAL ============ -->
+<div class="modal-overlay" id="accessibility-modal" role="dialog" aria-modal="true">
+  <div class="modal modal-narrow">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <h3>Accessibility Statement</h3>
+      <p class="legal-updated">Last updated September 4, 2026</p>
+      <div class="legal">
+        <div class="legal-item"><h4>1. Our Commitment</h4><p>King Maker Society LLC is committed to making this website accessible to everyone, including people with disabilities. We are actively working to ensure our digital content is usable by the widest possible audience, regardless of ability.</p></div>
+        <div class="legal-item"><h4>2. Standards We Follow</h4><p>We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA, and to align with the standards referenced under the Americans with Disabilities Act (ADA). This includes efforts around readable color contrast, keyboard navigation, descriptive alt text for images, and clear page structure.</p></div>
+        <div class="legal-item"><h4>3. Ongoing Efforts</h4><p>Accessibility is an ongoing process. We periodically review our site and make updates to improve usability for members using screen readers, keyboard navigation, and other assistive technologies.</p></div>
+        <div class="legal-item"><h4>4. Known Limitations</h4><p>As we continue to improve, some pages or third-party tools embedded on our site (such as payment or scheduling widgets) may not yet fully meet every accessibility guideline. We are working with our partners to improve this over time.</p></div>
+        <div class="legal-item"><h4>5. Feedback &amp; Assistance</h4><p>If you experience any difficulty accessing content on this website, or need information in an alternative format, please contact us at <a href="mailto:KingMakerSocialWork@gmail.com">KingMakerSocialWork@gmail.com</a>. We will do our best to respond promptly and provide the information or access you need.</p></div>
+        <div class="legal-item"><h4>6. Continuous Improvement</h4><p>We welcome feedback on how to improve accessibility for all visitors and members of King Maker Society.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="landing.js?v=182" defer></script>
+<script>
+/* REFERRAL MODAL: 2-STEP FLOW */
+const STRIPE_LINKS = {
+  jordan:   { basic:'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02', vip:'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08', elite:'https://buy.stripe.com/14A28sgfKd7B5Bi6j757W0b' },
+  mohammed: { basic:'https://buy.stripe.com/fZu14obZu9Vp3ta5f357W0i', vip:'https://buy.stripe.com/8x25kE0gM3x1bZGazn57W0n', elite:'https://buy.stripe.com/9B614oe7Cc3x7Jqazn57W0o' },
+  none:     { basic:'https://buy.stripe.com/9B69AU2oU2sX8NubDr57W02', vip:'https://buy.stripe.com/dRm28s7Je7Nh1l27nb57W08', elite:'https://buy.stripe.com/14A28sgfKd7B5Bi6j757W0b' },
+};
+function selectReferrer(name, key) {
+  var links = STRIPE_LINKS[key] || STRIPE_LINKS.none;
+  document.getElementById('ref-selected-name').textContent = name;
+  document.getElementById('tier-basic').href  = links.basic;
+  document.getElementById('tier-vip').href    = links.vip;
+  document.getElementById('tier-elite').href  = links.elite;
+  document.getElementById('ref-step-1').style.display = 'none';
+  document.getElementById('ref-step-2').style.display = 'block';
+}
+document.querySelector('#referral-modal .modal-close') && document.querySelector('#referral-modal .modal-close').addEventListener('click', function() {
+  setTimeout(function() {
+    document.getElementById('ref-step-1').style.display = '';
+    document.getElementById('ref-step-2').style.display = 'none';
+  }, 300);
+});
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
