@@ -130,9 +130,123 @@
     });
   }
 
+  /* ---------- WOVEN METAL WAVE: sitewide background shader ----------
+     Fullscreen Three.js shader quad: the woven-metal texture sampled
+     through a two-axis sine UV warp (the wave), with a specular pass
+     derived from that same wave's analytic slope (the reflection),
+     plus a soft gold radial glow blended on top. Falls back silently
+     (canvas stays empty, body's dark background shows through) if
+     Three.js or WebGL aren't available. */
+  function startWaveBackground(canvas) {
+    if (!window.THREE) return;
+
+    const vertexShader = 'void main() {\n  gl_Position = vec4( position, 1.0 );\n}\n';
+    const fragmentShader = [
+      'precision highp float;',
+      'uniform vec2 resolution;',
+      'uniform float time;',
+      'uniform sampler2D tex;',
+      'uniform vec2 texAspect;',
+      'uniform float texLoaded;',
+      'void main(void) {',
+      '  vec2 uv = gl_FragCoord.xy / resolution.xy;',
+      '  vec2 screenAspect = resolution / min(resolution.x, resolution.y);',
+      '  float s = max(screenAspect.x / texAspect.x, screenAspect.y / texAspect.y);',
+      '  vec2 cuv = (uv - 0.5) * screenAspect / s * texAspect + 0.5;',
+      '  float t = time * 0.6;',
+      '  float wAmp = 0.028;',
+      '  float wx = sin(cuv.y * 9.0 + t) * cos(cuv.y * 3.0 - t*0.4) * wAmp;',
+      '  float wy = sin(cuv.x * 7.0 - t*0.8) * cos(cuv.x * 2.2 + t*0.3) * wAmp;',
+      '  vec2 wuv = cuv + vec2(wx, wy);',
+      '  float dWx = cos(cuv.y * 9.0 + t) * 9.0 * wAmp;',
+      '  float dWy = cos(cuv.x * 7.0 - t*0.8) * 7.0 * wAmp;',
+      '  vec3 normal = normalize(vec3(-dWy, -dWx, 1.0));',
+      '  vec3 texColor = mix(vec3(0.08,0.08,0.09), texture2D(tex, wuv).rgb, texLoaded);',
+      '  vec3 lightDir = normalize(vec3(0.4, 0.55, 0.7));',
+      '  vec3 viewDir = vec3(0.0, 0.0, 1.0);',
+      '  vec3 halfDir = normalize(lightDir + viewDir);',
+      '  float spec = pow(max(dot(normal, halfDir), 0.0), 40.0);',
+      '  float fres = pow(1.0 - max(dot(normal, viewDir), 0.0), 3.0);',
+      '  vec3 goldSpec = vec3(1.0, 0.85, 0.55) * spec * 1.1;',
+      '  vec3 platFres = vec3(0.75, 0.78, 0.82) * fres * 0.22;',
+      '  vec3 color = texColor * (0.78 + 0.4*normal.z) + goldSpec + platFres;',
+      '  vec2 ruv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);',
+      '  float rt = time * 0.05;',
+      '  vec3 radial = vec3(0.0);',
+      '  for(int j = 0; j < 3; j++){',
+      '    for(int i = 0; i < 5; i++){',
+      '      float fi = float(i); float fj = float(j);',
+      '      radial[j] += 0.0016*fi*fi / (abs(fract(rt - 0.01*fj + fi*0.01)*5.0 - length(ruv) + mod(ruv.x+ruv.y, 0.2)) + 0.05);',
+      '    }',
+      '  }',
+      '  radial = min(radial, vec3(1.4));',
+      '  vec3 radialGold = vec3(radial.r*1.1, radial.g*0.85, radial.b*0.35);',
+      '  color = color * 0.4 + radialGold * 0.05;', // darker, subtler sitewide ambient vs. the hero-focused preview
+      '  gl_FragColor = vec4(color, 1.0);',
+      '}'
+    ].join('\n');
+
+    const camera = new THREE.Camera();
+    camera.position.z = 1;
+    const scene = new THREE.Scene();
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const uniforms = {
+      time: { type: 'f', value: 1.0 },
+      resolution: { type: 'v2', value: new THREE.Vector2() },
+      tex: { type: 't', value: null },
+      texAspect: { type: 'v2', value: new THREE.Vector2(1, 1) },
+      texLoaded: { type: 'f', value: 0.0 },
+    };
+    new THREE.TextureLoader().load('assets/wave-texture.jpg', (t) => {
+      t.wrapS = THREE.MirroredRepeatWrapping;
+      t.wrapT = THREE.MirroredRepeatWrapping;
+      t.minFilter = THREE.LinearFilter;
+      const tmin = Math.min(t.image.width, t.image.height);
+      uniforms.texAspect.value.set(t.image.width / tmin, t.image.height / tmin);
+      uniforms.tex.value = t;
+      uniforms.texLoaded.value = 1.0;
+    });
+    const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
+    scene.add(new THREE.Mesh(geometry, material));
+
+    let renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false }); }
+    catch (e) { return; }
+    if (!renderer.getContext()) return;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+    function resize() {
+      const w = canvas.offsetWidth, h = canvas.offsetHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      uniforms.resolution.value.x = renderer.domElement.width;
+      uniforms.resolution.value.y = renderer.domElement.height;
+    }
+    function safeStart() {
+      if (canvas.offsetWidth === 0 || canvas.offsetHeight === 0) {
+        requestAnimationFrame(safeStart);
+        return;
+      }
+      resize();
+      animate();
+    }
+    let raf;
+    function animate() {
+      raf = requestAnimationFrame(animate);
+      uniforms.time.value += 0.05;
+      renderer.render(scene, camera);
+    }
+    safeStart();
+    let rt;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = setTimeout(resize, 200);
+    });
+  }
+
   if (!reduceMotion) {
     const bgCanvas = document.getElementById('bg-canvas');
-    if (bgCanvas) startParticles(bgCanvas, isMobile ? 40 : 340);
+    if (bgCanvas) startWaveBackground(bgCanvas);
     const heroCanvas = document.getElementById('hero-canvas');
     if (heroCanvas) startParticles(heroCanvas, isMobile ? 80 : 420);
   }
