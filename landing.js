@@ -248,7 +248,7 @@
     const bgCanvas = document.getElementById('bg-canvas');
     if (bgCanvas) startWaveBackground(bgCanvas);
     const heroCanvas = document.getElementById('hero-canvas');
-    if (heroCanvas) startParticles(heroCanvas, isMobile ? 80 : 420);
+    if (heroCanvas) startWaveBackground(heroCanvas);
   }
 
   /* ---------- COUNTDOWN to next Master Class (Tue & Fri, 2PM CST) ---------- */
