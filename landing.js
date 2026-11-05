@@ -165,11 +165,15 @@
       '  vec3 lightDir = normalize(vec3(0.4, 0.55, 0.7));',
       '  vec3 viewDir = vec3(0.0, 0.0, 1.0);',
       '  vec3 halfDir = normalize(lightDir + viewDir);',
-      '  float spec = pow(max(dot(normal, halfDir), 0.0), 40.0);',
+      // Specular "goldSpec" term removed: on desktop GPUs its narrow highlight
+      // (pow 40) resolved as small bright traveling spots that read as
+      // floating/jumping bubbles drifting behind the hero title — not visible
+      // on most mobile GPUs' lower-precision shading, which is why it only
+      // showed up on desktop. The broad fresnel sheen stays for the metallic
+      // look without the discrete orb artifacts.
       '  float fres = pow(1.0 - max(dot(normal, viewDir), 0.0), 3.0);',
-      '  vec3 goldSpec = vec3(1.0, 0.85, 0.55) * spec * 1.1;',
       '  vec3 platFres = vec3(0.75, 0.78, 0.82) * fres * 0.22;',
-      '  vec3 color = texColor * (0.78 + 0.4*normal.z) + goldSpec + platFres;',
+      '  vec3 color = texColor * (0.78 + 0.4*normal.z) + platFres;',
       // Note: an earlier version added a second overlay pattern here, built on
       // mod(ruv.x+ruv.y, 0.2). mod() on a value that scales with screen
       // resolution produces a hard, resolution-dependent seam wherever the
@@ -252,7 +256,13 @@
 
   /* ---------- COUNTDOWN to next Master Class (Tue & Fri, 2PM CST) ---------- */
   // CST = UTC-6 -> 2PM CST = 20:00 UTC. Tuesday = day 2, Friday = day 5.
+  // One-off override: the next Master Class is Nov 9, 2026 at 3PM CST
+  // (21:00 UTC), which falls on a Monday outside the normal Tue/Fri pattern.
+  // Once that date passes, the countdown falls back to the regular
+  // recurring Tue/Fri 2PM CST schedule below.
+  const NEXT_CLASS_OVERRIDE = new Date(Date.UTC(2026, 10, 9, 21, 0, 0));
   function nextClassDate() {
+    if (NEXT_CLASS_OVERRIDE.getTime() > Date.now()) return NEXT_CLASS_OVERRIDE;
     const now = new Date();
     const out = [];
     for (let i = 0; i < 14; i++) {
