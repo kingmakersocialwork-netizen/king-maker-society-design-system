@@ -64,11 +64,15 @@
 .tier-arrow { color:var(--gold); font-size:1.1rem; flex-shrink:0; }
 .classes-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
 .classes-grid-2.single { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+.classes-grid-2.triple { grid-template-columns: 1fr 1fr 1fr; }
 .reel-card .media-thumb { position:relative; }
 .reel-card .media-play { width:64px; height:64px; }
 .reel-card .media-play::before { border-left-width: 20px; border-top-width: 12px; border-bottom-width: 12px; margin-left: 4px; }
+@media (max-width: 900px) {
+  .classes-grid-2.triple { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 640px) {
-  .classes-grid-2 { grid-template-columns: 1fr; }
+  .classes-grid-2, .classes-grid-2.triple { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -269,31 +273,6 @@
   </div>
 </section>
 
-<!-- ============ MARKETING VIDEO ============ -->
-<section class="section" data-screen-label="See The Brotherhood">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow center">King Maker Society</span>
-      <h2 class="headline" style="text-align:center;">
-        <img src="assets/see-the-community-headline.png?v=4" alt="See The Community" class="section-headline-img">
-      </h2>
-      <p class="lead">This is what happens when martial artists stop drifting and start showing up.</p>
-    </div>
-    <div class="reveal" style="max-width: 480px; margin: 0 auto;">
-      <a href="https://www.instagram.com/p/DYusbQcRsAI/" target="_blank" rel="noopener" class="media-card">
-        <div class="media-thumb" style="position: relative; aspect-ratio: 3/4; max-height: 560px; overflow: hidden; background: #0b0907;">
-          <img src="assets/instagram-promo-thumb.jpg" alt="King Maker Society" loading="lazy" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
-          <span class="media-play" aria-hidden="true" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);"></span>
-          <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
-            <span style="font-family: var(--font-label); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);">@kingmakermma</span>
-            <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--off-white); margin-top: 0.4rem; line-height: 1.5;">Watch on Instagram &rarr;</p>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- ============ COMMUNITY GALLERY ============ -->
 <section class="section" id="culture" data-screen-label="Community">
   <div class="container">
@@ -346,7 +325,7 @@
       </h2>
       <p class="lead">One live call every week, every Tuesday at 3PM CST.</p>
     </div>
-    <div class="classes-grid-2">
+    <div class="classes-grid-2 triple">
       <article class="card class-card reveal" style="padding:1.75rem; display:block;">
         <span class="badge badge-gold" style="margin-bottom:1rem; display:inline-block;">Tuesdays &middot; 3PM CST</span>
         <h3 class="class-title" style="font-size:1.3rem; margin-bottom:0.5rem;">Content Creation Team Call</h3>
@@ -361,6 +340,18 @@
         <div style="padding:1.25rem 1.5rem;">
           <span class="badge badge-gold" style="margin-bottom:0.75rem; display:inline-block;">Watch The Replay</span>
           <h3 class="class-title" style="font-size:1.1rem; margin-bottom:0.35rem;">Community Call: How To Go Viral As A Fighter</h3>
+          <p class="class-desc">Watch a past Live Master Class on Instagram &mdash; real talk on growing your fight brand as a fighter.</p>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/reel/DaivrsuRCt0/?dlrf=aDd1MTBueGd4NWU=" target="_blank" rel="noopener" class="card class-card reel-card reveal" style="padding:0; display:block; text-decoration:none; overflow:hidden;">
+        <div class="media-thumb" style="aspect-ratio: 4/5;">
+          <img src="assets/reel-kingmaker-crown-thumb.jpg?v=1" alt="King Maker Society" loading="lazy" onerror="this.style.display='none'">
+          <span class="media-play" aria-hidden="true"></span>
+        </div>
+        <div style="padding:1.25rem 1.5rem;">
+          <span class="badge badge-gold" style="margin-bottom:0.75rem; display:inline-block;">Watch The Replay</span>
+          <h3 class="class-title" style="font-size:1.1rem; margin-bottom:0.35rem;">King Maker Society</h3>
           <p class="class-desc">Watch a past Live Master Class on Instagram &mdash; real talk on growing your fight brand as a fighter.</p>
         </div>
       </a>
@@ -480,6 +471,30 @@
 </section>
 
 
+<!-- ============ MARKETING VIDEO ============ -->
+<section class="section" data-screen-label="See The Brotherhood">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow center">King Maker Society</span>
+      <h2 class="headline" style="text-align:center;">
+        <img src="assets/see-the-community-headline.png?v=4" alt="See The Community" class="section-headline-img">
+      </h2>
+      <p class="lead">This is what happens when martial artists stop drifting and start showing up.</p>
+    </div>
+    <div class="reveal" style="max-width: 480px; margin: 0 auto;">
+      <a href="https://www.instagram.com/p/DYusbQcRsAI/" target="_blank" rel="noopener" class="media-card">
+        <div class="media-thumb" style="position: relative; aspect-ratio: 3/4; max-height: 560px; overflow: hidden; background: #0b0907;">
+          <img src="assets/instagram-promo-thumb.jpg" alt="King Maker Society" loading="lazy" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
+          <span class="media-play" aria-hidden="true" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);"></span>
+          <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+            <span style="font-family: var(--font-label); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);">@kingmakermma</span>
+            <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--off-white); margin-top: 0.4rem; line-height: 1.5;">Watch on Instagram &rarr;</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- ============ FREE TRIAL ============ -->
 
