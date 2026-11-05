@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css?v=183">
-<link rel="stylesheet" href="landing.css?v=189">
+<link rel="stylesheet" href="landing.css?v=190">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 /* ---- Crown hero: real-time 3D metallic crown behind the headline ----
@@ -78,6 +78,30 @@
 </style>
 </head>
 <body>
+<!-- Liquid-chrome specular filter: generates real glossy highlights (two light
+     sources) on the bump map of whatever glyphs/shapes it's applied to, then
+     drops a soft shadow underneath. Used by .chrome-liquid (hero headline). -->
+<svg width="0" height="0" style="position:absolute; overflow:hidden;" aria-hidden="true">
+  <defs>
+    <filter id="liquid-chrome" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="bump"/>
+      <feSpecularLighting in="bump" surfaceScale="6.5" specularConstant="1.15" specularExponent="24" lighting-color="#ffffff" result="spec1">
+        <fePointLight x="-6000" y="-9000" z="11000"/>
+      </feSpecularLighting>
+      <feComposite in="spec1" in2="SourceAlpha" operator="in" result="spec1c"/>
+      <feSpecularLighting in="bump" surfaceScale="6.5" specularConstant="0.55" specularExponent="14" lighting-color="#cfe0ff" result="spec2">
+        <fePointLight x="8000" y="10000" z="9000"/>
+      </feSpecularLighting>
+      <feComposite in="spec2" in2="SourceAlpha" operator="in" result="spec2c"/>
+      <feMerge result="specAll">
+        <feMergeNode in="spec1c"/>
+        <feMergeNode in="spec2c"/>
+      </feMerge>
+      <feDropShadow in="SourceGraphic" dx="0" dy="10" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" result="shadowed"/>
+      <feComposite in="specAll" in2="shadowed" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+    </filter>
+  </defs>
+</svg>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <!-- ============ MOBILE NAV DRAWER ============ -->
@@ -138,7 +162,7 @@
   <div class="hero-inner">
     <img src="assets/logo-hero.png?v=2" alt="King Maker Society" style="width:220px; height:auto; margin:0 auto 1.5rem; display:block;">
     <div class="hero-eyebrow eyebrow center">King Maker Society · 300+ Fighters Strong</div>
-    <h1 style="text-align:center;">First and Best Content Creation Team for <span class="gold">Fighters</span></h1>
+    <h1 class="chrome-liquid" style="text-align:center;">First and Best Content Creation Team for <span class="gold">Fighters</span></h1>
     <p class="hero-sub-copy hero-sub" style="color:var(--off-white); font-weight:700;">Creating Kings, Winners, &amp; Leaders</p>
     <div class="hero-cta">
       <a class="btn btn-chrome btn-lg btn-shine" href="#" data-modal="referral-modal">Join The Brotherhood</a>

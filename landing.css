@@ -71,6 +71,42 @@ img { display: block; max-width: 100%; }
     0 10px 12px rgba(0,0,0,0.65), 0 18px 30px rgba(0,0,0,0.6),
     0 0 5px rgba(0,0,0,0.9), 0 0 16px rgba(0,0,0,0.75);
 }
+/* ---- Liquid-chrome hero headline (Pinterest "inflated chrome" reference) ----
+   Real glyphs, real responsive wrapping — the 3D glossy-balloon look comes
+   from layering bright "blob" radial-gradients over the metal linear
+   gradient, then running the whole thing through the #liquid-chrome SVG
+   filter (defined once in index.html's <body>) for true specular highlights
+   + drop shadow, on top of the dark stroke that keeps it legible. Hero only,
+   for now — .headline / other titles keep their existing treatment. */
+.chrome-liquid {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0) 16%),
+    radial-gradient(circle at 46% 38%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 14%),
+    radial-gradient(circle at 76% 18%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 13%),
+    radial-gradient(circle at 30% 78%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 15%),
+    radial-gradient(circle at 85% 72%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 14%),
+    linear-gradient(180deg, #ffffff 0%, #d6d6d6 10%, #8a8a8a 24%, #f0f0f0 38%, #5e5e5e 52%, #cfcfcf 66%, #797979 80%, #e8e8e8 92%, #aaaaaa 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  -webkit-text-stroke: 2.5px rgba(5,5,5,0.75);
+  text-shadow: none;
+  filter: url(#liquid-chrome);
+}
+.chrome-liquid .gold {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,250,230,0.98) 0%, rgba(255,250,230,0) 16%),
+    radial-gradient(circle at 70% 70%, rgba(255,250,230,0.8) 0%, rgba(255,250,230,0) 15%),
+    radial-gradient(circle at 85% 20%, rgba(255,250,230,0.65) 0%, rgba(255,250,230,0) 13%),
+    linear-gradient(180deg, #fffaf0 0%, #f6dd94 10%, #a9771f 26%, #fdf0c8 40%, #7a540f 54%, #e8c05f 68%, #96681c 82%, #f6dd94 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  -webkit-text-stroke: 2.5px rgba(36,20,2,0.8);
+}
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .chrome-liquid { color: var(--off-white); background: none; filter: none; -webkit-text-stroke: 0; }
+  .chrome-liquid .gold { color: var(--gold); background: none; -webkit-text-stroke: 0; }
+}
+
 /* Smaller-scale version for stat/countdown numbers — same look, lighter stroke */
 .stat-num, .cd-val, .cd-sep {
   background: linear-gradient(180deg, #fffaf0 0%, #fdf0c8 8%, #e8c05f 22%, #9c6e1c 36%, #f6dd94 46%, #fffaf0 54%, #c99a3b 66%, #f2dd9c 80%, #a67a26 92%, #f8e7b0 100%);
