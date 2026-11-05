@@ -355,8 +355,8 @@
 
   /* ---------- WAITLIST POPUP (auto-opens once per visitor, 10s delay) ---------- */
   (function () {
-    // TODO: replace with your real Formspree endpoint, e.g. https://formspree.io/f/abcdwxyz
-    const WAITLIST_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+    // Google Sheets via Apps Script web app (appends each signup as a row)
+    const WAITLIST_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwJlwFF67iO4brMJpV5k-6ZxHiB-zJa9IpD_frYnhLp9N1PaNlRAf4PuOqfRiNZjAcrtw/exec';
     const STORAGE_KEY = 'kms_waitlist_seen';
     const waitlistModal = document.getElementById('waitlist-modal');
     if (!waitlistModal) return;
@@ -400,11 +400,17 @@
         if (submitLabel) submitLabel.textContent = 'Joining…';
         fetch(WAITLIST_ENDPOINT, {
           method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          // text/plain avoids a CORS preflight (Apps Script web apps don't handle OPTIONS);
+          // the Apps Script side still reads the raw body as JSON regardless of this header.
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ email: emailInput ? emailInput.value : '', source: 'site-waitlist-popup' }),
         })
           .then((res) => {
             if (!res.ok) throw new Error('Request failed');
+            return res.json();
+          })
+          .then((data) => {
+            if (!data || data.ok !== true) throw new Error('Request failed');
             if (formState) formState.style.display = 'none';
             if (thanksState) thanksState.style.display = 'block';
             fireConfetti();
