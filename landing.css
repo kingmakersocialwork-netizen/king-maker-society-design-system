@@ -504,6 +504,15 @@ img { display: block; max-width: 100%; }
 .modal-close:hover { color: var(--gold); }
 .modal-body { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.8; color: var(--muted); }
 .modal-body h3 { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; line-height: 1; }
+
+/* ---------- WAITLIST MODAL FORM ---------- */
+.waitlist-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+.waitlist-input { width: 100%; padding: 15px 18px; border-radius: var(--radius-md); border: 1px solid var(--border-strong); background: rgba(255,255,255,0.03); color: var(--off-white); font-family: var(--font-body); font-size: 0.95rem; transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+.waitlist-input::placeholder { color: var(--muted); }
+.waitlist-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(242,200,75,0.15); }
+.waitlist-submit { width: 100%; }
+.waitlist-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.waitlist-error { font-family: var(--font-body); font-weight: 300; font-size: 0.82rem; color: var(--red-light); text-align: center; margin-top: -0.3rem; }
 .legal { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 0.4rem; }
 .legal-updated { font-family: var(--font-label); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); margin-top: -0.5rem; }
 .legal-item h4 { font-family: var(--font-label); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
@@ -782,14 +791,13 @@ img { display: block; max-width: 100%; }
   margin: 0 auto;
   filter: drop-shadow(0 12px 20px rgba(0,0,0,0.55)) drop-shadow(0 3px 8px rgba(0,0,0,0.5));
 }
-/* "First and Best Content Creation Team For Fighters" is a flattened chrome
-   graphic with its 4 lines stacked tight against each other — there's no
-   live text/kerning to add letter- or line-spacing to. Sized up with more
-   room around it so it doesn't read as cramped against the page. If a
-   respaced version of the artwork is ever supplied, swap the asset in. */
+/* "First and Best Content Creation Team For Fighters" — respaced 2-line
+   horizontal version of the chrome graphic (replaces the earlier cramped
+   4-line artwork). Wider aspect ratio, so it gets more width and less
+   vertical margin than the default section-headline-img sizing. */
 .headline-content-img {
-  width: min(660px, 92vw);
-  margin: 0.75rem auto 1.5rem;
+  width: min(820px, 94vw);
+  margin: 0.5rem auto 1.5rem;
 }
 @media (max-width: 640px) {
   .hero-crest-img { width: 110px; }

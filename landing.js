@@ -353,6 +353,72 @@
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModals(); closeMobileNav(); } });
 
+  /* ---------- WAITLIST POPUP (auto-opens once per visitor, 10s delay) ---------- */
+  (function () {
+    // TODO: replace with your real Formspree endpoint, e.g. https://formspree.io/f/abcdwxyz
+    const WAITLIST_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+    const STORAGE_KEY = 'kms_waitlist_seen';
+    const waitlistModal = document.getElementById('waitlist-modal');
+    if (!waitlistModal) return;
+
+    const form = document.getElementById('waitlist-form');
+    const formState = document.getElementById('waitlist-form-state');
+    const thanksState = document.getElementById('waitlist-thanks-state');
+    const errorEl = document.getElementById('waitlist-error');
+    const emailInput = document.getElementById('waitlist-email');
+    const submitBtn = form ? form.querySelector('.waitlist-submit') : null;
+    const submitLabel = form ? form.querySelector('.waitlist-submit-label') : null;
+
+    function markSeen() { try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {} }
+    function alreadySeen() { try { return localStorage.getItem(STORAGE_KEY) === '1'; } catch (e) { return false; } }
+
+    if (!alreadySeen() && !reduceMotion) {
+      setTimeout(() => {
+        if (alreadySeen()) return;
+        if (document.querySelector('.modal-overlay.open')) return; // don't interrupt another modal
+        openModal(waitlistModal);
+        markSeen();
+      }, 10000);
+    }
+
+    // Any way the visitor dismisses it counts as "seen" — never nag again
+    waitlistModal.addEventListener('click', (e) => { if (e.target === waitlistModal) markSeen(); });
+    const waitlistCloseBtn = waitlistModal.querySelector('.modal-close');
+    if (waitlistCloseBtn) waitlistCloseBtn.addEventListener('click', markSeen);
+
+    function fireConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (errorEl) errorEl.style.display = 'none';
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitLabel) submitLabel.textContent = 'Joining…';
+        fetch(WAITLIST_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailInput ? emailInput.value : '', source: 'site-waitlist-popup' }),
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error('Request failed');
+            if (formState) formState.style.display = 'none';
+            if (thanksState) thanksState.style.display = 'block';
+            fireConfetti();
+            markSeen();
+          })
+          .catch(() => { if (errorEl) errorEl.style.display = 'block'; })
+          .finally(() => {
+            if (submitBtn) submitBtn.disabled = false;
+            if (submitLabel) submitLabel.textContent = 'Join The Waitlist';
+          });
+      });
+    }
+  })();
+
   /* ---------- Smooth scroll for in-page anchors ---------- */
   document.querySelectorAll('a[data-scroll]').forEach((a) => {
     a.addEventListener('click', (e) => {

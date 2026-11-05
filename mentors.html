@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css?v=183">
-<link rel="stylesheet" href="landing.css?v=197">
+<link rel="stylesheet" href="landing.css?v=199">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 /* ── REFLECTIVE SHIMMER BUTTON ──────────────────────────── */
@@ -660,7 +660,33 @@
   </div>
 </div>
 
-<script src="landing.js?v=189" defer></script>
+<!-- ============ WAITLIST MODAL ============ -->
+<div class="modal-overlay" id="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="waitlist-title">
+  <div class="modal modal-narrow">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div id="waitlist-form-state">
+      <div class="modal-head">
+        <span class="eyebrow center" style="justify-content:center;">Coming Soon</span>
+        <h3 id="waitlist-title" style="margin-top:0.75rem;">Join The Waitlist</h3>
+        <p>Be first in line when new community group calls open up and when sponsorship opportunities drop. Early waitlist members get first access.</p>
+      </div>
+      <form id="waitlist-form" class="waitlist-form">
+        <input type="email" name="email" id="waitlist-email" class="waitlist-input" placeholder="name@example.com" required>
+        <button type="submit" class="btn btn-gold btn-block btn-shine waitlist-submit"><span class="waitlist-submit-label">Join The Waitlist</span></button>
+        <p class="waitlist-error" id="waitlist-error" style="display:none;">Something went wrong &mdash; please try again.</p>
+      </form>
+    </div>
+    <div id="waitlist-thanks-state" style="display:none;">
+      <div class="modal-head">
+        <h3>You're On The List</h3>
+        <p>We'll notify you the moment group calls and sponsorships open up. Keep an eye on your inbox.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+<script src="landing.js?v=190" defer></script>
 <script>
 /* REFERRAL MODAL: 2-STEP FLOW */
 const STRIPE_LINKS = {
