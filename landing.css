@@ -714,3 +714,24 @@ img { display: block; max-width: 100%; }
   .hero-title-img { width: min(560px, 94vw); }
   .hero-subtitle-img { width: min(360px, 78vw); }
 }
+
+/* ===== Hero crest (crown icon) + Navigate section headline image ===== */
+.hero-crest-img {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 0 auto 1.25rem;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.65)) drop-shadow(0 0 18px rgba(0,0,0,0.5));
+}
+.section-headline-img {
+  display: block;
+  width: min(560px, 90vw);
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.55)) drop-shadow(0 3px 8px rgba(0,0,0,0.5));
+}
+@media (max-width: 640px) {
+  .hero-crest-img { width: 110px; }
+  .section-headline-img { width: min(420px, 92vw); }
+}
