@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css?v=183">
-<link rel="stylesheet" href="landing.css?v=196">
+<link rel="stylesheet" href="landing.css?v=197">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 .hero-sub h1{
@@ -63,6 +63,7 @@
 .tier-badge-pop { position:absolute; top:0.5rem; right:0.75rem; font-family:var(--font-label); font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:var(--gold); color:#0a0a08; border-radius:4px; padding:0.15rem 0.45rem; }
 .tier-arrow { color:var(--gold); font-size:1.1rem; flex-shrink:0; }
 .classes-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.classes-grid-2.single { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
 @media (max-width: 640px) {
   .classes-grid-2 { grid-template-columns: 1fr; }
 }
@@ -231,7 +232,7 @@
 <!-- ============ TEAM ============ -->
 <section class="section" id="team" data-screen-label="The Team">
   <div class="container">
-    <div class="section-head center reveal">
+    <div class="section-head center reveal team-header-band">
       <h2 class="headline" style="text-align:center;">
         <img src="assets/fighters-leading-headline.png?v=1" alt="The Fighters Leading This" class="section-headline-img">
       </h2>
@@ -269,7 +270,9 @@
   <div class="container">
     <div class="section-head center reveal">
       <span class="eyebrow center">King Maker Society</span>
-      <h2 class="headline">See The <span class="gold">Brotherhood</span></h2>
+      <h2 class="headline" style="text-align:center;">
+        <img src="assets/see-the-community-headline.png?v=1" alt="See The Community" class="section-headline-img">
+      </h2>
       <p class="lead">This is what happens when martial artists stop drifting and start showing up.</p>
     </div>
     <div class="reveal" style="max-width: 480px; margin: 0 auto;">
@@ -333,21 +336,16 @@
     <div class="section-head reveal">
       <span class="eyebrow">Live Master Classes</span>
       <h2 class="headline">Upcoming <span class="gold">Sessions</span></h2>
-      <p class="lead">Two live calls every week, every Tuesday and Saturday at 3PM CST.</p>
+      <p class="lead">One live call every week, every Tuesday at 3PM CST.</p>
     </div>
-    <div class="classes-grid-2">
+    <div class="classes-grid-2 single">
       <article class="card class-card reveal" style="padding:1.75rem; display:block;">
         <span class="badge badge-gold" style="margin-bottom:1rem; display:inline-block;">Tuesdays &middot; 3PM CST</span>
-        <h3 class="class-title" style="font-size:1.3rem; margin-bottom:0.5rem;">King Maker Society</h3>
-        <p class="class-desc">Brotherhood, accountability, discipline, and goal-setting sessions built for martial artists growing outside the gym.</p>
-      </article>
-      <article class="card class-card reveal" style="padding:1.75rem; display:block;">
-        <span class="badge badge-outline" style="margin-bottom:1rem; display:inline-block;">Saturdays &middot; 3PM CST</span>
-        <h3 class="class-title" style="font-size:1.3rem; margin-bottom:0.5rem;">King's Media</h3>
-        <p class="class-desc">Growth strategy, going viral, team projects, and page audits for martial artists building their content and personal brand.</p>
+        <h3 class="class-title" style="font-size:1.3rem; margin-bottom:0.5rem;">Content Creation Team Call</h3>
+        <p class="class-desc">Live group discussion on Zoom with elite fighters who make social media content, all exchanging knowledge and value on how to get closer to our goals of building a personal fight brand.</p>
       </article>
     </div>
-    <p class="class-note reveal">All calls included with every membership. <a data-modal="referral-modal">Join now to get access &rarr;</a></p>
+    <p class="class-note reveal">This call is included with every membership. <a data-modal="referral-modal">Join now to get access &rarr;</a></p>
   </div>
 </section>
 
@@ -357,7 +355,9 @@
   <div class="container">
     <div class="section-head center reveal">
       <span class="eyebrow center">Membership</span>
-      <h2 class="headline">Choose Your <span class="gold">Level</span></h2>
+      <h2 class="headline" style="text-align:center;">
+        <img src="assets/choose-your-level-headline.png?v=1" alt="Choose Your Level" class="section-headline-img">
+      </h2>
       <p class="lead">Three tiers. One brotherhood. Pick the level that matches your commitment and step in.</p>
     </div>
     <div class="pricing-grid-3">
@@ -424,7 +424,9 @@
   <div class="container">
     <div class="section-head center reveal">
       <span class="eyebrow center">Hall Of Fame</span>
-      <h2 class="headline">The <span class="gold">Leaderboard</span></h2>
+      <h2 class="headline" style="text-align:center;">
+        <img src="assets/sponsor-campaigns-headline.png?v=1" alt="Sponsor Campaigns" class="section-headline-img">
+      </h2>
       <p class="lead">Points earned for check-ins, Master Classes attended, challenges completed, and wins logged. Show up consistently. Earn your place. The brotherhood is watching.</p>
       <a class="btn btn-gold btn-sm reveal" href="scoreboard.html" target="_blank" rel="noopener" style="margin-top:1rem;display:inline-block;">&#127942; View Full Scoreboard &amp; Daily Challenges</a>
     </div>
@@ -470,21 +472,23 @@
   </div>
 </section>
 
-<!-- ============ NEWSLETTER ============ -->
-<section class="section trial" id="newsletter">
-  <div class="trial-watermark" aria-hidden="true">Newsletter</div>
+<!-- ============ ONE-ON-ONE MENTORSHIP ============ -->
+<section class="section trial" id="mentorship">
+  <div class="trial-watermark" aria-hidden="true">Mentorship</div>
   <div class="container trial-inner reveal">
-    <span class="eyebrow center">Stay Connected</span>
-    <h2>Join The <span class="gold">Newsletter</span></h2>
-    <p class="lead" style="text-align:center;">The newsletter for fighters building their content and their brand. Member wins, master class announcements, content tips, and brotherhood updates straight to your inbox. Free. No spam.</p>
+    <span class="eyebrow center">Direct Access</span>
+    <h2 style="text-align:center;">
+      <img src="assets/one-on-one-mentorship-headline.png?v=1" alt="1-1 Mentorship" class="section-headline-img">
+    </h2>
+    <p class="lead" style="text-align:center;">Direct access to a mentor who's been where you're trying to go. Personalized guidance on your fight career, your content, and your growth outside the gym — built around your specific goals.</p>
     <ul class="trial-bullets">
-      <li>Master class announcements and recaps</li>
-      <li>Member spotlights and community wins</li>
-      <li>Content strategy built for fighters</li>
-      <li>First access to new opportunities and events</li>
+      <li>One-on-one calls with a dedicated mentor</li>
+      <li>Personalized game plan built around your goals</li>
+      <li>Direct feedback on your content and fight career</li>
+      <li>Priority access inside the brotherhood</li>
     </ul>
-    <a class="btn btn-gold btn-lg" href="https://kingmakersocialwork-netizen.github.io/KingMakerSociety/" target="_blank" rel="noopener">Subscribe To The Newsletter</a>
-    <span class="trial-fine">Free. Unsubscribe anytime.</span>
+    <a class="btn btn-gold btn-lg" href="#" data-modal="referral-modal">Book Your Mentorship Call</a>
+    <span class="trial-fine">Spots limited. Reserved for active members.</span>
   </div>
 </section>
 
