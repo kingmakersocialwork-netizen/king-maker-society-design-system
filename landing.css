@@ -689,3 +689,28 @@ img { display: block; max-width: 100%; }
   color: var(--off-white) !important;
   font-weight: 600 !important;
 }
+
+/* ===== Hero title/subtitle as rendered chrome images (replaces text treatment) ===== */
+.hero-title-img {
+  display: block;
+  width: min(780px, 92vw);
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,0.55)) drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+.hero-subtitle-img-wrap {
+  display: block;
+}
+.hero-subtitle-img {
+  display: block;
+  width: min(480px, 70vw);
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.5)) drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+}
+@media (max-width: 640px) {
+  .hero-title-img { width: min(560px, 94vw); }
+  .hero-subtitle-img { width: min(360px, 78vw); }
+}

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css?v=183">
-<link rel="stylesheet" href="landing.css?v=190">
+<link rel="stylesheet" href="landing.css?v=191">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 /* ---- Crown hero: real-time 3D metallic crown behind the headline ----
@@ -85,11 +85,11 @@
   <defs>
     <filter id="liquid-chrome" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="bump"/>
-      <feSpecularLighting in="bump" surfaceScale="6.5" specularConstant="1.15" specularExponent="24" lighting-color="#ffffff" result="spec1">
+      <feSpecularLighting in="bump" surfaceScale="5" specularConstant="0.55" specularExponent="30" lighting-color="#ffffff" result="spec1">
         <fePointLight x="-6000" y="-9000" z="11000"/>
       </feSpecularLighting>
       <feComposite in="spec1" in2="SourceAlpha" operator="in" result="spec1c"/>
-      <feSpecularLighting in="bump" surfaceScale="6.5" specularConstant="0.55" specularExponent="14" lighting-color="#cfe0ff" result="spec2">
+      <feSpecularLighting in="bump" surfaceScale="5" specularConstant="0.28" specularExponent="20" lighting-color="#cfe0ff" result="spec2">
         <fePointLight x="8000" y="10000" z="9000"/>
       </feSpecularLighting>
       <feComposite in="spec2" in2="SourceAlpha" operator="in" result="spec2c"/>
@@ -98,7 +98,7 @@
         <feMergeNode in="spec2c"/>
       </feMerge>
       <feDropShadow in="SourceGraphic" dx="0" dy="10" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" result="shadowed"/>
-      <feComposite in="specAll" in2="shadowed" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+      <feBlend in="specAll" in2="shadowed" mode="screen"/>
     </filter>
   </defs>
 </svg>
@@ -160,9 +160,14 @@
   <div class="hero-vignette"></div>
 
   <div class="hero-inner">
-    <img src="assets/logo-hero.png?v=2" alt="King Maker Society" style="width:220px; height:auto; margin:0 auto 1.5rem; display:block;">
-    <div class="hero-eyebrow eyebrow center">King Maker Society · 300+ Fighters Strong</div>
-    <h1 class="chrome-liquid" style="text-align:center;">First and Best Content Creation Team for <span class="gold">Fighters</span></h1>
+    <img src="assets/logo.png?v=2" alt="King Maker Society crest" style="width:84px; height:auto; margin:0 auto 1.25rem; display:block;">
+    <div class="hero-eyebrow eyebrow center">300+ Fighters Strong</div>
+    <h1 style="text-align:center; margin:0;">
+      <img src="assets/hero-title-kms.png?v=1" alt="King Maker Society" class="hero-title-img">
+    </h1>
+    <p class="hero-subtitle-img-wrap" style="text-align:center; margin:0.75rem 0 0;">
+      <img src="assets/hero-subtitle-content.png?v=1" alt="First and Best Content Creation Team For Fighters" class="hero-subtitle-img">
+    </p>
     <p class="hero-sub-copy hero-sub" style="color:var(--off-white); font-weight:700;">Creating Kings, Winners, &amp; Leaders</p>
     <div class="hero-cta">
       <a class="btn btn-chrome btn-lg btn-shine" href="#" data-modal="referral-modal">Join The Brotherhood</a>
