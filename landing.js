@@ -192,7 +192,8 @@
       texAspect: { type: 'v2', value: new THREE.Vector2(1, 1) },
       texLoaded: { type: 'f', value: 0.0 },
     };
-    new THREE.TextureLoader().load('assets/wave-texture.jpg', (t) => {
+    const texPath = canvas.getAttribute('data-bg-texture') || 'assets/wave-texture.jpg';
+    new THREE.TextureLoader().load(texPath, (t) => {
       t.wrapS = THREE.MirroredRepeatWrapping;
       t.wrapT = THREE.MirroredRepeatWrapping;
       t.minFilter = THREE.LinearFilter;
