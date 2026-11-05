@@ -686,8 +686,17 @@ img { display: block; max-width: 100%; }
 .legal-item p,
 .story-disc,
 .story-quote {
-  color: var(--off-white) !important;
+  color: #ffffff !important;
   font-weight: 600 !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9);
+}
+
+/* Stat/countdown captions ("Active Members", "Master Classes / Week", etc.)
+   were using --muted (a dim brownish grey) and disappeared against the
+   brushed-metal background. Pure white + a tight dark shadow instead. */
+.stat-label {
+  color: #ffffff !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9);
 }
 
 /* ===== Hero title/subtitle as rendered chrome images (replaces text treatment) ===== */
