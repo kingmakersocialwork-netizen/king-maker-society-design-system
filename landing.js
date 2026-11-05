@@ -170,18 +170,13 @@
       '  vec3 goldSpec = vec3(1.0, 0.85, 0.55) * spec * 1.1;',
       '  vec3 platFres = vec3(0.75, 0.78, 0.82) * fres * 0.22;',
       '  vec3 color = texColor * (0.78 + 0.4*normal.z) + goldSpec + platFres;',
-      '  vec2 ruv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);',
-      '  float rt = time * 0.05;',
-      '  vec3 radial = vec3(0.0);',
-      '  for(int j = 0; j < 3; j++){',
-      '    for(int i = 0; i < 5; i++){',
-      '      float fi = float(i); float fj = float(j);',
-      '      radial[j] += 0.0016*fi*fi / (abs(fract(rt - 0.01*fj + fi*0.01)*5.0 - length(ruv) + mod(ruv.x+ruv.y, 0.2)) + 0.05);',
-      '    }',
-      '  }',
-      '  radial = min(radial, vec3(1.4));',
-      '  vec3 radialGold = vec3(radial.r*1.1, radial.g*0.85, radial.b*0.35);',
-      '  color = color * 0.4 + radialGold * 0.05;', // darker, subtler sitewide ambient vs. the hero-focused preview
+      // Note: an earlier version added a second overlay pattern here, built on
+      // mod(ruv.x+ruv.y, 0.2). mod() on a value that scales with screen
+      // resolution produces a hard, resolution-dependent seam wherever the
+      // value wraps — visible as a stray line on some aspect ratios (tall
+      // phones especially). Removed outright rather than patched: the wave
+      // + specular pass above is the whole effect now.
+      '  color = color * 0.45;',
       '  gl_FragColor = vec4(color, 1.0);',
       '}'
     ].join('\n');
