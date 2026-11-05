@@ -163,6 +163,19 @@ img { display: block; max-width: 100%; }
   border-color: rgba(255,255,255,0.45);
 }
 
+/* ---- Diamond / icy reflective button ---- */
+.btn-diamond {
+  background: linear-gradient(135deg, #eaf9ff 0%, #ffffff 22%, #8fd8ec 44%, #ffffff 58%, #5fc0dd 76%, #eaf9ff 100%);
+  color: #0a2430;
+  border-color: rgba(143,216,236,0.45);
+  text-shadow: none;
+}
+.btn-diamond:hover {
+  background: linear-gradient(135deg, #f4fdff 0%, #ffffff 22%, #a6e4f4 44%, #ffffff 58%, #7dd0e8 76%, #f4fdff 100%);
+  box-shadow: 0 14px 34px -16px rgba(143,216,236,0.6);
+  border-color: rgba(143,216,236,0.65);
+}
+
 /* Animated light-sweep shine — add to any .btn */
 .btn-shine {
   position: relative;
@@ -407,21 +420,29 @@ img { display: block; max-width: 100%; }
 .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 920px; margin: 0 auto; align-items: stretch; }
 .pricing-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; align-items: stretch; }
 .price-card { display: flex; flex-direction: column; overflow: hidden; position: relative; }
-.price-card.featured { border-color: var(--gold); box-shadow: var(--glow-gold-soft), var(--shadow-raised); }
+.price-card.featured { border-color: #d8d8d8; box-shadow: 0 0 36px -14px rgba(216,216,216,0.45), var(--shadow-raised); }
+.price-card.diamond { border-color: #8fd8ec; box-shadow: 0 0 36px -14px rgba(143,216,236,0.5), var(--shadow-raised); }
 .price-shimmer { height: 3px; background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), transparent); background-size: 200% 100%; animation: shimmer 2.6s linear infinite; }
+.price-shimmer.shimmer-platinum { background: linear-gradient(90deg, transparent, #f4f4f4, #bbb, transparent); }
+.price-shimmer.shimmer-diamond { background: linear-gradient(90deg, transparent, #eaf9ff, #8fd8ec, #ffffff, transparent); }
 .price-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; }
 .price-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .price-tier { font-family: var(--font-display); font-size: 1.9rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white); line-height: 1; }
-/* Tier name colors matched to each tier's own reflective "Join" button */
-.price-tier.tier-bronze {
+/* Tier name colors matched to each tier's own material: Gold, Platinum, Diamond */
+.price-tier.tier-gold { color: var(--gold); }
+.price-tier.tier-platinum {
   background: linear-gradient(135deg, #888 0%, #d8d8d8 28%, #f4f4f4 50%, #bbb 72%, #888 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
 }
-.price-tier.tier-gold { color: var(--gold); }
-.price-tier.tier-platinum { color: var(--red); }
+.price-tier.tier-diamond {
+  background: linear-gradient(135deg, #eaf9ff 0%, #ffffff 22%, #8fd8ec 44%, #ffffff 58%, #5fc0dd 76%, #eaf9ff 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
 @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
-  .price-tier.tier-bronze { color: #cfcfcf; background: none; -webkit-text-fill-color: unset; }
+  .price-tier.tier-platinum { color: #cfcfcf; background: none; -webkit-text-fill-color: unset; }
+  .price-tier.tier-diamond { color: #8fd8ec; background: none; -webkit-text-fill-color: unset; }
 }
 .price-amt { display: flex; align-items: flex-end; gap: 0.4em; }
 .price-amt .num { font-family: var(--font-display); font-size: 3.4rem; line-height: 0.85; color: var(--gold); letter-spacing: 0.02em; }
