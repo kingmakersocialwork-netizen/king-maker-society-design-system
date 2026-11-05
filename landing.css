@@ -412,6 +412,17 @@ img { display: block; max-width: 100%; }
 .price-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; }
 .price-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .price-tier { font-family: var(--font-display); font-size: 1.9rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white); line-height: 1; }
+/* Tier name colors matched to each tier's own reflective "Join" button */
+.price-tier.tier-bronze {
+  background: linear-gradient(135deg, #888 0%, #d8d8d8 28%, #f4f4f4 50%, #bbb 72%, #888 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.price-tier.tier-gold { color: var(--gold); }
+.price-tier.tier-platinum { color: var(--red); }
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .price-tier.tier-bronze { color: #cfcfcf; background: none; -webkit-text-fill-color: unset; }
+}
 .price-amt { display: flex; align-items: flex-end; gap: 0.4em; }
 .price-amt .num { font-family: var(--font-display); font-size: 3.4rem; line-height: 0.85; color: var(--gold); letter-spacing: 0.02em; }
 .price-amt .cad { font-family: var(--font-body); font-weight: 300; font-size: 0.9rem; color: var(--muted); padding-bottom: 0.45rem; }
