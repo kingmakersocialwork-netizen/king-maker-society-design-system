@@ -353,6 +353,12 @@
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModals(); closeMobileNav(); } });
 
+  // Global helpers so inline onclick="" handlers (e.g. switching from one
+  // modal to another, like Team card -> Book A Call -> Call Choice) can
+  // open/close modals without reaching into this closure.
+  window.kmsOpenModal = function (id) { closeModals(); openModal(document.getElementById(id)); };
+  window.kmsCloseModals = function () { closeModals(); };
+
   /* ---------- WAITLIST POPUP (auto-opens once per visitor, 10s delay) ---------- */
   (function () {
     // Google Sheets via Apps Script web app (appends each signup as a row)

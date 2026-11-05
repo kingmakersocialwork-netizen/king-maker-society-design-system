@@ -191,7 +191,7 @@
       <a href="index.html#faq">FAQ</a>
     </div>
     <div class="mobile-nav-actions">
-      <a class="btn btn-outline" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="btn btn-outline" href="#" data-modal="call-choice-modal">Book A Call</a>
       <a class="btn btn-red" href="#" data-modal="referral-modal">Join Now</a>
     </div>
   </nav>
@@ -211,7 +211,7 @@
       <a href="team.html">Team</a>
     </div>
     <div class="nav-actions">
-      <a class="btn btn-outline btn-sm" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call</a>
+      <a class="btn btn-outline btn-sm" href="#" data-modal="call-choice-modal">Book A Call</a>
       <a class="nav-ig" href="https://www.instagram.com/kingmakermma/" target="_blank" rel="noopener" aria-label="Instagram @kingmakermma">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
         @kingmakermma
@@ -427,7 +427,7 @@
       </div>
     </div>
     <div class="hero-cta reveal" style="justify-content: center; margin-top: 2.5rem;">
-      <a class="btn btn-gold btn-lg" href="https://calendly.com/jordanaliwork/30min" target="_blank" rel="noopener">Book A Call To Apply</a>
+      <a class="btn btn-gold btn-lg" href="#" data-modal="call-choice-modal">Book A Call To Apply</a>
       <a class="btn btn-outline btn-lg" href="mailto:KingMakerSocialWork@gmail.com">Email Us Directly</a>
     </div>
   </div>
@@ -595,6 +595,29 @@
   </div>
 </div>
 
+<!-- ============ CALL CHOICE MODAL ============ -->
+<div class="modal-overlay" id="call-choice-modal" role="dialog" aria-modal="true" aria-labelledby="call-title">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <h3 id="call-title">Book A Call</h3>
+      <p>Who would you like to talk to?</p>
+    </div>
+    <div class="ref-list">
+      <a class="ref-card full" href="https://calendly.com/jordanaliwork/1-1-call-w-jordan" target="_blank" rel="noopener">
+        <span class="ref-avatar">JA</span>
+        <span class="ref-info"><span class="ref-name">Jordan Ali</span><span class="ref-role">CEO &amp; Founder</span></span>
+        <span class="ref-arrow">&rarr;</span>
+      </a>
+      <a class="ref-card full" href="https://calendly.com/daniel1redmond/30min" target="_blank" rel="noopener">
+        <span class="ref-avatar">D</span>
+        <span class="ref-info"><span class="ref-name">Daniel</span><span class="ref-role">Sales Manager</span></span>
+        <span class="ref-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- ============ PRIVACY MODAL ============ -->
 <div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true">
   <div class="modal modal-narrow">
@@ -685,7 +708,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
-<script src="landing.js?v=191" defer></script>
+<script src="landing.js?v=192" defer></script>
 <script>
 /* REFERRAL MODAL: 2-STEP FLOW */
 const STRIPE_LINKS = {
