@@ -35,10 +35,36 @@ img { display: block; max-width: 100%; }
 
 .headline {
   font-family: var(--font-display); font-weight: 400; line-height: 0.92;
-  letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white);
+  letter-spacing: 0.04em; text-transform: uppercase;
   font-size: var(--display-xl);
 }
-.headline .gold { color: var(--gold); }
+/* ---- Chrome / brushed-metal title treatment ----
+   Gradient-filled glyphs (background-clip:text) read like polished steel,
+   while a stack of 1px-stepped text-shadows builds the beveled letter edge
+   and a blurred pair underneath gives the whole word lift off the page —
+   same technique behind the crown logo's engraved-metal look. */
+.headline, .hero h1 {
+  background: linear-gradient(180deg, #ffffff 0%, #eaeaea 16%, #b7b7b7 30%, #f7f7f7 45%, #8d8d8d 58%, #e2e2e2 72%, #9a9a9a 86%, #f2f2f2 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow:
+    0 1px 0 #9a9a9a, 0 2px 0 #8c8c8c, 0 3px 0 #7e7e7e, 0 4px 0 #707070,
+    0 5px 0 #626262, 0 6px 0 #545454,
+    0 9px 10px rgba(0,0,0,0.55), 0 16px 26px rgba(0,0,0,0.45);
+}
+.headline .gold, .hero h1 .gold {
+  background: linear-gradient(180deg, #fff6d9 0%, #f3da8c 16%, #cfa23a 30%, #fdebae 45%, #8a6a22 58%, #ecc96c 72%, #a07f2c 86%, #f8e8ab 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow:
+    0 1px 0 #87651c, 0 2px 0 #795a19, 0 3px 0 #6b4f16, 0 4px 0 #5d4413,
+    0 5px 0 #4f3910, 0 6px 0 #412e0d,
+    0 9px 10px rgba(0,0,0,0.55), 0 16px 26px rgba(0,0,0,0.5);
+}
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .headline, .hero h1 { color: var(--off-white); background: none; text-shadow: none; }
+  .headline .gold, .hero h1 .gold { color: var(--gold); background: none; text-shadow: none; }
+}
 .lead { font-family: var(--font-body); font-weight: 300; font-size: 1.18rem; line-height: 1.7; color: var(--muted); max-width: 640px; }
 
 .section-head { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3.5rem; }
@@ -190,10 +216,11 @@ img { display: block; max-width: 100%; }
 .hero-eyebrow { margin-bottom: 1.5rem; }
 .hero h1 {
   font-family: var(--font-display); font-weight: 400; font-size: clamp(3.2rem, 12vw, 11rem);
-  line-height: 0.88; letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white);
-  margin-bottom: 1.5rem; text-shadow: 0 0 60px rgba(0,0,0,0.6);
+  line-height: 0.88; letter-spacing: 0.04em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
-.hero h1 .gold { color: var(--gold); text-shadow: 0 0 40px rgba(242,200,75,0.35); }
+/* Chrome fill + bevel shadow for .hero h1 and .hero h1 .gold are set once,
+   up top, alongside .headline — not repeated or overridden here. */
 .hero-sub-copy { font-size: 1.1rem; font-weight: 300; line-height: 1.7; color: var(--muted); max-width: 500px; margin-bottom: 0; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 2.5rem; }
 
