@@ -293,7 +293,7 @@ img { display: block; max-width: 100%; }
 /* Chrome fill + bevel shadow for .hero h1 and .hero h1 .gold are set once,
    up top, alongside .headline — not repeated or overridden here. */
 .hero-sub-copy { font-size: 1.1rem; font-weight: 300; line-height: 1.7; color: var(--muted); max-width: 500px; margin-bottom: 0; }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 2.5rem; }
+.hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 2.5rem; }
 
 /* stat bar */
 .stat-bar { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
