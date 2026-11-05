@@ -663,8 +663,10 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================ READABILITY OVERRIDES
-   Make all body/description copy white + bold sitewide. Intentional UI labels
-   (nav, footer links, small metadata) are excluded and stay as designed. */
+   Make all body/description copy white + bold sitewide, including nav/footer
+   links and small metadata (per explicit request — these used to be excluded
+   and left dim/muted by design, but were flagged as illegible against the
+   brushed-metal background and are now pure white + shadow like everything else). */
 .lead,
 .hero-sub,
 .hero-sub-copy,
@@ -685,7 +687,15 @@ img { display: block; max-width: 100%; }
 .modal-body,
 .legal-item p,
 .story-disc,
-.story-quote {
+.story-quote,
+.trial-bullets li,
+.trial-fine,
+.footer-brand p,
+.footer-col a,
+.footer-social a,
+.footer-bar p,
+.footer-bar a,
+.footer-welcome {
   color: #ffffff !important;
   font-weight: 600 !important;
   text-shadow: 0 2px 6px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9);
