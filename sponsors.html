@@ -12,7 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css?v=183">
 <link rel="stylesheet" href="landing.css?v=200">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 /* ── REFLECTIVE SHIMMER BUTTON ──────────────────────────── */
 .btn-reflect {
@@ -174,10 +173,24 @@
 .tier-desc { display:block; font-size:0.72rem; color:var(--muted); line-height:1.4; }
 .tier-badge-pop { position:absolute; top:0.5rem; right:0.75rem; font-family:var(--font-label); font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:var(--gold); color:#0a0a08; border-radius:4px; padding:0.15rem 0.45rem; }
 .tier-arrow { color:var(--gold); font-size:1.1rem; flex-shrink:0; }
+
+/* ── SILK BACKGROUND: neutralize the gold hero atmosphere ──
+   .hero-glow / .hero-ray are warm-gold radial/linear glows designed to
+   sit on top of the old gold metal-wave canvas. With the new monochrome
+   Silk shader behind this page, that gold wash just smothers it, so this
+   page recolors the glow/rays to the Silk palette instead (keeps the
+   soft atmospheric depth, drops the clashing gold tint). Scoped to this
+   page only — landing.css's shared rule is untouched. */
+.hero-glow {
+  background: radial-gradient(ellipse at center, rgba(245,245,245,0.16) 0%, rgba(245,245,245,0.07) 38%, rgba(245,245,245,0.03) 60%, transparent 75%);
+}
+.hero-ray {
+  background: linear-gradient(to bottom, rgba(245,245,245,0.08), rgba(245,245,245,0));
+}
 </style>
 </head>
 <body>
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<canvas id="bg-canvas-silk" aria-hidden="true"></canvas>
 
 <!-- ============ MOBILE NAV DRAWER ============ -->
 <div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
@@ -644,6 +657,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
 <script src="landing.js?v=192" defer></script>
+<script src="silk-bg.js?v=1" defer></script>
 <script>
 /* REFERRAL MODAL: 2-STEP FLOW */
 const STRIPE_LINKS = {
