@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="King Maker Society — the first and best content creation team for fighters. Weekly master classes, accountability system, Hall of Fame, and the community at work.">
+<meta name="description" content="King Maker Society, the first and best content creation team for fighters. Weekly master classes, accountability system, Hall of Fame, and the community at work.">
 <meta name="theme-color" content="#0A0A08">
 <title>First and Best Content Creation Team for Fighters | King Maker Society</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
   .hero-sub h1, .hero-sub h1 .gold{ background-position:0% 40% !important; }
 }
 /* Desktop legibility scrim behind the crown removed along with the rest of
-   the hero's dark vignette — the wave background carries the hero on its
+   the hero's dark vignette, the wave background carries the hero on its
    own now. */
 </style>
 <style>
@@ -123,7 +123,7 @@
     </filter>
   </defs>
 </svg>
-<canvas id="bg-canvas" aria-hidden="true" data-bg-texture="assets/metal-brushed-texture.jpg?v=1"></canvas>
+<canvas id="bg-canvas-silk" aria-hidden="true"></canvas>
 
 <!-- ============ MOBILE NAV DRAWER ============ -->
 <div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
@@ -132,7 +132,6 @@
       <a href="index.html" class="active">King Maker Society</a>
       <a href="sponsors.html">Sponsors</a>
       <a href="mentors.html">Mentors</a>
-      <a href="team.html">Team</a>
       <a href="index.html#pricing">Membership</a>
       <a href="index.html#faq">FAQ</a>
     </div>
@@ -154,7 +153,6 @@
       <a href="index.html" class="active">King Maker Society</a>
       <a href="sponsors.html">Sponsors</a>
       <a href="mentors.html">Mentors</a>
-      <a href="team.html">Team</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-outline btn-sm" href="#" data-modal="call-choice-modal">Book A Call</a>
@@ -213,8 +211,8 @@
         <span class="stat-label">Live Group Calls / Month</span>
       </div>
       <div class="stat">
-        <span class="stat-num">10</span>
-        <span class="stat-label">Partnered Brands &amp; Growing</span>
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Partner Brands &amp; Growing</span>
       </div>
     </div>
   </div>
@@ -288,7 +286,7 @@
         <div class="team-photo" data-modal="team-action-modal" style="cursor:pointer;"><img src="assets/team-mohammed.jpg" alt="Mohammed Ali" loading="lazy" style="object-position: 50% 20%;" onerror="this.style.display='none'"></div>
         <span class="team-name" data-modal="team-action-modal">Mohammed Ali<span class="arrow">&rarr;</span></span>
         <span class="team-role">Head Of Short-Form Content</span>
-        <p class="team-bio">Fighter and short-form content strategist inside King Maker Society. Mohammed brings real ring energy to the media side — building the King's Media brand through fight content, Reels, and short-form strategy that actually gets attention.</p>
+        <p class="team-bio">Fighter and short-form content strategist inside King Maker Society. Mohammed brings real ring energy to the media side, building the King's Media brand through fight content, Reels, and short-form strategy that actually gets attention.</p>
         <a class="team-handle" href="https://www.instagram.com/Mohammed_MMA1" target="_blank" rel="noopener">@Mohammed_MMA1</a>
       </article>
     </div>
@@ -408,7 +406,7 @@
     <h2 style="text-align:center;">
       <img src="assets/one-on-one-mentorship-headline.png?v=4" alt="1-1 Mentorship" class="section-headline-img">
     </h2>
-    <p class="lead" style="text-align:center;">Direct access to a mentor who's been where you're trying to go. Personalized guidance on your fight career, your content, and your growth outside the gym — built around your specific goals.</p>
+    <p class="lead" style="text-align:center;">Direct access to a mentor who's been where you're trying to go. Personalized guidance on your fight career, your content, and your growth outside the gym, built around your specific goals.</p>
     <ul class="trial-bullets">
       <li>One-on-one calls with a dedicated mentor</li>
       <li>Personalized game plan built around your goals</li>
@@ -749,6 +747,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
 <script src="landing.js?v=192" defer></script>
+<script src="silk-bg.js?v=2" defer></script>
 <script>
 /* REFERRAL MODAL: 2-STEP FLOW */
 const STRIPE_LINKS = {
