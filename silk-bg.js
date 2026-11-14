@@ -326,28 +326,28 @@
   var uSpace = gl.getUniformLocation(prog, 'u_space');
   var uCursor = gl.getUniformLocation(prog, 'u_cursor');
 
-  // Colours (low -> high): #101010, #F5F5F5, #B0B0B0, #3A3A3A. The shader
-  // only reads the first u_colorCount (4) entries; the rest are padding.
+  // Colours match the app's silk (black, graphite, platinum, one gold glint).
+  // The shader reads the first u_colorCount (8) entries.
   var colors = new Float32Array([
-    0.063, 0.063, 0.063,
-    0.961, 0.961, 0.961,
-    0.690, 0.690, 0.690,
-    0.227, 0.227, 0.227,
-    0, 0, 0,
-    0, 0, 0,
-    0, 0, 0,
-    0, 0, 0
+    0.024, 0.027, 0.035,
+    0.100, 0.105, 0.125,
+    0.380, 0.400, 0.440,
+    0.620, 0.640, 0.680,
+    0.100, 0.105, 0.125,
+    0.024, 0.027, 0.035,
+    0.780, 0.600, 0.200,
+    0.024, 0.027, 0.035
   ]);
   gl.uniform3fv(uColors, colors);
 
   // Static "feel" uniforms, exactly as packed by the Shader Builder export.
-  var shape = [1.26, 0.35, 0.28, 0.00];       // scale, intensity, paramA, warp
-  var surface = [1.82, 1.11, 0.00, 1.00];     // detail, contrast, brightness, saturation
-  var finish = [0.00, 0.00, 0.008, 0.04];     // hue, vignette, blur, grain
-  var transform = [1581.0, 0.00, 0.00, 0.0];  // seed, rotation, drift, OKLab toggle
+  var shape = [1.5, 0.30, 0.48, 0.036];       // scale, intensity, paramA, warp
+  var surface = [2.976, 1.08, 0.00, 0.95];     // detail, contrast, brightness, saturation
+  var finish = [0.00, 0.35, 0.0012, 0.01];     // hue, vignette, blur, grain
+  var transform = [3195.0, 4.3284, 0.03, 0.0];  // seed, rotation, drift, OKLab toggle
   var cursorEffect = 2.0;                     // swirl
-  var cursorStrength = 0.20;
-  var cursorRadius = 0.39;
+  var cursorStrength = 0.65;
+  var cursorRadius = 0.46;
 
   gl.uniform4f(uShape, shape[0], shape[1], shape[2], shape[3]);
   gl.uniform4f(uSurface, surface[0], surface[1], surface[2], surface[3]);
@@ -399,7 +399,7 @@
     presence += (presenceTarget - presence) * 0.08;
 
     var elapsed = (now - startTime) / 1000;
-    gl.uniform4f(uScene, w, h, elapsed * 0.57, 4.0);
+    gl.uniform4f(uScene, w, h, elapsed * 0.16, 8.0);
     gl.uniform4f(uSpace, 0.0, 0.0, mouseX, mouseY);
     gl.uniform4f(uCursor, presence, cursorEffect, cursorStrength, cursorRadius);
 
@@ -426,7 +426,7 @@
     // Render a single static frame and skip the animation loop + cursor
     // interactivity, matching the site's existing reduced-motion behavior.
     resize();
-    gl.uniform4f(uScene, w, h, 0.0, 4.0);
+    gl.uniform4f(uScene, w, h, 0.0, 8.0);
     gl.uniform4f(uSpace, 0.0, 0.0, 0.0, 0.0);
     gl.uniform4f(uCursor, 0.0, cursorEffect, cursorStrength, cursorRadius);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
