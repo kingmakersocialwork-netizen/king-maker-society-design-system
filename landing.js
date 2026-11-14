@@ -401,6 +401,13 @@
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        // Bot trap: real visitors never see or fill this hidden field
+        const botField = form.querySelector('[name="website"]');
+        if (botField && botField.value) {
+          if (formState) formState.style.display = 'none';
+          if (thanksState) thanksState.style.display = 'block';
+          return;
+        }
         if (errorEl) errorEl.style.display = 'none';
         if (submitBtn) submitBtn.disabled = true;
         if (submitLabel) submitLabel.textContent = 'Joining…';
