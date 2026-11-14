@@ -187,6 +187,19 @@
 .hero-ray {
   background: linear-gradient(to bottom, rgba(245,245,245,0.08), rgba(245,245,245,0));
 }
+/* Keep the 3 cards side-by-side on mobile (same as main page) */
+@media (max-width: 980px) {
+  .pillars-grid-3 { grid-template-columns: repeat(3, 1fr) !important; gap: 0.6rem; }
+}
+@media (max-width: 680px) {
+  .pillars-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 0.5rem; }
+  .pillars-grid-3 .pillar { padding: 0.85rem 0.65rem; gap: 0.45rem; }
+  .pillars-grid-3 .pillar-watermark { font-size: 1.4rem; top: 6px; right: 10px; }
+  .pillars-grid-3 .pillar-icon { font-size: 1.1rem; }
+  .pillars-grid-3 .pillar h3 { font-size: 0.74rem; line-height: 1.2; letter-spacing: 0; overflow-wrap: break-word; hyphens: none; }
+  .pillars-grid-3 .pillar p { font-size: 0.64rem; line-height: 1.4; }
+  .pillars-grid-3 .pillar > span[style] { font-size: 0.5rem !important; }
+}
 </style>
 <style>
 /* hero text centered + stat labels bold white */
@@ -275,7 +288,7 @@
       <h2 class="headline">Reach Our <span class="gold">Fighter Community</span></h2>
       <p class="lead">King Maker Society has 300+ members across all three communities. Sponsors can reach martial artists and fighters who are building their careers, content, and personal brands.</p>
     </div>
-    <div class="grid-3">
+    <div class="grid-3 pillars-grid-3">
       <article class="card pillar reveal">
         <span class="pillar-watermark">01</span>
         <span class="pillar-icon">&#127942;</span>
@@ -450,6 +463,20 @@
         <div class="faq-answer">Book a call or email us directly using the links above. We'll talk through your brand, your goals, and what a partnership could look like.</div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING JOIN BAND ============ -->
+<section class="section closing-join" id="join-band">
+  <div class="container">
+    <div class="section-head center reveal" style="margin-bottom:2rem;">
+      <div class="eyebrow center">Ready When You Are</div>
+      <h2>Join King Maker Society</h2>
+      <p class="lead">A community of fighters and creators building their brand, staying accountable, and learning from each other. No pressure. Start with a quick sign up and we will take it from there.</p>
+    </div>
+    <div class="hero-cta reveal" style="justify-content:center;">
+      <a class="btn btn-chrome btn-lg btn-shine" href="#" data-modal="referral-modal">Join The Community</a>
     </div>
   </div>
 </section>
