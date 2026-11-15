@@ -256,11 +256,11 @@
 
   /* ---------- COUNTDOWN to next Master Class (Tue & Fri, 2PM CST) ---------- */
   // CST = UTC-6 -> 2PM CST = 20:00 UTC. Tuesday = day 2, Friday = day 5.
-  // One-off override: the next Master Class is Nov 9, 2026 at 3PM CST
-  // (21:00 UTC), which falls on a Monday outside the normal Tue/Fri pattern.
+  // One-off override: the next Master Class is Nov 18, 2026 at 3PM CST
+  // (21:00 UTC), which falls on a Wednesday outside the normal Tue/Fri pattern.
   // Once that date passes, the countdown falls back to the regular
   // recurring Tue/Fri 2PM CST schedule below.
-  const NEXT_CLASS_OVERRIDE = new Date(Date.UTC(2026, 10, 9, 21, 0, 0));
+  const NEXT_CLASS_OVERRIDE = new Date(Date.UTC(2026, 10, 18, 21, 0, 0));
   function nextClassDate() {
     if (NEXT_CLASS_OVERRIDE.getTime() > Date.now()) return NEXT_CLASS_OVERRIDE;
     const now = new Date();
