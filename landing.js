@@ -362,7 +362,7 @@
   /* ---------- WAITLIST POPUP (auto-opens once per visitor, 10s delay) ---------- */
   (function () {
     // Google Sheets via Apps Script web app (appends each signup as a row)
-    const WAITLIST_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwJlwFF67iO4brMJpV5k-6ZxHiB-zJa9IpD_frYnhLp9N1PaNlRAf4PuOqfRiNZjAcrtw/exec';
+    const WAITLIST_ENDPOINT = '/api/waitlist';
     const STORAGE_KEY = 'kms_waitlist_seen';
     const waitlistModal = document.getElementById('waitlist-modal');
     if (!waitlistModal) return;
