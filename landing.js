@@ -254,43 +254,34 @@
     // where the two canvases' textures didn't line up.
   }
 
-  /* ---------- COUNTDOWN to next Master Class (Tue & Fri, 2PM CST) ---------- */
-  // CST = UTC-6 -> 2PM CST = 20:00 UTC. Tuesday = day 2, Friday = day 5.
-  // One-off override: the next Master Class is Nov 18, 2026 at 3PM CST
-  // (21:00 UTC), which falls on a Wednesday outside the normal Tue/Fri pattern.
-  // Once that date passes, the countdown falls back to the regular
-  // recurring Tue/Fri 2PM CST schedule below.
-  const NEXT_CLASS_OVERRIDE = new Date(Date.UTC(2026, 10, 18, 21, 0, 0));
-  function nextClassDate() {
-    if (NEXT_CLASS_OVERRIDE.getTime() > Date.now()) return NEXT_CLASS_OVERRIDE;
-    const now = new Date();
-    const out = [];
-    for (let i = 0; i < 14; i++) {
-      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + i, 20, 0, 0));
-      const day = d.getUTCDay();
-      if ((day === 2 || day === 5) && d.getTime() > now.getTime()) out.push(d);
-    }
-    out.sort((a, b) => a - b);
-    return out[0];
-  }
+  /* ---------- COUNTDOWN to next Master Class ---------- */
+  // No recurring schedule. Update NEXT_CLASS to the next announced date.
+  // CST = UTC-6, so 3PM CST = 21:00 UTC. Currently: Nov 18, 2026, 3PM CST.
+  // Once that date passes, the countdown shows "Next date coming soon".
+  const NEXT_CLASS = new Date(Date.UTC(2026, 10, 18, 21, 0, 0));
   const cd = {
     d: document.getElementById('cd-d'), h: document.getElementById('cd-h'),
     m: document.getElementById('cd-m'), s: document.getElementById('cd-s'),
   };
   if (cd.d) {
-    let target = nextClassDate();
     const pad = (n) => String(n).padStart(2, '0');
     function set(el, val) { const v = pad(val); if (el.textContent !== v) el.textContent = v; }
+    const box = cd.d.closest('.countdown');
+    let timer = null;
     function tick() {
-      let diff = target.getTime() - Date.now();
-      if (diff <= 0) { target = nextClassDate(); diff = target.getTime() - Date.now(); }
+      const diff = NEXT_CLASS.getTime() - Date.now();
+      if (diff <= 0) {
+        if (timer) clearInterval(timer);
+        if (box) box.textContent = 'Next date coming soon';
+        return;
+      }
       set(cd.d, Math.floor(diff / 86400000));
       set(cd.h, Math.floor((diff % 86400000) / 3600000));
       set(cd.m, Math.floor((diff % 3600000) / 60000));
       set(cd.s, Math.floor((diff % 60000) / 1000));
     }
     tick();
-    setInterval(tick, 1000);
+    timer = setInterval(tick, 1000);
   }
 
   /* ---------- MEMBER COUNTER 0 -> 300 (ease-out cubic) ---------- */
