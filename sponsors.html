@@ -157,6 +157,23 @@
 }
 .faq-item.open .faq-answer { display: block; }
 
+/* ── SPONSOR PAGE: metrics animation + clickable cards + dive-in modals ── */
+.page-meta.pm-ready:not(.pm-in) .pm { opacity: 0; transform: translateY(14px); }
+.page-meta.pm-ready .pm { transition: opacity .6s ease, transform .6s ease; }
+.page-meta.pm-in .pm .pm-num { animation: pmPulse 1.1s ease-out both; }
+@keyframes pmPulse { 0% { text-shadow: 0 0 0 rgba(255,184,28,0); } 50% { text-shadow: 0 0 22px rgba(255,184,28,0.55); } 100% { text-shadow: 0 0 0 rgba(255,184,28,0); } }
+.pillar-click { text-align: left; width: 100%; cursor: pointer; font: inherit; color: inherit; appearance: none; -webkit-appearance: none; }
+.pillar-click:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.pillar-more { margin-top: auto; padding-top: 0.5rem; font-family: var(--font-label); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); transition: transform 200ms ease; }
+.pillar-click:hover .pillar-more { transform: translateX(4px); }
+.dive-list { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
+.dive-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 14px; background: rgba(10,8,6,0.6); border: 1px solid var(--border); border-radius: 4px; }
+.dive-num { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; line-height: 1; }
+.dive-item b { display: block; color: var(--gold); font-family: var(--font-label); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+.dive-item span.dive-txt { color: var(--muted); font-size: 0.9rem; line-height: 1.55; }
+.dive-note { text-align: center; font-size: 0.8rem; color: var(--muted); margin: 0 0 1.25rem; }
+.dive-cta { display: flex; justify-content: center; }
+@media (prefers-reduced-motion: reduce) { .page-meta.pm-ready .pm { transition: none; } .page-meta.pm-in .pm .pm-num { animation: none; } }
 /* ── TWO-STEP REFERRAL MODAL ────────────────────────────── */
 #ref-step-2 { display: none; }
 .ref-back { background:none; border:none; color:var(--muted); cursor:pointer; font-size:0.78rem; font-weight:600; padding:0 0 0.75rem; display:flex; align-items:center; gap:0.4rem; }
@@ -272,9 +289,9 @@
       <a class="btn btn-outline btn-lg" href="#become-sponsor" data-scroll>Become A Sponsor</a>
     </div>
     <div class="page-meta">
-      <div class="pm"><span class="pm-num">300+</span><span class="pm-label">Members</span></div>
+      <div class="pm"><span class="pm-num" data-count="300" data-suffix="+">300+</span><span class="pm-label">Members</span></div>
       <div class="pm"><span class="pm-num">Monthly</span><span class="pm-label">Group Calls</span></div>
-      <div class="pm"><span class="pm-num">10+</span><span class="pm-label">Partner Brands & Growing</span></div>
+      <div class="pm"><span class="pm-num" data-count="10" data-suffix="+">10+</span><span class="pm-label">Partner Brands & Growing</span></div>
       <div class="pm"><span class="pm-num">Community</span><span class="pm-label">Chats</span></div>
     </div>
   </div>
@@ -407,23 +424,25 @@
   <div class="container">
     <div class="section-head center reveal">
       <span class="eyebrow center">Partner With Us</span>
-      <h2 class="headline">Become A <span class="gold">Sponsor</span></h2>
+      <h2 class="headline"><img src="assets/become-a-sponsor-headline.png?v=1" alt="Become A Sponsor" class="section-headline-img"></h2>
       <p class="lead">If your brand wants visibility with our fighter community, we want to hear from you.</p>
     </div>
     <div class="grid-2 reveal" style="max-width: 860px; margin: 0 auto;">
-      <div class="card pillar">
+      <button type="button" class="card pillar pillar-click" data-modal="who-modal">
         <span class="pillar-watermark">&#10003;</span>
         <h3>Who We're Looking For</h3>
         <p>Martial arts brands, gyms, supplement companies, apparel brands, and local businesses who want to be part of our fighter community.</p>
-      </div>
-      <div class="card pillar">
+        <span class="pillar-more">See who we partner with &rarr;</span>
+      </button>
+      <button type="button" class="card pillar pillar-click" data-modal="look-modal">
         <span class="pillar-watermark">&#10003;</span>
         <h3>What It Looks Like</h3>
         <p>Content placements, shoutouts, and brand visibility across King Maker Society's channels and member base. Packages are built around what fits your brand. Results vary and nothing is guaranteed.</p>
-      </div>
+        <span class="pillar-more">See how it works &rarr;</span>
+      </button>
     </div>
     <div class="hero-cta reveal" style="justify-content: center; margin-top: 2.5rem;">
-      <a class="btn btn-gold btn-lg" href="#" data-modal="call-choice-modal">Book A Call To Partner</a>
+      <a class="btn btn-gold btn-lg" href="https://calendly.com/jordanaliwork/1-1-call-w-jordan" target="_blank" rel="noopener">Book A Call To Partner</a>
       <a class="btn btn-outline btn-lg" href="mailto:jordanali@kingmakersociety.org">Email Us Directly</a>
     </div>
   </div>
@@ -434,13 +453,13 @@
   <div class="container">
     <div class="section-head center reveal">
       <span class="eyebrow center">Got Questions</span>
-      <h2 class="headline">Questions &amp; <span class="gold">Answers</span></h2>
+      <h2 class="headline"><img src="assets/questions-and-answers-headline.png?v=1" alt="Questions and Answers" class="section-headline-img"></h2>
       <p class="lead">Everything you need to know about sponsoring King Maker Society.</p>
     </div>
     <div style="max-width:760px;margin:0 auto;" class="reveal">
 
       <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
+        <button class="faq-question">
           Who is the King Maker Society audience?
           <span class="faq-chevron">&#9660;</span>
         </button>
@@ -448,7 +467,7 @@
       </div>
 
       <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
+        <button class="faq-question">
           What does a sponsorship actually include?
           <span class="faq-chevron">&#9660;</span>
         </button>
@@ -456,7 +475,23 @@
       </div>
 
       <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
+        <button class="faq-question">
+          How much does it cost to sponsor?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">Pricing depends on the placements that fit your brand and goals, so there is no single fixed price. Book a call and we will walk you through the options.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you guarantee sales or results?
+          <span class="faq-chevron">&#9660;</span>
+        </button>
+        <div class="faq-answer">No. We do not guarantee sales, results, income, or sponsorship outcomes. What we offer is visibility with our fighter community, and the placements are agreed in writing.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
           How do I become a sponsor?
           <span class="faq-chevron">&#9660;</span>
         </button>
@@ -589,6 +624,47 @@
   </div>
 </div>
 
+<!-- ============ WHO WE'RE LOOKING FOR MODAL ============ -->
+<div class="modal-overlay" id="who-modal" role="dialog" aria-modal="true" aria-labelledby="who-title">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <h3 id="who-title">Who We Partner With</h3>
+      <p>Brands that want to be seen by fighters and martial artists building their careers.</p>
+    </div>
+    <div class="dive-list">
+      <div class="dive-item"><span class="dive-num">1</span><div><b>Martial Arts Brands</b><span class="dive-txt">Gear, training equipment, and fight brands that want to be seen by the fighters who use them.</span></div></div>
+      <div class="dive-item"><span class="dive-num">2</span><div><b>Gyms &amp; Academies</b><span class="dive-txt">Gyms that want to reach fighters and martial artists who are building their name.</span></div></div>
+      <div class="dive-item"><span class="dive-num">3</span><div><b>Supplement &amp; Recovery</b><span class="dive-txt">Nutrition, supplement, and recovery companies that fit a fighter's lifestyle.</span></div></div>
+      <div class="dive-item"><span class="dive-num">4</span><div><b>Apparel Brands</b><span class="dive-txt">Clothing and streetwear brands that want fighters repping their look.</span></div></div>
+      <div class="dive-item"><span class="dive-num">5</span><div><b>Local Businesses</b><span class="dive-txt">Local businesses that want to back fighters in their community.</span></div></div>
+    </div>
+    <p class="dive-note">Not sure if your brand fits? Book a call and we will talk it through.</p>
+    <div class="dive-cta"><a class="btn btn-gold btn-lg" href="https://calendly.com/jordanaliwork/1-1-call-w-jordan" target="_blank" rel="noopener">Book A Call To Partner</a></div>
+  </div>
+</div>
+
+<!-- ============ WHAT IT LOOKS LIKE MODAL ============ -->
+<div class="modal-overlay" id="look-modal" role="dialog" aria-modal="true" aria-labelledby="look-title">
+  <div class="modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <h3 id="look-title">How It Works</h3>
+      <p>From first call to live placements.</p>
+    </div>
+    <div class="dive-list">
+      <div class="dive-item"><span class="dive-num">1</span><div><b>Intro Call</b><span class="dive-txt">We talk about your brand, who you want to reach, and your goals.</span></div></div>
+      <div class="dive-item"><span class="dive-num">2</span><div><b>Fit Check</b><span class="dive-txt">We make sure your brand lines up with our fighter community.</span></div></div>
+      <div class="dive-item"><span class="dive-num">3</span><div><b>Package Built</b><span class="dive-txt">We put together placements that fit your brand, such as Reels, master class call-outs, member highlights, or shoutouts across our brand pages.</span></div></div>
+      <div class="dive-item"><span class="dive-num">4</span><div><b>Agreed In Writing</b><span class="dive-txt">What we do and when we do it is agreed in writing before anything goes live.</span></div></div>
+      <div class="dive-item"><span class="dive-num">5</span><div><b>Goes Live</b><span class="dive-txt">Your placements run across King Maker Society's channels and member base.</span></div></div>
+      <div class="dive-item"><span class="dive-num">6</span><div><b>Check In</b><span class="dive-txt">We look at how it went and talk about what to do next.</span></div></div>
+    </div>
+    <p class="dive-note">Results vary and nothing is guaranteed.</p>
+    <div class="dive-cta"><a class="btn btn-gold btn-lg" href="https://calendly.com/jordanaliwork/1-1-call-w-jordan" target="_blank" rel="noopener">Book A Call To Partner</a></div>
+  </div>
+</div>
+
 <!-- ============ PRIVACY MODAL ============ -->
 <div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true">
   <div class="modal modal-narrow">
@@ -715,6 +791,33 @@ function toggleFaq(btn) {
   document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
+
+(function () {
+  var row = document.querySelector('.page-meta');
+  if (!row) return;
+  var nums = row.querySelectorAll('.pm-num[data-count]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+  row.classList.add('pm-ready');
+  row.querySelectorAll('.pm').forEach(function (p, i) { p.style.transitionDelay = (i * 120) + 'ms'; });
+  nums.forEach(function (n) { n.textContent = '0' + (n.getAttribute('data-suffix') || ''); });
+  function run() {
+    row.classList.add('pm-in');
+    nums.forEach(function (n) {
+      var target = parseInt(n.getAttribute('data-count'), 10), suffix = n.getAttribute('data-suffix') || '';
+      var dur = 2200, start = performance.now();
+      function step(now) {
+        var t = Math.min((now - start) / dur, 1);
+        n.textContent = Math.round((1 - Math.pow(1 - t, 3)) * target) + suffix;
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  new IntersectionObserver(function (es, o) {
+    es.forEach(function (e) { if (e.isIntersecting) { run(); o.disconnect(); } });
+  }, { threshold: 0.4 }).observe(row);
+})();
 </script>
 </body>
 </html>
